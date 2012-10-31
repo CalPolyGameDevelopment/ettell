@@ -1,0 +1,4 @@
+<prompt text="Hello World">
+	<response text="foo" />
+	<response text="bar" />
+</prompt>
