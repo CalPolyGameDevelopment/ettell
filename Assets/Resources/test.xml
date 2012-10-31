@@ -1,4 +1,6 @@
-<prompt text="Hello World">
-	<response text="foo" />
-	<response text="bar" />
+<?xml version="1.0" encoding="utf-8"?>
+<prompt data="Current year: {0}" datasource="format">
+	<format data="year" datasource="user" />
+	<response data="foo" />
+	<response data="bar" />
 </prompt>

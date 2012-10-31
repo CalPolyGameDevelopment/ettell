@@ -2,18 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 
-public class DialogData : MiniGameData {
-	
-	private string getText(XmlNode xn) {
-		return xn.Attributes["text"].Value;
-	}
+public class DialogData : ImmutableData {
 	
 	protected string promptText() {
-		return getDatum<string>("descendant::prompt", getText);
+		return getDatum<string>("descendant::prompt", XmlUtilities.getData);
 	}
 	
 	protected IEnumerable<string> responseTexts() {
-		return getData<string>("descendant::response", getText);
+		return getData<string>("descendant::response", XmlUtilities.getData);
 	}
 	
 	void OnGUI() {

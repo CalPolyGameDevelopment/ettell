@@ -46,11 +46,13 @@
   <ItemGroup>
      <Compile Include="Assets\Code\Modifier\Preserve.cs" />
      <Compile Include="Assets\Code\Proxy\DialogData.cs" />
-     <Compile Include="Assets\Code\Proxy\MiniGameData.cs" />
+     <Compile Include="Assets\Code\Proxy\ImmutableData.cs" />
      <Compile Include="Assets\Code\Proxy\UserProperty.cs" />
      <Compile Include="Assets\Code\Proxy\WritableXml.cs" />
      <Compile Include="Assets\Code\Proxy\XmlLoader.cs" />
+     <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
      <None Include="Assets\Resources\test.xml" />
+     <None Include="Assets\Resources\defaultUser.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
