@@ -2,4 +2,5 @@
 <data>
 	<year data="2001" />
 	<cpuPower data="1" />
+	<curNode data="firstPuzzle" />
 </data>

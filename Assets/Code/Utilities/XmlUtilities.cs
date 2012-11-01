@@ -1,30 +1,44 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Xml;
 
-public class XmlUtilities {
+public class XmlUtilities : MonoBehaviour {
 	
-	public const string datasource = "datasource";
 	public const string data = "data";
-	public const string user = "user";
-	public const string format = "format";
+	public const string edge = "edge";
+	
+	private delegate string replace();
+	
+	private static Dictionary<Regex, replace> replacers;
+	
+	void Start() {
+		replacers = new Dictionary<Regex, replace>();
+		replacers[new Regex("\\\\year")] = Year;
+	}
 	
 	public static string getData(XmlNode xn) {
-		if (xn.Attributes[datasource] == null) {
-			return xn.Attributes[data].Value;
+		string val = xn.Attributes[data].Value;
+		if (val.Contains("\\")) {
+			foreach (Regex replacement in replacers.Keys) {
+				val = replacement.Replace(val, replacers[replacement]());
+			}
 		}
-		switch (xn.Attributes[datasource].Value) {
-		case user:
-			return UserProperty.getProp(xn.Attributes[data].Value);
-		case format:
-			XmlNodeList xnl = xn.SelectNodes(format);
-			return string.Format(
-				xn.Attributes[data].Value,
-				xnl.Cast<XmlNode>().Select<XmlNode, string>(getData).ToArray()
-			);
-		default:
-			throw new UnityException("xml has unsupported datasource: " + xn.Attributes[datasource]);
-		}
+		return val;
+	}
+	
+	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
+		XmlNodeList xnl = xDoc.SelectNodes(xPath);
+		return xnl.Cast<XmlNode>().Select<XmlNode, T>(f);
+	}
+	
+	public static T getDatumFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
+		XmlNode xn = xDoc.SelectSingleNode(xPath);
+		return f(xn);
+	}
+	
+	private string Year() {
+		return UserProperty.getProp("year");
 	}
 }

@@ -9,9 +9,9 @@ public abstract class XmlLoader : MonoBehaviour {
 	
 	public string resourceName;
 	
-	protected internal XmlDocument xmlDoc;
+	internal XmlDocument xmlDoc;
 	
-	protected bool xmlAvailable = false;
+	internal bool xmlAvailable = false;
 	
 	protected delegate void xmlMutator();
 	
@@ -49,15 +49,13 @@ public abstract class XmlLoader : MonoBehaviour {
 		return textDoc.bytes;
 	}
 	
-	protected internal T getDatum<T>(string xPath, System.Func<XmlNode, T> f) {
+	public T getDatum<T>(string xPath, System.Func<XmlNode, T> f) {
 		assertReady();
-		XmlNode xn = xmlDoc.SelectSingleNode(xPath);
-		return f(xn);
+		return XmlUtilities.getDatumFromNode<T>(xmlDoc, xPath, f);
 	}
 	
-	protected internal IEnumerable<T> getData<T>(string xPath, System.Func<XmlNode, T> f) {
+	public IEnumerable<T> getData<T>(string xPath, System.Func<XmlNode, T> f) {
 		assertReady();
-		XmlNodeList xnl = xmlDoc.SelectNodes(xPath);
-		return xnl.Cast<XmlNode>().Select<XmlNode, T>(f);
+		return XmlUtilities.getDataFromNode<T>(xmlDoc, xPath, f);
 	}
 }
