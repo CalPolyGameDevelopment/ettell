@@ -3,7 +3,7 @@
 	<node id="firstPuzzle">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
-			<prompt data="Isaac@AI:~/# ./Attell.py 'Who are you?'" />
+			<prompt data="Isaac@AI:~/# ./Ettell.py 'Who are you?'" />
 			<response data="Syntax error: 'Who' on line 1" edge="firstPuzzleRecur" />
 			<response data="Filename: Attell.py" edge="firstPuzzleRecur" />
 			<response data="Kernel ID: 2.6.27-7-generic" edge="firstPuzzleRecur" />
@@ -33,4 +33,4 @@
 		</consequence>
 	</edge>
 	<edge id="winGame" data="youWin" />
-</story>	
+</story>
