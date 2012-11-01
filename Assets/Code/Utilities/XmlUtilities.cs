@@ -8,6 +8,13 @@ public class XmlUtilities : MonoBehaviour {
 	
 	public const string data = "data";
 	public const string edge = "edge";
+	public const string requires = "requires";
+	public const string consequence = "consequence";
+	public const string have = "have";
+	public const string atLeast = "atLeast";
+	public const string change = "change";
+	public const string add = "add";
+	public const string multiply = "multiply";
 	
 	private delegate string replace();
 	

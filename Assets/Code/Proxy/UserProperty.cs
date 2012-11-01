@@ -13,6 +13,13 @@ public class UserProperty : WritableXml {
 	
 	public override void Start() {
 		singleton = this;
+		StartCoroutine(startInner());
+	}
+	
+	private IEnumerator startInner() {
+		while (!defaultUserState.xmlAvailable) {
+			yield return 0;
+		}
 		if (alwaysWipe || PlayerPrefs.GetString(resourceName) == "") {
 			MemoryStream ms = new MemoryStream();
 			defaultUserState.xmlDoc.Save(ms);
