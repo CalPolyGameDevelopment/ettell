@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{7871B097-C35A-3218-7891-0DEB5147E473}</ProjectGuid>
+	<ProjectGuid>{2898C15F-3F34-C5B4-7949-FD13F1098FFE}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -60,6 +60,14 @@
      <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
      <None Include="Assets\Resources\story.xml" />
      <None Include="Assets\Resources\defaultUser.xml" />
+     <None Include="Assets\Shaders\Particle Add (Overlay).shader" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{D48165B7-C2E7-ACAB-AAC7-69F6FF26C37A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
