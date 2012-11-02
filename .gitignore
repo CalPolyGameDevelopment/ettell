@@ -7,3 +7,5 @@ WindowsLockFile
 *.csproj
 *.unityproj
 *.sln
+*.pidb
+*.userprefs
