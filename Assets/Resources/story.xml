@@ -4,7 +4,7 @@
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
 			<prompt data="Isaac@AI:~/# ./Ettell.py 'Who are you?'" />
-			<response data="Syntax error: 'Who' on line 1" edge="firstPuzzleRecur" />
+			<response data="Syntax error: 'Who' on line 1" edge="platformEdge" />
 			<response data="Filename: Attell.py" edge="firstPuzzleRecur" />
 			<response data="Kernel ID: 2.6.27-7-generic" edge="firstPuzzleRecur" />
 			<response data="OS: Ubuntu 8.10" edge="firstPuzzleRecur" />
@@ -15,6 +15,11 @@
 					</have>
 				</requirement>
 			</response>
+		</minigame>
+	</node>
+	<node id="platformer">
+		<minigame data="platformer">
+			<sceneName data="Platformer1" />
 		</minigame>
 	</node>
 	<node id="youWin">
@@ -33,4 +38,5 @@
 		</consequence>
 	</edge>
 	<edge id="winGame" data="youWin" />
+	<edge id="platformEdge" data="platformer" />
 </story>

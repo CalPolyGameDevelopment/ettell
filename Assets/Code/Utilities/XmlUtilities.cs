@@ -15,6 +15,7 @@ public class XmlUtilities : MonoBehaviour {
 	public const string change = "change";
 	public const string add = "add";
 	public const string multiply = "multiply";
+	public const string sceneName = "sceneName";
 	
 	private delegate string replace();
 	

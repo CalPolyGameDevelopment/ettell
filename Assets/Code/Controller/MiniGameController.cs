@@ -13,6 +13,7 @@ public class MiniGameController : MonoBehaviour {
 	}
 	
 	public GameObject dialog;
+	public GameObject platformer;
 	
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -26,6 +27,7 @@ public class MiniGameController : MonoBehaviour {
 	void Start () {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
+		miniGameTypes["platformer"] = platformer;
 		singleton = this;
 	}
 	
