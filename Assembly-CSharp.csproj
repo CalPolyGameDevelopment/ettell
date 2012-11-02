@@ -58,15 +58,12 @@
      <Compile Include="Assets\Code\Utilities\Consequences.cs" />
      <Compile Include="Assets\Code\Utilities\Requirements.cs" />
      <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
      <None Include="Assets\Resources\story.xml" />
      <None Include="Assets\Resources\defaultUser.xml" />
-     <None Include="Assets\Shaders\Particle Add (Overlay).shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{D48165B7-C2E7-ACAB-AAC7-69F6FF26C37A}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{09B52A93-3896-9461-68B8-F558DD91546A}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+     <None Include="Assets\Platformer Imports\Shaders\Particle Add (Overlay).shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -58,16 +58,12 @@
      <Compile Include="Assets\Code\Utilities\Consequences.cs" />
      <Compile Include="Assets\Code\Utilities\Requirements.cs" />
      <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
      <None Include="Assets\Resources\story.xml" />
      <None Include="Assets\Resources\defaultUser.xml" />
-     <None Include="Assets\Shaders\Particle Add (Overlay).shader" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{D48165B7-C2E7-ACAB-AAC7-69F6FF26C37A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+     <None Include="Assets\Platformer Imports\Shaders\Particle Add (Overlay).shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
