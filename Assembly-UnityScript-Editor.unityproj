@@ -51,6 +51,10 @@
      <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{D48165B7-C2E7-ACAB-AAC7-69F6FF26C37A}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
+      <Project>{09B52A93-3896-9461-68B8-F558DD91546A}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{2898C15F-3F34-C5B4-7949-FD13F1098FFE}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">

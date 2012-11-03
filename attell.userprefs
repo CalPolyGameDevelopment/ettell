@@ -1,18 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Mini Games\Controllers\WaveDefenceCharacterController.cs">
     <Files>
-      <File FileName="..\..\..\mech\Assets\Controllers\TankScootShoot.cs" Line="36" Column="6" />
-      <File FileName="..\..\..\mech\Assets\Mechanics\Subsystem\Weapons.cs" Line="1" Column="1" />
-      <File FileName="..\..\..\mech\Assets\Mechanics\Subsystem\Weapons\Weapon.cs" Line="1" Column="1" />
-      <File FileName="..\..\..\mech\Assets\Mechanics\Subsystem\Weapons\Ballistics.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Controller\MiniGameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\story.xml" Line="1" Column="1" />
-      <File FileName="Assets\Code\Mini Games\Dialog.cs" Line="1" Column="1" />
-      <File FileName="Assets\Resources\defaultUser.xml" Line="1" Column="1" />
-      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\Projectile.cs" Line="4" Column="1" />
-      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs" Line="40" Column="44" />
-      <File FileName="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" Line="1" Column="1" />
+      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" Line="63" Column="58" />
+      <File FileName="Assets\Code\Mini Games\Controllers\WaveDefenceCharacterController.cs" Line="35" Column="29" />
+      <File FileName="..\mech\Assets\Controllers\MechController.cs" Line="81" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
