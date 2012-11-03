@@ -62,6 +62,7 @@
      <Compile Include="Assets\2D Platformer\Scripts\Effects\Foot.js" />
      <Compile Include="Assets\2D Platformer\Scripts\Effects\SpecialEffectHandler.js" />
      <Compile Include="Assets\2D Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Resources\defaultUser.xml" />
      <None Include="Assets\Resources\story.xml" />
