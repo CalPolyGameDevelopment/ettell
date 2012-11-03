@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{2898C15F-3F34-C5B4-7949-FD13F1098FFE}</ProjectGuid>
+	<ProjectGuid>{61ED1C4A-5FAC-BE1C-7FFA-99D2F8E6B711}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript-Editor</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,26 +44,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Code\Controller\MiniGameController.cs" />
-     <Compile Include="Assets\Code\Controller\StoryController.cs" />
-     <Compile Include="Assets\Code\Mini Games\Dialog.cs" />
-     <Compile Include="Assets\Code\Mini Games\MiniGameAPI.cs" />
-     <Compile Include="Assets\Code\Mini Games\Platformer.cs" />
-     <Compile Include="Assets\Code\Mini Games\SceneLoadingMiniGame.cs" />
-     <Compile Include="Assets\Code\Modifier\Preserve.cs" />
-     <Compile Include="Assets\Code\Proxy\ImmutableData.cs" />
-     <Compile Include="Assets\Code\Proxy\UserProperty.cs" />
-     <Compile Include="Assets\Code\Proxy\WritableXml.cs" />
-     <Compile Include="Assets\Code\Proxy\XmlLoader.cs" />
-     <Compile Include="Assets\Code\Utilities\Consequences.cs" />
-     <Compile Include="Assets\Code\Utilities\Requirements.cs" />
-     <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
-     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\CombineChildren.cs" />
-     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\MeshCombineUtility.cs" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Editor\TwoDHelper.js" />
      <None Include="Assets\Platformer Imports\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Platformer Imports\2D Platformer\Level Prefabs\story.xml" />
      <None Include="Assets\Resources\defaultUser.xml" />
      <None Include="Assets\Resources\story.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{2898C15F-3F34-C5B4-7949-FD13F1098FFE}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+    <ProjectReference Include="Assembly-UnityScript.unityproj">
+      <Project>{9BA1574D-B290-5265-4228-EA3C4A98A558}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

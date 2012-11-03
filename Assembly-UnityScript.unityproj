@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{2898C15F-3F34-C5B4-7949-FD13F1098FFE}</ProjectGuid>
+	<ProjectGuid>{9BA1574D-B290-5265-4228-EA3C4A98A558}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,22 +44,24 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Code\Controller\MiniGameController.cs" />
-     <Compile Include="Assets\Code\Controller\StoryController.cs" />
-     <Compile Include="Assets\Code\Mini Games\Dialog.cs" />
-     <Compile Include="Assets\Code\Mini Games\MiniGameAPI.cs" />
-     <Compile Include="Assets\Code\Mini Games\Platformer.cs" />
-     <Compile Include="Assets\Code\Mini Games\SceneLoadingMiniGame.cs" />
-     <Compile Include="Assets\Code\Modifier\Preserve.cs" />
-     <Compile Include="Assets\Code\Proxy\ImmutableData.cs" />
-     <Compile Include="Assets\Code\Proxy\UserProperty.cs" />
-     <Compile Include="Assets\Code\Proxy\WritableXml.cs" />
-     <Compile Include="Assets\Code\Proxy\XmlLoader.cs" />
-     <Compile Include="Assets\Code\Utilities\Consequences.cs" />
-     <Compile Include="Assets\Code\Utilities\Requirements.cs" />
-     <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
-     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\CombineChildren.cs" />
-     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\MeshCombineUtility.cs" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Camera\CameraFocus.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Camera\CameraScrolling.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\DeathTrigger.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\LevelAttributes.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\PlatformTarget.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\Spaceship\Spaceship.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\2D\SpawnPoint.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\Effects\CollisionParticleEffect.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\Effects\CollisionSoundEffect.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\Effects\Foot.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\Effects\SpecialEffectHandler.js" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
      <None Include="Assets\Platformer Imports\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Platformer Imports\2D Platformer\Level Prefabs\story.xml" />
      <None Include="Assets\Resources\defaultUser.xml" />
