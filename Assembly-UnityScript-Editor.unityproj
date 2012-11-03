@@ -44,11 +44,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Platformer Imports\2D Platformer\Editor\TwoDHelper.js" />
-     <None Include="Assets\Platformer Imports\2D Platformer\Shaders\Particle Add (Overlay).shader" />
-     <None Include="Assets\Platformer Imports\2D Platformer\Level Prefabs\story.xml" />
+     <Compile Include="Assets\2D Platformer\Editor\TwoDHelper.js" />
+     <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Resources\defaultUser.xml" />
      <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
