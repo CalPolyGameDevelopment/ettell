@@ -47,6 +47,7 @@
      <Compile Include="Assets\Code\Controller\MiniGameController.cs" />
      <Compile Include="Assets\Code\Controller\StoryController.cs" />
      <Compile Include="Assets\Code\Mini Games\Dialog.cs" />
+     <Compile Include="Assets\Code\Mini Games\LaunchProjectile.cs" />
      <Compile Include="Assets\Code\Mini Games\MiniGameAPI.cs" />
      <Compile Include="Assets\Code\Mini Games\Platformer.cs" />
      <Compile Include="Assets\Code\Mini Games\SceneLoadingMiniGame.cs" />
@@ -58,12 +59,12 @@
      <Compile Include="Assets\Code\Utilities\Consequences.cs" />
      <Compile Include="Assets\Code\Utilities\Requirements.cs" />
      <Compile Include="Assets\Code\Utilities\XmlUtilities.cs" />
-     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
-     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
-     <Compile Include="Assets\Platformer Imports\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
-     <None Include="Assets\Resources\story.xml" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Platformer Imports\2D Platformer\Standard Assets\Scripts\MeshCombineUtility.cs" />
+     <None Include="Assets\Platformer Imports\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Resources\defaultUser.xml" />
-     <None Include="Assets\Platformer Imports\Shaders\Particle Add (Overlay).shader" />
+     <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\Platformer Imports\2D Platformer\Level Prefabs\story.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
