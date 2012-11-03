@@ -47,6 +47,7 @@
      <Compile Include="Assets\Code\Controller\MiniGameController.cs" />
      <Compile Include="Assets\Code\Controller\StoryController.cs" />
      <Compile Include="Assets\Code\Mini Games\Dialog.cs" />
+     <Compile Include="Assets\Code\Mini Games\LaunchProjectile.cs" />
      <Compile Include="Assets\Code\Mini Games\MiniGameAPI.cs" />
      <Compile Include="Assets\Code\Mini Games\Platformer.cs" />
      <Compile Include="Assets\Code\Mini Games\SceneLoadingMiniGame.cs" />
