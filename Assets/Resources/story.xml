@@ -5,7 +5,7 @@
 			<prompt data="Current year: \year" />
 			<prompt data="Isaac@AI:~/# ./Ettell.py 'Who are you?'" />
 			<response data="Syntax error: 'Who' on line 1" edge="platformEdge" />
-			<response data="Filename: Attell.py" edge="firstPuzzleRecur" />
+			<response data="Filename: Attell.py" edge="laserEdge" />
 			<response data="Kernel ID: 2.6.27-7-generic" edge="firstPuzzleRecur" />
 			<response data="OS: Ubuntu 8.10" edge="firstPuzzleRecur" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
@@ -20,6 +20,16 @@
 	<node id="platformer">
 		<minigame data="platformer">
 			<sceneName data="Platformer1" />
+		</minigame>
+	</node>
+	<node id="laserPlumber">
+		<minigame data="laserPlumber">
+			<source>
+				<position data="0,0,0" />
+			</source>
+			<sink data="firstPuzzleRecur">
+				<position data="30,0,0" />
+			</sink>
 		</minigame>
 	</node>
 	<node id="youWin">
@@ -39,4 +49,5 @@
 	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="platformEdge" data="platformer" />
+	<edge id="laserEdge" data="laserPlumber" />
 </story>

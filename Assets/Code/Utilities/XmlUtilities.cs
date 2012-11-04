@@ -16,6 +16,11 @@ public class XmlUtilities : MonoBehaviour {
 	public const string add = "add";
 	public const string multiply = "multiply";
 	public const string sceneName = "sceneName";
+	public const string mirror = "mirror";
+	public const string splitter = "splitter";
+	public const string source = "source";
+	public const string sink = "sink";
+	public const string position = "position";
 	
 	private delegate string replace();
 	
@@ -34,6 +39,10 @@ public class XmlUtilities : MonoBehaviour {
 			}
 		}
 		return val;
+	}
+	
+	public static float[] getPosition(XmlNode position) {
+		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
 	}
 	
 	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
