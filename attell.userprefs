@@ -1,9 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\story.xml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Controller\StoryController.cs">
     <Files>
       <File FileName="..\mech\Assets\Controllers\MechController.cs" Line="1" Column="4" />
-      <File FileName="Assets\Resources\story.xml" Line="27" Column="46" />
+      <File FileName="Assets\Resources\story.xml" Line="25" Column="13" />
+      <File FileName="Assets\Code\Mini Games\Platformer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\Dialog.cs" Line="20" Column="4" />
+      <File FileName="Assets\Code\Mini Games\MiniGameAPI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\SceneLoadingMiniGame.cs" Line="17" Column="3" />
+      <File FileName="Assets\Code\Mini Games\RedBlueTurretPlatformer.cs" Line="7" Column="2" />
+      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs" Line="26" Column="3" />
+      <File FileName="Assets\Code\Controller\StoryController.cs" Line="45" Column="1" />
+      <File FileName="Assets\Code\Controller\MiniGameController.cs" Line="31" Column="44" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
