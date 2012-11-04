@@ -30,6 +30,8 @@
 			<sink data="firstPuzzleRecur">
 				<position data="30,0,0" />
 			</sink>
+		</minigame>
+	</node>
 	<node id="redBluePlatformer">
 		<minigame data="RedBlueTurretPlatformer">
 			<sceneName data="RedBlueTurretPlatformer" />

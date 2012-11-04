@@ -6,7 +6,7 @@ public class Sink : MonoBehaviour {
 	public string edge;
 	private bool hit;
 	
-	public void hitByLaser() {
+	public void hitByLaser(Laser laser) {
 		if (!hit) {
 			MiniGameController.endMiniGame(edge);
 			hit = true;

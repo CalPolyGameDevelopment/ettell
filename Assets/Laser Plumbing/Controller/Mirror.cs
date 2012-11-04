@@ -12,4 +12,7 @@ public class Mirror : MonoBehaviour {
 	void Update () {
 	
 	}
+	
+	public void hitByLaser(Laser laser) {
+	}
 }

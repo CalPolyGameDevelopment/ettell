@@ -42,6 +42,17 @@ public class Laser : MonoBehaviour {
 		return Vector3.Lerp(origin, target.transform.position, Mathf.Min(Mathf.Max(0f, time), travelTime) / travelTime);
 	}
 	
+	public void project(Vector3 direction) {
+		Ray prediction = new Ray(origin, direction);
+		RaycastHit rch;
+		if (Physics.Raycast(prediction, out rch)) {
+			target = rch.transform.gameObject;
+		}
+		else {
+			throw new MissingReferenceException("Laser is not blocked by any gameobject, therefore ending is not within edges");
+		}
+	}
+	
     void Update() {
 		if (!ready) {
 			return;
@@ -51,7 +62,7 @@ public class Laser : MonoBehaviour {
 		lineRenderer.SetPosition(0, lerp(backT));
 		lineRenderer.SetPosition(1, lerp(frontT));
 		if (frontT >= travelTime) {
-			target.SendMessageUpwards("hitByLaser");
+			target.SendMessageUpwards("hitByLaser", this);
 		}
 		if (backT >= travelTime) {
 			Destroy(gameObject);
