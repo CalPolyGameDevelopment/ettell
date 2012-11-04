@@ -14,7 +14,7 @@ public class MiniGameController : MonoBehaviour {
 	
 	public GameObject dialog;
 	public GameObject platformer;
-	public GameObject redBlueTurretPlatformer;
+	public GameObject laserPlumber;
 	
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -29,8 +29,8 @@ public class MiniGameController : MonoBehaviour {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
 		miniGameTypes["platformer"] = platformer;
-		miniGameTypes["RedBlueTurretPlatformer"] = redBlueTurretPlatformer;
-	    singleton = this;
+		miniGameTypes["laserPlumber"] = laserPlumber;
+		singleton = this;
 	}
 	
 	public static void startMiniGame(string name, XmlNode gameData) {
@@ -44,4 +44,5 @@ public class MiniGameController : MonoBehaviour {
 		singleton.current = null;
 		StoryController.TraverseEdge(result);
 	}
+
 }
