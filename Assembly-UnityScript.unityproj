@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraFocus.js" />
     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraScrolling.js" />
     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
@@ -67,6 +68,31 @@
     <None Include="Assets\Resources\story.xml" />
     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
     <None Include="Assets\2D Platformer\Shaders\Particle Add %28Overlay%29.shader" />
+=======
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraFocus.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraScrolling.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\DeathTrigger.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\LevelAttributes.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\PlatformTarget.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\Spaceship\Spaceship.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\2D\SpawnPoint.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\Effects\CollisionParticleEffect.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\Effects\CollisionSoundEffect.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\Effects\Foot.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\Effects\SpecialEffectHandler.js" />
+     <Compile Include="Assets\2D Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
+     <None Include="Assets\Resources\defaultUser.xml" />
+     <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
+>>>>>>> 04e564362b7dd58bbb9be42d5e8329969b67e9be
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

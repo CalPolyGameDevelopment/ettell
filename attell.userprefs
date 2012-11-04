@@ -1,5 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Laser Plumbing\Controller\Sink.cs">
     <Files>
       <File FileName="Assets\Laser Plumbing\Controller\Laser.cs" Line="54" Column="41" />
@@ -10,6 +11,19 @@
       <File FileName="Assets\Laser Plumbing\Controller\Sink.cs" Line="13" Column="4" />
       <File FileName="Assets\Code\Controller\StoryController.cs" Line="51" Column="1" />
       <File FileName="Assets\Code\Utilities\XmlUtilities.cs" Line="45" Column="76" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js">
+    <Files>
+      <File FileName="Assets\Code\Mini Games\Platformer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Controller\MiniGameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\Controllers\FixedAxisCharacterController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\RedBlueTurretPlatformer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Controller\StoryController.cs" Line="53" Column="4" />
+      <File FileName="Assets\Resources\story.xml" Line="1" Column="1" />
+      <File FileName="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" Line="1" Column="1" />
+>>>>>>> 04e564362b7dd58bbb9be42d5e8329969b67e9be
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

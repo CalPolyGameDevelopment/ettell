@@ -45,11 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Assets\2D Platformer\Editor\TwoDHelper.js" />
     <None Include="Assets\Resources\defaultUser.xml" />
     <None Include="Assets\Resources\story.xml" />
     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
     <None Include="Assets\2D Platformer\Shaders\Particle Add %28Overlay%29.shader" />
+=======
+     <Compile Include="Assets\2D Platformer\Editor\TwoDHelper.js" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
+     <None Include="Assets\Resources\defaultUser.xml" />
+     <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
+>>>>>>> 04e564362b7dd58bbb9be42d5e8329969b67e9be
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">

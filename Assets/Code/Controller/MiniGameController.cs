@@ -1,4 +1,3 @@
-using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -44,4 +43,5 @@ public class MiniGameController : MonoBehaviour {
 		singleton.current = null;
 		StoryController.TraverseEdge(result);
 	}
+
 }
