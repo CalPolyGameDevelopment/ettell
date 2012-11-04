@@ -42,7 +42,20 @@
 			</change>
 		</consequence>
 	</edge>
-	
+	<edge id="chooseRed" data="firstPuzzle">
+		<consequence>
+			<change data="year">
+				<add data="3" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="chooseBlue" data="firstPuzzle">
+		<consequence>
+			<change data="year">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="platformEdge" data="platformer" />
 	<edge id="redBlueChoice" data="redBluePlatformer"/>
