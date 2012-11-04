@@ -49,11 +49,23 @@
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\PlatformInputController.js" />
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" />
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" />
+     <None Include="Assets\Resources\story.xml.BASE.4764.xml" />
+     <None Include="Assets\Resources\story.xml.REMOTE.4764.xml" />
+     <None Include="Assets\Resources\story.xml.LOCAL.4764.xml" />
+     <None Include="Assets\Resources\story.xml.LOCAL.2804.xml" />
+     <None Include="Assets\Resources\story.xml.BASE.2776.xml" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Resources\story.xml.BASE.2804.xml" />
      <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Resources\defaultUser.xml" />
+     <None Include="Assets\Resources\story.xml.LOCAL.2776.xml" />
+     <None Include="Assets\Resources\story.xml.BACKUP.2804.xml" />
+     <None Include="Assets\Resources\story.xml.REMOTE.2776.xml" />
+     <None Include="Assets\Resources\story.xml.BACKUP.4764.xml" />
      <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\Resources\story.xml.REMOTE.2804.xml" />
      <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
+     <None Include="Assets\Resources\story.xml.BACKUP.2776.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
