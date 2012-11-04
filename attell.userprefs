@@ -1,18 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Mini Games\RedBlueLevelEventMonitor.cs">
     <Files>
-      <File FileName="Assets\Resources\story.xml" Line="55" Column="17" />
+      <File FileName="Assets\Resources\story.xml" Line="1" Column="1" />
       <File FileName="Assets\Code\Mini Games\Platformer.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Mini Games\RedBlueTurretPlatformer.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Controller\MiniGameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs" Line="60" Column="50" />
+      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\ProjectileLauncher.cs" Line="52" Column="3" />
       <File FileName="Assets\Code\Modifier\Preserve.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Mini Games\Controllers\FixedAxisCharacterController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Mini Games\Weapons\Projectiles\Projectile.cs" Line="32" Column="3" />
       <File FileName="Assets\Code\Utilities\Consequences.cs" Line="1" Column="1" />
       <File FileName="Assets\Code\Utilities\XmlUtilities.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Mini Games\RedBlueLevelEventMonitor.cs" Line="13" Column="26" />
+      <File FileName="Assets\Code\Mini Games\RedBlueLevelEventMonitor.cs" Line="3" Column="1" />
       <File FileName="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" Line="1" Column="1" />
       <File FileName="Assets\2D Platformer\Scripts\Effects\Foot.js" Line="1" Column="1" />
       <File FileName="Assets\2D Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" Line="1" Column="1" />
