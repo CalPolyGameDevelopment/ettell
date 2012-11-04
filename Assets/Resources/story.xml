@@ -7,7 +7,7 @@
 			<response data="Syntax error: 'Who' on line 1" edge="platformEdge" />
 			<response data="Filename: Attell.py" edge="firstPuzzleRecur" />
 			<response data="Kernel ID: 2.6.27-7-generic" edge="firstPuzzleRecur" />
-			<response data="OS: Ubuntu 8.10" edge="firstPuzzleRecur" />
+			<response data="OS: Ubuntu 8.10" edge="redBlueChoice" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -20,6 +20,11 @@
 	<node id="platformer">
 		<minigame data="platformer">
 			<sceneName data="Platformer1" />
+		</minigame>
+	</node>
+	<node id="platformer">
+		<minigame data="redBlueTurretPlatformer">
+			<sceneName data="RedBlueTurretPlatformer" />
 		</minigame>
 	</node>
 	<node id="youWin">
@@ -37,6 +42,8 @@
 			</change>
 		</consequence>
 	</edge>
+	
 	<edge id="winGame" data="youWin" />
 	<edge id="platformEdge" data="platformer" />
+	<edge id="redBlueChoice" data="redBluePlatformer"/>
 </story>

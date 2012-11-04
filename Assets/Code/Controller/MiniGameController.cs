@@ -14,6 +14,7 @@ public class MiniGameController : MonoBehaviour {
 	
 	public GameObject dialog;
 	public GameObject platformer;
+	public GameObject redBlueTurretPlatformer;
 	
 	private Dictionary<string, GameObject> miniGameTypes;
 	

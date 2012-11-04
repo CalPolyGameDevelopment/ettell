@@ -4,10 +4,12 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody))]
 public class Projectile : MonoBehaviour {
 	
+
 	void OnCollisionEnter(Collision collision){
 		foreach (ContactPoint contact in collision.contacts) {
             Debug.DrawRay(contact.point, contact.normal, Color.white);
         }
+		// not working currently it just makes the bullets never appear
 		//Destroy(gameObject);
 	}
 	
