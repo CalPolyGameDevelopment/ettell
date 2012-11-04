@@ -29,7 +29,8 @@ public class MiniGameController : MonoBehaviour {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
 		miniGameTypes["platformer"] = platformer;
-		singleton = this;
+		miniGameTypes["RedBlueTurretPlatformer"] = redBlueTurretPlatformer;
+	    singleton = this;
 	}
 	
 	public static void startMiniGame(string name, XmlNode gameData) {

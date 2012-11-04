@@ -22,8 +22,8 @@
 			<sceneName data="Platformer1" />
 		</minigame>
 	</node>
-	<node id="platformer">
-		<minigame data="redBlueTurretPlatformer">
+	<node id="redBluePlatformer">
+		<minigame data="RedBlueTurretPlatformer">
 			<sceneName data="RedBlueTurretPlatformer" />
 		</minigame>
 	</node>
