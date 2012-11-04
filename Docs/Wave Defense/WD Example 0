@@ -1,0 +1,6 @@
+digraph WaveExample0 {
+  "Wave Init" -> "Phase 0" [label="Start"];
+  "Phase 0" -> "Phase 1" [label="enemy spawned"];
+  "Phase 1" -> "Wave End" [label="enemy dead"];
+  "Phase 1" -> "Wave End" [label="player dead"];
+}
