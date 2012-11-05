@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 184fbf53f07112e4a8b7406de39206ec
 ModelImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    4300000: Sphere
+    7400000: Default Take //// Mirror
   serializedVersion: 10
   materials:
     importMaterials: 1
@@ -43,6 +45,12 @@ ModelImporter:
       data:
         first: 4
         second: 801a0600
+      data:
+        first: 23
+        second: 60182300
+      data:
+        first: 33
+        second: a05a3200
       data:
         first: 111
         second: 605fa900

@@ -23,6 +23,7 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 			float[] coords = XmlUtilities.getPosition(position);
 			toSet.transform.position = new Vector3(coords[0], coords[1], coords[2]);
 		}
+		toSet.transform.parent = gameObject.transform;
 	}
 	
 	private void genBoard() {

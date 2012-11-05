@@ -22,6 +22,7 @@ public class Source : MonoBehaviour {
 			
 			Vector3 origin = transform.position + (transform.forward.normalized * fireDistance);
 			GameObject go = Instantiate(laser) as GameObject;
+			go.transform.parent = gameObject.transform;
 			Laser l = go.GetComponent<Laser>();
 			l.origin = origin;
 			l.project(transform.forward);
