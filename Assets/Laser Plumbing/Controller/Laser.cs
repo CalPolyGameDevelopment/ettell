@@ -54,6 +54,7 @@ public class Laser : MonoBehaviour {
 			target = rch.transform.gameObject;
 		}
 		else {
+			Destroy(gameObject);
 			throw new MissingReferenceException("Laser is not blocked by any gameobject, therefore ending is not within edges");
 		}
 	}
