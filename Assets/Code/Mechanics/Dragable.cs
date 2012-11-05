@@ -113,7 +113,7 @@ public class Dragable : MonoBehaviour
         myRigidbody.MovePosition(snapPosition);
         
         doSnap = false;
-        SendMessageUpwards("Snapped");
+        SendMessageUpwards("Snapped", gameObject);
     }
     
     void moveNormal(){
