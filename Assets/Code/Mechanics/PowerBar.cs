@@ -9,7 +9,8 @@ public class PowerBar : MonoBehaviour {
     
     public Color backgroundColor = Color.black;
     public Color forgroundColor = Color.red;
-    
+
+    public Material addEventMaterial;
     
     public Rect box = new Rect(10, 10, 400, 20);
 
@@ -21,8 +22,8 @@ public class PowerBar : MonoBehaviour {
         background = new Texture2D(1, 1, TextureFormat.RGB24, false);
         foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
 
-        background.SetPixel(0, 0, Color.black);
-        foreground.SetPixel(0, 0, Color.red);
+        background.SetPixel(0, 0, backgroundColor);
+        foreground.SetPixel(0, 0, forgroundColor);
         
         background.Apply();
         foreground.Apply();
@@ -42,7 +43,9 @@ public class PowerBar : MonoBehaviour {
     }
  
     
-    void AddPower(){
-       power += powerIncrement;
+    void AddPower(GameObject obj){
+       Debug.Log("helloworld");
+       if (obj.rigidbody.renderer.material.color == addEventMaterial.color)
+            power += powerIncrement;
     }
 }
