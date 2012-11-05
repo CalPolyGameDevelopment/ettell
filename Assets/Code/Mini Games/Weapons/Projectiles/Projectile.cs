@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Projectie
@@ -14,14 +15,22 @@ using System.Collections;
 /// </summary>
 [RequireComponent (typeof (Rigidbody))]
 public class Projectile : MonoBehaviour {
-	
 
+	public List<string> destroyOnHitTags;
+	
 	void OnCollisionEnter(Collision collision){
 		foreach (ContactPoint contact in collision.contacts) {
             Debug.DrawRay(contact.point, contact.normal, Color.white);
         }
-		// not working currently it just makes the bullets never appear
-		//Destroy(gameObject);
+		
+		if (destroyOnHitTags.Contains(
+				collision.gameObject.tag)){
+			
+			SendMessageUpwards("ObserveEvent", gameObject, SendMessageOptions.DontRequireReceiver);
+			DestroyObject(gameObject);
+		}
+
+
 	}
 	
 }

@@ -57,6 +57,12 @@ public class ProjectileLauncher: MonoBehaviour {
 			Projectile clone = Instantiate(projectile, 
 				projectileEgress.position, projectileEgress.rotation) as Projectile;
 			
+			// Make the projectile clone a child of the turret
+			clone.transform.parent = gameObject.transform;
+			
+			// Reset the name so it doesn't have "(Clone)" suffix.
+			clone.name = projectile.name;
+			
 			// Set the launch kinetics
 			clone.rigidbody.AddForce(launchVector * launchForce);
 			clone.rigidbody.AddTorque(launchTorque);
