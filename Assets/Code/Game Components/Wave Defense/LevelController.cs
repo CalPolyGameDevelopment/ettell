@@ -13,9 +13,16 @@ public class LevelController : MonoBehaviour {
 	}
 	
     public IEnumerable doWaves(){
+
+// Turn off the not used warning for now.
+#pragma warning disable 219
+        
         foreach (GameObject wave in waves) {
             yield return StartCoroutine("wave.doPhases");
+ 
         }
+#pragma warning restore 219
+        
     }
  
     
