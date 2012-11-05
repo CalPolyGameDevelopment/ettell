@@ -27,6 +27,15 @@
 			<source>
 				<position data="0,0,0" />
 			</source>
+			<mirror>
+				<position data="15,0,0" />
+			</mirror>
+			<mirror>
+				<position data="15,-10,0" />
+			</mirror>
+			<mirror>
+				<position data="30,-10,0" />
+			</mirror>
 			<sink data="firstPuzzleRecur">
 				<position data="30,0,0" />
 			</sink>

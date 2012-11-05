@@ -18,7 +18,6 @@ public class Laser : MonoBehaviour {
 				pathLength = (target.transform.position - origin).magnitude;
 				travelTime = pathLength / speed;
 				lengthTime = length / speed;
-				frontT = 0f;
 				ready = true;
 			}
 		}
@@ -29,13 +28,18 @@ public class Laser : MonoBehaviour {
 	private float pathLength;
 	private float travelTime;
 	private float lengthTime;
+	private bool sentMessage;
 	
     void Start() {
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-		lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
-		lineRenderer.SetColors(c, c);
-		lineRenderer.SetWidth(width, width);
-		lineRenderer.SetVertexCount(2);
+		if (GetComponent<LineRenderer>() == null) {
+        	lineRenderer = gameObject.AddComponent<LineRenderer>();
+			lineRenderer.material = new Material(Shader.Find("Particles/Additive"));
+			lineRenderer.SetColors(c, c);
+			lineRenderer.SetWidth(width, width);
+			lineRenderer.SetVertexCount(2);
+		}
+		lineRenderer = GetComponent<LineRenderer>();
+		frontT = 0f;
     }
 	
 	private Vector3 lerp(float time) {
@@ -43,6 +47,7 @@ public class Laser : MonoBehaviour {
 	}
 	
 	public void project(Vector3 direction) {
+		sentMessage = false;
 		Ray prediction = new Ray(origin, direction);
 		RaycastHit rch;
 		if (Physics.Raycast(prediction, out rch)) {
@@ -61,11 +66,18 @@ public class Laser : MonoBehaviour {
 		backT = frontT - lengthTime;
 		lineRenderer.SetPosition(0, lerp(backT));
 		lineRenderer.SetPosition(1, lerp(frontT));
-		if (frontT >= travelTime) {
+		if (frontT >= travelTime && !sentMessage) {
+			sentMessage = true;
 			target.SendMessageUpwards("hitByLaser", this);
 		}
 		if (backT >= travelTime) {
 			Destroy(gameObject);
 		}
     }
+	
+	public Vector3 direction {
+		get {
+			return (target.transform.position - origin).normalized;
+		}
+	}
 }
