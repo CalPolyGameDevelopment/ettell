@@ -1,10 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Controller\MiniGameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Code\Wave Defense\Wave.cs">
     <Files>
-      <File FileName="Assets\Resources\story.xml" Line="26" Column="17" />
+      <File FileName="Assets\Code\Proxy\UserProperty.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Proxy\XmlLoader.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Controller\StoryController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Code\Wave Defense\Wave.cs" Line="7" Column="1" />
+      <File FileName="Assets\Code\Wave Defense\LevelController.cs" Line="12" Column="1" />
+      <File FileName="Assets\Code\Wave Defense\Phase.cs" Line="4" Column="1" />
+      <File FileName="Assets\Resources\waves.xml" Line="1" Column="1" />
+      <File FileName="Assets\Resources\story.xml" Line="1" Column="1" />
       <File FileName="Assets\Code\Mini Games\LaserPlumber.cs" Line="1" Column="1" />
-      <File FileName="Assets\Code\Controller\MiniGameController.cs" Line="37" Column="1" />
+      <File FileName="Assets\Code\Mechanics\Dragable.cs" Line="70" Column="11" />
+      <File FileName="Assets\Code\Mechanics\Snappable.cs" Line="7" Column="5" />
+      <File FileName="Assets\Code\Mechanics\DragAndDrop.cs" Line="8" Column="38" />
+      <File FileName="Assets\Code\Mechanics\PowerBar.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
