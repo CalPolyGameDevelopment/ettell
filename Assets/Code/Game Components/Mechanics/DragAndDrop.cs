@@ -1,11 +1,17 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
-public class DragAndDrop : MonoBehaviour {
-
+public class DragAndDrop : MonoBehaviour
+{
  
-    public void Snapped(GameObject obj){
-        BroadcastMessage("AddPower", obj);
+    public bool broadcastSnappedEvent = false;
+    public string broadcastEventName; 
+    
+    public void Snapped (GameObject obj)
+    {
+        SendMessageUpwards(broadcastEventName, obj);
     }
     
 }
+
