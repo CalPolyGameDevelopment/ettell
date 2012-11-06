@@ -44,7 +44,7 @@ public class PowerBar : MonoBehaviour {
  
     
     void AddPower(GameObject obj){
-       Debug.Log("helloworld");
+        
        if (obj.rigidbody.renderer.material.color == addEventMaterial.color)
             power += powerIncrement;
     }
