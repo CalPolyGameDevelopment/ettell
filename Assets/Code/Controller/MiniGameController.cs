@@ -12,12 +12,14 @@ public class MiniGameController : MonoBehaviour {
 		}
 	}
 	
+    
 	public GameObject dialog;
 	public GameObject platformer;
     public GameObject redBluePlatformer;
 	public GameObject laserPlumber;
 	public GameObject match3;
-	
+	public GameObject bullsAndCleots;
+    
 	private Dictionary<string, GameObject> miniGameTypes;
 	
 	private GameObject current;
@@ -34,6 +36,7 @@ public class MiniGameController : MonoBehaviour {
 		miniGameTypes["laserPlumber"] = laserPlumber;
         miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
         miniGameTypes["match3"] = match3;
+        miniGameTypes["BullsAndCleots"] = bullsAndCleots;
 		singleton = this;
 	}
 	

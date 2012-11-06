@@ -11,7 +11,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour {
     }
     
     public void UserEndGame(){
-        MiniGameController.endMiniGame("win");
+        MiniGameController.endMiniGame("bullsAndCleotsWinEdge");
     }
     
     
