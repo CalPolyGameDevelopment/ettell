@@ -21,6 +21,9 @@ public class XmlUtilities : MonoBehaviour {
 	public const string source = "source";
 	public const string sink = "sink";
 	public const string position = "position";
+	public const string width = "width";
+	public const string height = "height";
+	public const string color = "color";
 	
 	private delegate string replace();
 	

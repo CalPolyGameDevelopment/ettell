@@ -3,11 +3,12 @@
 	<node id="firstPuzzle">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
-			<prompt data="Isaac@AI:~/# ./Ettell.py 'Who are you?'" />
-			<response data="Syntax error: 'Who' on line 1" edge="platformEdge" />
-			<response data="Filename: Attell.py" edge="laserEdge" />
-			<response data="Kernel ID: 2.6.27-7-generic" edge="firstPuzzleRecur" />
-			<response data="OS: Ubuntu 8.10" edge="redBlueChoice" />
+			<prompt data="Placeholder dialog mini-game:" />
+			<response data="example platformer" edge="platformEdge" />
+			<response data="laser plumber" edge="laserEdge" />
+			<response data="dialog recur" edge="firstPuzzleRecur" />
+			<response data="dillon platformer" edge="redBlueChoice" />
+			<response data="match3" edge="match3Edge" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -46,6 +47,14 @@
 			<sceneName data="RedBlueTurretPlatformer" />
 		</minigame>
 	</node>
+	<node id="match3Node">
+		<minigame data="match3">
+			<width data="8" />
+			<height data="8" />
+			<color data="255,0,0,firstPuzzleRecur" />
+			<color data="0,255,0,winGame" />
+		</minigame>
+	</node>
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
@@ -79,4 +88,5 @@
 	<edge id="platformEdge" data="platformer" />
 	<edge id="laserEdge" data="laserPlumber" />
 	<edge id="redBlueChoice" data="redBluePlatformer"/>
+	<edge id="match3Edge" data="match3Node"/>
 </story>
