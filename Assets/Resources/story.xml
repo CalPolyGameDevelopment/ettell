@@ -48,6 +48,11 @@
 			<sceneName data="RedBlueTurretPlatformer" />
 		</minigame>
 	</node>
+    <node id="redBluePlatformer2Node">
+     <minigame data="RedBlueTurretPlatformer">
+         <sceneName data="RedBlueTurretPlatformer2" />
+     </minigame>
+ </node>   
     <node id="bullsAndCleotsNode">
         <minigame data="BullsAndCleots">
             <sceneName data="BullsAndCleots" />
@@ -84,7 +89,7 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="chooseBlue" data="firstPuzzle">
+	<edge id="chooseBlue" data="redBluePlatformer2Node">
 		<consequence>
 			<change data="year">
 				<add data="1" />
