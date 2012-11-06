@@ -10,7 +10,7 @@ public class PowerBar : MonoBehaviour {
     public Color backgroundColor = Color.black;
     public Color forgroundColor = Color.red;
 
-    public Material addEventMaterial;
+   
     
     public Rect box = new Rect(10, 10, 400, 20);
 
@@ -43,9 +43,8 @@ public class PowerBar : MonoBehaviour {
     }
  
     
-    void AddPower(GameObject obj){
+    public void IncrementPower(){
         
-       if (obj.rigidbody.renderer.material.color == addEventMaterial.color)
-            power += powerIncrement;
+          power += powerIncrement;
     }
 }
