@@ -19,6 +19,7 @@ public class MiniGameController : MonoBehaviour {
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
+	public GameObject physics;
     
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -37,6 +38,7 @@ public class MiniGameController : MonoBehaviour {
         miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
         miniGameTypes["match3"] = match3;
         miniGameTypes["BullsAndCleots"] = bullsAndCleots;
+        miniGameTypes["physics"] = physics;
 		singleton = this;
 	}
 	

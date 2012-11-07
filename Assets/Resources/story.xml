@@ -10,6 +10,7 @@
 			<response data="dillon platformer" edge="redBlueChoice" />
 			<response data="match3" edge="match3Edge" />
             <response data="BC Hack" edge="bullsAndCleotsEdge" />
+            <response data="Physics Demo" edge="physicsDemoEdge" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -53,11 +54,18 @@
             <sceneName data="BullsAndCleots" />
             <number data="7,4,3,2"/>         
         </minigame>
-    </node>   
+    </node>
 	<node id="match3Node">
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
+			<color data="255,0,0,firstPuzzleRecur" />
+			<color data="0,255,0,winGame" />
+		</minigame>
+	</node>
+	<node id="physicsDemoNode">
+		<minigame data="physics">
+            <sceneName data="PhysicsDemo" />
 			<color data="255,0,0,firstPuzzleRecur" />
 			<color data="0,255,0,winGame" />
 		</minigame>
@@ -97,5 +105,6 @@
 	<edge id="laserEdge" data="laserPlumber" />
 	<edge id="redBlueChoice" data="redBluePlatformer"/>
 	<edge id="match3Edge" data="match3Node"/>
-    <edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />   
+    <edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
+    <edge id="physicsDemoEdge" data="physicsDemoNode" />
 </story>

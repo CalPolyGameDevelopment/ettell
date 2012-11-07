@@ -48,6 +48,24 @@ public class XmlUtilities : MonoBehaviour {
 		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
 	}
 	
+	public struct EdgeColor {
+		public Color appearance;
+		public string edgeId;
+		public EdgeColor (Color apperance, string edgeId) {
+			this.appearance = apperance;
+			this.edgeId = edgeId;
+		}
+	}
+	
+	public static EdgeColor parseColor(XmlNode xn) {
+		string[] hexes = XmlUtilities.getData(xn).Split(',');
+		return new EdgeColor(new Color(
+			float.Parse(hexes[0]) / 255f,
+			float.Parse(hexes[1]) / 255f,
+			float.Parse(hexes[2]) / 255f
+		), hexes[3]);
+	}
+	
 	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
 		XmlNodeList xnl = xDoc.SelectNodes(xPath);
 		return xnl.Cast<XmlNode>().Select<XmlNode, T>(f);

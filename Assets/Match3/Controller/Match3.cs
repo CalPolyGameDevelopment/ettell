@@ -15,25 +15,6 @@ public class Match3 : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	public GameObject tile;
 	
-	public struct color {
-		public Color appearance;
-		public string edgeId;
-		public color (Color apperance, string edgeId) {
-			this.appearance = apperance;
-			this.edgeId = edgeId;
-		}
-	}
-	
-	private color parseColor(XmlNode xn) {
-		string[] hexes = XmlUtilities.getData(xn).Split(',');
-		winReqs[hexes[3]] = 0;
-		return new color(new Color(
-			float.Parse(hexes[0]) / 255f,
-			float.Parse(hexes[1]) / 255f,
-			float.Parse(hexes[2]) / 255f
-		), hexes[3]);
-	}
-	
 	private static Dictionary<string, int> winReqs;
 	
 	public static void recordDestruction(string edge, int num) {
@@ -56,7 +37,10 @@ public class Match3 : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private void genBoard() {
 		winReqs = new Dictionary<string, int>();
-		color[] colors = XmlUtilities.getDataFromNode<color>(data, XmlUtilities.color, parseColor).ToArray();
+		XmlUtilities.EdgeColor[] colors = XmlUtilities.getDataFromNode<XmlUtilities.EdgeColor>(data, XmlUtilities.color, XmlUtilities.parseColor).ToArray();
+		foreach (XmlUtilities.EdgeColor color in colors) {
+			winReqs[color.edgeId] = 0;
+		}
 		int width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.width, XmlUtilities.getData));
 		int height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.height, XmlUtilities.getData));
 		Tile.BOARD_HEIGHT = height;
