@@ -5,11 +5,13 @@ public class EnergyBar : MonoBehaviour {
 
     public float energy = 0;
     public int maxEnergy = 100;
-    public float energyIncrement = 10;
+    public float energyIncrement = 25;
     
     public Color backgroundColor = Color.black;
     public Color forgroundColor = Color.red;
-
+ 
+    
+    public string labelText = "";
    
     
     public Rect box = new Rect(10, 10, 400, 20);
@@ -35,10 +37,11 @@ public class EnergyBar : MonoBehaviour {
     {
         GUI.BeginGroup(box);
         {
+    
             
             GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
             GUI.DrawTexture(new Rect(0, 0, box.width*energy/maxEnergy, box.height), foreground, ScaleMode.StretchToFill);
-
+            GUI.Label(new Rect(10,0,50,20), labelText);
                  }
         GUI.EndGroup(); ;
     }
