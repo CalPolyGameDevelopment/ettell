@@ -112,6 +112,7 @@ public class Draggable : MonoBehaviour
     void OnTriggerEnter (Collider other)
     {
   
+    
         Snappable snappable = 
                 other.gameObject.GetComponent<Snappable> ();
         
