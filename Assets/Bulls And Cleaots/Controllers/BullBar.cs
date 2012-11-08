@@ -24,6 +24,7 @@ public class BullsFoundEvent : IEvent{
 public class BullBar : MonoBehaviour, IEventListener {
  
     void Start(){
+        GetComponent<EnergyBar>().labelText = "Bulls";
         EventManager.instance.RegisterListener(this, typeof(BullsFoundEvent).ToString());
     }
     

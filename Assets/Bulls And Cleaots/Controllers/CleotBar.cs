@@ -23,6 +23,7 @@ public class CleotsFoundEvent : IEvent {
 public class CleotBar : MonoBehaviour, IEventListener {
  
     void Start(){
+        GetComponent<EnergyBar>().labelText = "Cleots";
         EventManager.instance.RegisterListener(this, typeof(CleotsFoundEvent).ToString());
     }
     
