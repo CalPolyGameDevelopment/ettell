@@ -60,7 +60,7 @@ public class MiniGameController : MonoBehaviour {
 		}
 		StoryController.TraverseEdge(result);
 	
-        singleton.StartCoroutine(finishEndMiniGame(result));
+
  }
 
  
