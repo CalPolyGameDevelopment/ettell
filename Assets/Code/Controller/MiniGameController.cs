@@ -50,6 +50,15 @@ public class MiniGameController : MonoBehaviour {
 		Destroy(singleton.current);
 		singleton.current = null;
 		StoryController.TraverseEdge(result);
-	}
+	
+        singleton.StartCoroutine(finishEndMiniGame(result));
+ }
+
+ public static IEnumerator<int> finishEndMiniGame(string result) {
+     while (!(Application.loadedLevelName == "Empty" || Application.loadedLevelName == "Start")) {
+         yield return 0;
+     }
+     StoryController.TraverseEdge(result);
+ }
 
 }

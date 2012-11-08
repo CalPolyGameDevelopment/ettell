@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-public class PowerBar : MonoBehaviour {
+public class EnergyBar : MonoBehaviour {
 
-    public float power = 50;
-    public int maxPower = 100;
-    public float powerIncrement = 10;
+    public float energy = 0;
+    public int maxEnergy = 100;
+    public float energyIncrement = 10;
     
     public Color backgroundColor = Color.black;
     public Color forgroundColor = Color.red;
@@ -16,6 +16,7 @@ public class PowerBar : MonoBehaviour {
 
     private Texture2D background;
     private Texture2D foreground;
+    
     void Start()
     {
 
@@ -36,15 +37,31 @@ public class PowerBar : MonoBehaviour {
         {
             
             GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
-            GUI.DrawTexture(new Rect(0, 0, box.width*power/maxPower, box.height), foreground, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(0, 0, box.width*energy/maxEnergy, box.height), foreground, ScaleMode.StretchToFill);
 
                  }
         GUI.EndGroup(); ;
     }
  
+    public float Value {
+        get{
+            return energy;
+        }
+        set{
+            // Make sure energy can't go over max or under min?
+            energy = value;
+        }
+    }
     
-    public void IncrementPower(){
+    
+    public void DecrementEnergy(){
         
-          power += powerIncrement;
+        energy -= energyIncrement;
+        
+    }
+    
+    public void IncrementEnergy(){
+        
+          energy += energyIncrement;
     }
 }
