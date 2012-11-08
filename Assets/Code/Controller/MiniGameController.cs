@@ -19,6 +19,7 @@ public class MiniGameController : MonoBehaviour {
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
+	public GameObject physics;
     
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -37,6 +38,7 @@ public class MiniGameController : MonoBehaviour {
         miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
         miniGameTypes["match3"] = match3;
         miniGameTypes["BullsAndCleots"] = bullsAndCleots;
+        miniGameTypes["physics"] = physics;
 		singleton = this;
 	}
 	
@@ -49,6 +51,13 @@ public class MiniGameController : MonoBehaviour {
 	public static void endMiniGame(string result) {
 		Destroy(singleton.current);
 		singleton.current = null;
+		singleton.StartCoroutine(finishEndMiniGame(result));
+	}
+	
+	public static IEnumerator<int> finishEndMiniGame(string result) {
+		while (!(Application.loadedLevelName == "Empty" || Application.loadedLevelName == "Start")) {
+			yield return 0;
+		}
 		StoryController.TraverseEdge(result);
 	
         singleton.StartCoroutine(finishEndMiniGame(result));

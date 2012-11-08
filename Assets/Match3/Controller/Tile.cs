@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour {
 	
 	public float fallSpeed;
 	
-	public Match3.color identity;
+	public XmlUtilities.EdgeColor identity;
 	public Tile up;
 	public Tile down;
 	public Tile left;
