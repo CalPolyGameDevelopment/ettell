@@ -44,37 +44,29 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraFocus.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraScrolling.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\DeathTrigger.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\LevelAttributes.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\PlatformTarget.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\Spaceship\Spaceship.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\2D\SpawnPoint.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\Effects\CollisionParticleEffect.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\Effects\CollisionSoundEffect.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\Effects\Foot.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\Effects\SpecialEffectHandler.js" />
-     <Compile Include="Assets\2D Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraFocus.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraScrolling.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\DeathTrigger.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\LevelAttributes.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\PlatformTarget.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Spaceship\Spaceship.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\SpawnPoint.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionParticleEffect.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionSoundEffect.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\Foot.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\SpecialEffectHandler.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Resources\waves.xml" />
-     <None Include="Assets\2D Platformer\Shaders\Particle Add (Overlay).shader" />
      <None Include="Assets\Resources\defaultUser.xml" />
      <None Include="Assets\Resources\story.xml" />
-     <None Include="Assets\2D Platformer\Level Prefabs\story.xml" />
- <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
- </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{D48165B7-C2E7-ACAB-AAC7-69F6FF26C37A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+     <None Include="Assets\RedBlue Platformer\Level Prefabs\story.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
