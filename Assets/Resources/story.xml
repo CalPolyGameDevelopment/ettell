@@ -12,6 +12,7 @@
 			<response data="BC Hack" edge="bullsAndCleotsEdge" />
 			<response data="Physics Demo" edge="physicsDemoEdge" />
 			<response data="Slideshow" edge="slideshowEdge" />
+            <response data="Wave Defense" edge="waveDefenseEdge" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -94,11 +95,17 @@
 			<resource data="WallStreetSign" />
 		</minigame>
 	</node>
+    <node id="waveDefenseNode">
+        <minigame data="WaveDefense">
+            <sceneName data="WaveDefense" />
+            
+        </minigame>      
+    </node>   
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
 		</minigame>
-	</node>
+	</node>   
 	<edge id="firstPuzzleRecur" data="firstPuzzle">
 		<consequence>
 			<change data="year">
@@ -132,4 +139,5 @@
 	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />
 	<edge id="slideshowEdge" data="slideshowNode" />
+    <edge id="waveDefenseEdge" data="waveDefenseNode" />   
 </story>
