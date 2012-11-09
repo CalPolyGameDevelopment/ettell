@@ -14,7 +14,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener
     private Color[] guessColors;
     
     private bool hasWon;
-    private Rect messagesRect = new Rect (10, 75, 300, 250);
+    private Rect messagesRect = new Rect (10, 95, 300, 250);
     private int maxMessages = 10;
     private Queue<string> playerMessageQueue;
     private const int DIGIT_NOT_GUESSED = -1;
@@ -36,6 +36,24 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener
         snapOnExitName,
 
     };
+    
+    
+    
+    
+    public int[] solutionDigits{
+
+        set {
+            
+            Array.Copy(value, winDigits, winDigits.GetLength(0));        
+        }
+    }
+    
+    public Color[] solutionColors{
+
+        set{
+            Array.Copy(value, winColors, winColors.GetLength(0));
+        }
+    }
     
     void Start ()
     {
@@ -105,7 +123,17 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener
     // dropped into them.
     bool hasBlankGuesses {
         get {
-            return false; //Array.IndexOf (guessDigits, DIGIT_NOT_GUESSED) > -1;
+            int filledCount = 0;
+            int lenSolution = winDigits.GetLength(0);
+            for(int i = 0; i < lenSolution; i++){
+                if (guessDigits[i] == DIGIT_NOT_GUESSED && 
+                        guessColors[i] == COLOR_NOT_GUESSED){
+                   continue;
+                    
+                }
+                filledCount++;
+            }
+            return filledCount < lenSolution; 
         }
     }
     
