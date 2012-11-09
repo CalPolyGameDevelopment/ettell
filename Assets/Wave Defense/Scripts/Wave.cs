@@ -1,23 +1,63 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-/// <summary>
-/// Wave 
-/// </summary>
+public class WaveCompletedEvent : EventObject{}
+
 public class Wave : MonoBehaviour {
  
-    // phase transition
-    // 
-    // phase -> trigger -> phase
+    public GameObject spawnObject;
+    public int spawnCount;
+ 
+    private bool isActive = false;
+    private List<GameObject> spawnList;
     
     
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    
+    public void Spawn(GameObject parentObject){
+        spawnList = new List<GameObject>();
+        Vector3 spawnPoint = spawnObject.transform.position;
+        for(int i = 1; i <= spawnCount; i++){
+            
+            GameObject spawn = Instantiate(spawnObject) as GameObject;
+            
+            //spawn.transform.parent = parentObject.transform;
+            
+            spawn.transform.rigidbody.position = 
+                new Vector3(spawnPoint.x + (i*5.0f), spawnPoint.y, spawnPoint.z);
+
+            spawn.name = string.Format("({0}) {1}", i, spawnObject);
+            spawnList.Add(spawn);
+            spawn.rigidbody.AddForce(0,0,-100);
+        }
+        isActive = true;
+    }
+    
+    bool hasActiveSpawns{
+        get{
+            var spawns = from spawn in spawnList 
+                         where spawn != null select spawn;
+            return spawns.Count<GameObject>() > 0;
+        }
+    }
+    
+    void Update(){
+  
+        if (!isActive)
+            return;
+        
+        if (hasActiveSpawns){
+            return;
+        }
+        else{
+            EventManager.instance.QueueEvent(new WaveCompletedEvent());
+            isActive = false;
+        }
+        
+       
+    }
+    
+    
 }
+
