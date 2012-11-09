@@ -26,6 +26,9 @@ public class XmlUtilities : MonoBehaviour {
 	public const string color = "color";
 	public const string solution = "solution";
     public const string number = "number";
+	public const string duration = "duration";
+	public const string resource = "resource";
+	public const string endEdge = "endEdge";
     
     public static readonly Dictionary<string,Color> colorNameToValueMap = 
         new Dictionary<string, Color>{
@@ -42,8 +45,6 @@ public class XmlUtilities : MonoBehaviour {
 	private delegate string replace();
 	
 	private static Dictionary<Regex, replace> replacers;
-	
-    
     
 	void Start() {
 		replacers = new Dictionary<Regex, replace>();
