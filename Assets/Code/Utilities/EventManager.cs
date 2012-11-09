@@ -9,12 +9,38 @@ public interface IEventListener
 }
 
 
-public interface IEvent
-{
-    
-    string GetName ();
 
+public interface IEvent 
+{
+    string GetName();
     object GetData ();
+}
+
+public class EventObject : IEvent{
+    private string eventName;
+    private object eventData;
+    
+    public EventObject(string name, object data){
+        eventName = name;
+        eventData = data; 
+    }
+    
+    public EventObject(object data){
+        eventName = this.GetType().ToString();
+        eventData = data; 
+    }
+    public EventObject(){
+        eventName = this.GetType().ToString();
+        eventData = null; 
+    }
+ 
+    public virtual string GetName(){
+        return eventName;
+    }
+    public virtual object GetData(){
+        return eventData;
+    }
+    
 }
 
 /// EventManager - A stupid simple event manager class. 
