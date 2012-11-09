@@ -123,17 +123,17 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener
     // dropped into them.
     bool hasBlankGuesses {
         get {
-            int filledCount = 0;
+            
             int lenSolution = winDigits.GetLength(0);
             for(int i = 0; i < lenSolution; i++){
                 if (guessDigits[i] == DIGIT_NOT_GUESSED && 
                         guessColors[i] == COLOR_NOT_GUESSED){
-                   continue;
+                   return true;
                     
                 }
-                filledCount++;
+                
             }
-            return filledCount < lenSolution; 
+            return false;
         }
     }
     
