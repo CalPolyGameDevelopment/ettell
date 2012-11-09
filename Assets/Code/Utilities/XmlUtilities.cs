@@ -24,11 +24,27 @@ public class XmlUtilities : MonoBehaviour {
 	public const string width = "width";
 	public const string height = "height";
 	public const string color = "color";
-	
+	public const string solution = "solution";
+    public const string number = "number";
+    
+    public static readonly Dictionary<string,Color> colorNameToValueMap = 
+        new Dictionary<string, Color>{
+            {"red" , Color.red},
+            {"green",Color.green},
+            {"blue", Color.blue},
+            {"black", Color.black},
+            {"cyan", Color.cyan},
+            {"magenta", Color.magenta},
+            {"white", Color.white},
+            {"yellow", Color.yellow},
+    };
+    
 	private delegate string replace();
 	
 	private static Dictionary<Regex, replace> replacers;
 	
+    
+    
 	void Start() {
 		replacers = new Dictionary<Regex, replace>();
 		replacers[new Regex("\\\\year")] = Year;
