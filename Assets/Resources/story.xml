@@ -1,115 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <story>
-	<node id="firstPuzzle">
-		<minigame data="dialog">
-			<prompt data="Current year: \year" />
-			<prompt data="Placeholder dialog mini-game:" />
-			<response data="example platformer" edge="platformEdge" />
-			<response data="laser plumber" edge="laserEdge" />
-			<response data="dialog recur" edge="firstPuzzleRecur" />
-			<response data="dillon platformer" edge="redBlueChoice" />
-			<response data="match3" edge="match3Edge" />
-            <response data="BC Hack" edge="bullsAndCleotsEdge" />
-            <response data="Physics Demo" edge="physicsDemoEdge" />
-			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
-				<requirement id="enoughCpu">
-					<have data="cpuPower">
-						<atLeast data="128" />
-					</have>
-				</requirement>
-			</response>
-		</minigame>
-	</node>
-	<node id="platformer">
-		<minigame data="platformer">
-			<sceneName data="Platformer1" />
-		</minigame>
-	</node>
-	<node id="laserPlumber">
-		<minigame data="laserPlumber">
-			<source>
-				<position data="0,0,0" />
-			</source>
-			<mirror>
-				<position data="15,0,0" />
-			</mirror>
-			<mirror>
-				<position data="15,-10,0" />
-			</mirror>
-			<mirror>
-				<position data="30,-10,0" />
-			</mirror>
-			<sink data="firstPuzzleRecur">
-				<position data="30,0,0" />
-			</sink>
-		</minigame>
-	</node>
-	<node id="redBluePlatformer">
-		<minigame data="RedBlueTurretPlatformer">
-			<sceneName data="RedBlueTurretPlatformer" />
-		</minigame>
-	</node>
-    <node id="redBluePlatformer2Node">
+ <node id="firstPuzzle">
+     <minigame data="dialog">
+         <prompt data="Current year: \year" />
+         <prompt data="Placeholder dialog mini-game:" />
+         <response data="example platformer" edge="platformEdge" />
+         <response data="laser plumber" edge="laserEdge" />
+         <response data="dialog recur" edge="firstPuzzleRecur" />
+         <response data="dillon platformer" edge="redBlueChoice" />
+         <response data="match3" edge="match3Edge" />
+         <response data="BC Hack" edge="bullsAndCleotsEdge" />
+         <response data="Physics Demo" edge="physicsDemoEdge" />
+         <response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
+             <requirement id="enoughCpu">
+                 <have data="cpuPower">
+                     <atLeast data="128" />
+                 </have>
+             </requirement>
+         </response>
+     </minigame>
+ </node>
+ <node id="platformer">
+     <minigame data="platformer">
+         <sceneName data="Platformer1" />
+     </minigame>
+ </node>
+ <node id="laserPlumber">
+     <minigame data="laserPlumber">
+         <source>
+             <position data="0,0,0" />
+         </source>
+         <mirror>
+             <position data="15,0,0" />
+         </mirror>
+         <mirror>
+             <position data="15,-10,0" />
+         </mirror>
+         <mirror>
+             <position data="30,-10,0" />
+         </mirror>
+         <sink data="firstPuzzleRecur">
+             <position data="30,0,0" />
+         </sink>
+     </minigame>
+ </node>
+ <node id="redBluePlatformer">
+     <minigame data="RedBlueTurretPlatformer">
+         <sceneName data="RedBlueTurretPlatformer" />
+     </minigame>
+ </node>
+ <node id="redBluePlatformer2Node">
      <minigame data="RedBlueTurretPlatformer">
          <sceneName data="RedBlueTurretPlatformer2" />
      </minigame>
- </node>   
-    <node id="bullsAndCleotsNode">
-        <minigame data="BullsAndCleots">
-            <sceneName data="BullsAndCleots" />
-            <number data="7,4,3,2"/>         
-        </minigame>
-    </node>
-	<node id="match3Node">
-		<minigame data="match3">
-			<width data="8" />
-			<height data="8" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
-		</minigame>
-	</node>
-	<node id="physicsDemoNode">
-		<minigame data="physics">
-            <sceneName data="PhysicsDemo" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
-		</minigame>
-	</node>
-	<node id="youWin">
-		<minigame data="dialog">
-			<prompt data="You win!" />
-		</minigame>
-	</node>
-	<edge id="firstPuzzleRecur" data="firstPuzzle">
-		<consequence>
-			<change data="year">
-				<add data="2" />
-			</change>
-			<change data="cpuPower">
-				<multiply data="2" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="chooseRed" data="firstPuzzle">
-		<consequence>
-			<change data="year">
-				<add data="3" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="chooseBlue" data="redBluePlatformer2Node">
-		<consequence>
-			<change data="year">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
-    <edge id="bullsAndCleotsWinEdge" data="firstPuzzle" />
-	<edge id="winGame" data="youWin" />
-	<edge id="platformEdge" data="platformer" />
-	<edge id="laserEdge" data="laserPlumber" />
-	<edge id="redBlueChoice" data="redBluePlatformer"/>
-	<edge id="match3Edge" data="match3Node"/>
-    <edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
-    <edge id="physicsDemoEdge" data="physicsDemoNode" />
+ </node>
+ <node id="bullsAndCleotsNode">
+     <minigame data="BullsAndCleots">
+         <sceneName data="BullsAndCleots" />
+         <solution data="colors">
+             <color data="red" />
+             <color data="blue" />
+             <color data="green" />
+             <color data="magenta" />
+         </solution>
+         <solution data="numbers">
+             <number data="4" />
+             <number data="3" />
+             <number data="2" />
+             <number data="1" />
+         </solution>
+     </minigame>
+ </node>
+ <node id="match3Node">
+     <minigame data="match3">
+         <width data="8" />
+         <height data="8" />
+         <color data="255,0,0,firstPuzzleRecur" />
+         <color data="0,255,0,winGame" />
+     </minigame>
+ </node>
+ <node id="physicsDemoNode">
+     <minigame data="physics">
+         <sceneName data="PhysicsDemo" />
+         <color data="255,0,0,firstPuzzleRecur" />
+         <color data="0,255,0,winGame" />
+     </minigame>
+ </node>
+ <node id="youWin">
+     <minigame data="dialog">
+         <prompt data="You win!" />
+     </minigame>
+ </node>
+ <edge id="firstPuzzleRecur" data="firstPuzzle">
+     <consequence>
+         <change data="year">
+             <add data="2" />
+         </change>
+         <change data="cpuPower">
+             <multiply data="2" />
+         </change>
+     </consequence>
+ </edge>
+ <edge id="chooseRed" data="firstPuzzle">
+     <consequence>
+         <change data="year">
+             <add data="3" />
+         </change>
+     </consequence>
+ </edge>
+ <edge id="chooseBlue" data="redBluePlatformer2Node">
+     <consequence>
+         <change data="year">
+             <add data="1" />
+         </change>
+     </consequence>
+ </edge>
+ <edge id="bullsAndCleotsWinEdge" data="firstPuzzle" />
+ <edge id="winGame" data="youWin" />
+ <edge id="platformEdge" data="platformer" />
+ <edge id="laserEdge" data="laserPlumber" />
+ <edge id="redBlueChoice" data="redBluePlatformer" />
+ <edge id="match3Edge" data="match3Node" />
+ <edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
+ <edge id="physicsDemoEdge" data="physicsDemoNode" />
 </story>
