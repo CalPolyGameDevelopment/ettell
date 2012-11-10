@@ -4,5 +4,5 @@ using System.Xml;
 
 public class RedBlueTurretPlatformer : SceneLoadingMiniGame {
 
-	
+
 }

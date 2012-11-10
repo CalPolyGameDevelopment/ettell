@@ -32,19 +32,32 @@ public class ProjectileLauncher: MonoBehaviour {
 	
 	private float launchDelay;
 	
+    private bool isEnabled = true;
+    
 	// A bit of skew to make sure that launch factor
 	// can be set to a reasonable number 
 	private const float TIME_FACTOR = 50.0f;
 	
+    public void Enable(){
+        isEnabled = true;
+    }
+    
+    public void Disable(){
+        isEnabled = false;
+    }
 	// Use this for initialization
 	void Start () {
-		launchDelay = TIME_FACTOR/launchRate;
+	    
+        launchDelay = TIME_FACTOR/launchRate;
 		launchTimer = launchDelay;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		
+        if (!isEnabled)
+            return;
+        
 		// Take the amount of time that has passed off
 		// the launch timer since the last call to this 
 		// function.
@@ -58,7 +71,7 @@ public class ProjectileLauncher: MonoBehaviour {
 				projectileEgress.position, projectileEgress.rotation) as Projectile;
 			
 			// Make the projectile clone a child of the turret
-			clone.transform.parent = gameObject.transform;
+			//clone.transform.parent = gameObject.transform;
 			
 			// Reset the name so it doesn't have "(Clone)" suffix.
 			clone.name = projectile.name;

@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class BullsFoundEvent : IEvent{
+public class BullsFoundEvent : IEvent {
     private string name;
     int bullCount;
-    
-    public BullsFoundEvent(int count){
+
+    public BullsFoundEvent(int count) {
         name = this.GetType().ToString();
         bullCount = count;
     }
 
-    
-    string IEvent.GetName(){
+
+    string IEvent.GetName() {
         return name;
     }
     object IEvent.GetData() {
@@ -22,19 +22,19 @@ public class BullsFoundEvent : IEvent{
 
 [RequireComponent(typeof(EnergyBar))]
 public class BullBar : MonoBehaviour, IEventListener {
- 
-    void Start(){
+
+    void Start() {
         GetComponent<EnergyBar>().labelText = "Bulls";
         EventManager.instance.RegisterListener(this, typeof(BullsFoundEvent).ToString());
     }
-    
-    public bool HandleEvent(IEvent evnt){
+
+    public bool HandleEvent(IEvent evnt) {
         FoundBulls((int)evnt.GetData());
         return true;
     }
-    
-    public void FoundBulls(int numFound){
-        
+
+    public void FoundBulls(int numFound) {
+
         EnergyBar energyBar = gameObject.GetComponent<EnergyBar>();
         energyBar.Value = energyBar.energyIncrement * numFound;
     }

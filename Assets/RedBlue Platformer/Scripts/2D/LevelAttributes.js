@@ -2,6 +2,7 @@
 var bounds : Rect;
 var fallOutBuffer = 5.0;
 var colliderThickness = 10.0;
+var destroyOnContact = false;
 
 // Sea Green For the Win!
 private var sceneViewDisplayColor = Color (0.20, 0.74, 0.27, 0.50);
@@ -28,6 +29,7 @@ function OnDrawGizmos () {
 	var lowerRight = Vector3 (bounds.xMax, bounds.yMax, 0);
 	var upperRight = Vector3 (bounds.xMax, bounds.yMin, 0);
 	
+
 	Gizmos.DrawLine (lowerLeft, upperLeft);
 	Gizmos.DrawLine (upperLeft, upperRight);
 	Gizmos.DrawLine (upperRight, lowerRight);
