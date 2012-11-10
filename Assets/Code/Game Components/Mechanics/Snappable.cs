@@ -54,7 +54,7 @@ public class Snappable : MonoBehaviour {
             return;
         
         occupierCount++;
-        EventManager.instance.QueueEvent(new SnappableOnEnterEvent(draggable.gameObject));
+        EventManager.instance.RelayEvent(new SnappableOnEnterEvent(draggable.gameObject));
         
             
     }
@@ -65,7 +65,7 @@ public class Snappable : MonoBehaviour {
             return;
         
         occupierCount--;
-        EventManager.instance.QueueEvent(new SnappableOnExitEvent(draggable.gameObject));
+        EventManager.instance.RelayEvent(new SnappableOnExitEvent(draggable.gameObject));
         
     }
     

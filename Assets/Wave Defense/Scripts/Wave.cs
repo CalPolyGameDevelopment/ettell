@@ -51,7 +51,7 @@ public class Wave : MonoBehaviour {
             return;
         }
         else{
-            EventManager.instance.QueueEvent(new WaveCompletedEvent());
+            EventManager.instance.RelayEvent(new WaveCompletedEvent());
             isActive = false;
         }
         

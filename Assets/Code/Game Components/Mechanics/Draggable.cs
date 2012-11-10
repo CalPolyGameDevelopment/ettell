@@ -168,7 +168,7 @@ public class Draggable : MonoBehaviour
  
         if (!isMoving) {
             isMoving = true;
-            EventManager.instance.QueueEvent(new DraggableOnMoveEvent(this.gameObject));
+            EventManager.instance.RelayEvent(new DraggableOnMoveEvent(this.gameObject));
         } else {
             Debug.LogWarning ("Encountered unexpected state.");     
         }
@@ -204,7 +204,7 @@ public class Draggable : MonoBehaviour
         
         snapPosition.y = gameObject.transform.position.y;
         myRigidbody.MovePosition (snapPosition);
-        EventManager.instance.QueueEvent (new DraggableOnSnapEvent (gameObject));
+        EventManager.instance.RelayEvent (new DraggableOnSnapEvent (gameObject));
        
     }
     

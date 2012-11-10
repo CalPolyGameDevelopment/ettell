@@ -217,9 +217,9 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener
         // These do not need to be and should not be events. I got 
         // caught using my shiny new hammer to do something better
         // suited to a screwdriver you might say.
-        EventManager.instance.QueueEvent (new BullsFoundEvent (bullCount));
-        EventManager.instance.QueueEvent (new CleotsFoundEvent (cleotCount));
-        EventManager.instance.QueueEvent (new SolutionMixEvent (digitCount));
+        EventManager.instance.RelayEvent (new BullsFoundEvent (bullCount));
+        EventManager.instance.RelayEvent (new CleotsFoundEvent (cleotCount));
+        EventManager.instance.RelayEvent (new SolutionMixEvent (digitCount));
         
         numberedBlocks.GetComponent<NumberedBlocks>().Reset();
         coloredBlocks.GetComponent<ColoredBlocks>().Reset();
