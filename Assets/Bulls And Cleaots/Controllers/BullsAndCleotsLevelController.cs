@@ -278,8 +278,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         Snappable snappable = draggable.currentSnappable.GetComponent<Snappable>();
 
         ColoredBlock colorBlock = obj.GetComponent<ColoredBlock>();
-        DigitDropArea dropArea = draggable.currentSnappable.GetComponent<DigitDropArea>();
-        int index = dropArea.index;
+        SolutionSnapArea dropArea = draggable.currentSnappable.GetComponent<SolutionSnapArea>();
+        int index = dropArea.Index;
 
         if (snappable.isAlreadyOccupied) {
             Color temp = winColors[index];
@@ -305,9 +305,9 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
 
         NumericalDigit number = obj.GetComponent<NumericalDigit>();
-        DigitDropArea dropArea = draggable.currentSnappable.GetComponent<DigitDropArea>();
+        SolutionSnapArea dropArea = draggable.currentSnappable.GetComponent<SolutionSnapArea>();
 
-        int index = dropArea.index;
+        int index = dropArea.Index;
 
 
 
@@ -327,13 +327,13 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
     }
 
-    // Called when a NumericalDigit exits a DigitDropArea
+    // Called when a NumericalDigit exits a SolutionSnapArea
     // to make sure that the guessDigit gets reset.
     void DigitVacateDropArea(GameObject obj) {
         Draggable d = obj.GetComponent<Draggable>();
 
-        DigitDropArea dropArea = d.currentSnappable.GetComponent<DigitDropArea>();
-        int index = dropArea.index;
+        SolutionSnapArea dropArea = d.currentSnappable.GetComponent<SolutionSnapArea>();
+        int index = dropArea.Index;
         int guessDigit = obj.GetComponent<NumericalDigit>().digit;
         int currentDigit = guessDigits[index];
 
@@ -349,8 +349,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     void ColorVacateDropArea(GameObject obj) {
         Draggable d = obj.GetComponent<Draggable>();
 
-        DigitDropArea dropArea = d.currentSnappable.GetComponent<DigitDropArea>();
-        int index = dropArea.index;
+        SolutionSnapArea dropArea = d.currentSnappable.GetComponent<SolutionSnapArea>();
+        int index = dropArea.Index;
 
         Color guessColor = obj.GetComponent<ColoredBlock>().color;
         Color currentColor = guessColors[index];
