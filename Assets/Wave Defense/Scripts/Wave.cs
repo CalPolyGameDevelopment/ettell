@@ -10,14 +10,19 @@ public class Wave : MonoBehaviour {
     public GameObject spawnObject;
     public int spawnCount;
  
+    public Vector3 force;
+    
     private bool isActive = false;
     private List<GameObject> spawnList;
     
-    
+    public enum SpawnPattern{
+        Linear
+    }
     
     public void Spawn(GameObject parentObject){
         spawnList = new List<GameObject>();
-        Vector3 spawnPoint = spawnObject.transform.position;
+        Vector3 spawnPoint = gameObject.transform.parent.position;
+        float side = 1.0f;
         for(int i = 1; i <= spawnCount; i++){
             
             GameObject spawn = Instantiate(spawnObject) as GameObject;
@@ -25,11 +30,12 @@ public class Wave : MonoBehaviour {
             //spawn.transform.parent = parentObject.transform;
             
             spawn.transform.rigidbody.position = 
-                new Vector3(spawnPoint.x + (i*5.0f), spawnPoint.y, spawnPoint.z);
+                new Vector3(spawnPoint.x + (i*5.0f*side), spawnPoint.y, spawnPoint.z);
 
             spawn.name = string.Format("({0}) {1}", i, spawnObject);
             spawnList.Add(spawn);
-            spawn.rigidbody.AddForce(0,0,-100);
+            spawn.rigidbody.AddForce(force);
+            side *= -1;
         }
         isActive = true;
     }
