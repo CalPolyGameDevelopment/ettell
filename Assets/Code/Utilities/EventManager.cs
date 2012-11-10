@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+
 public interface IEventListener
 {
     bool HandleEvent (IEvent evt);
 }
-
 
 
 public interface IEvent 
@@ -16,19 +16,17 @@ public interface IEvent
     object GetData ();
 }
 
+
 public class EventObject : IEvent{
     private string eventName;
     private object eventData;
     
-    public EventObject(string name, object data){
-        eventName = name;
-        eventData = data; 
-    }
     
     public EventObject(object data){
         eventName = this.GetType().ToString();
         eventData = data; 
     }
+    
     public EventObject(){
         eventName = this.GetType().ToString();
         eventData = null; 
@@ -55,8 +53,9 @@ public class EventObject : IEvent{
 ///     event type. This is not needed for the current usage.
 public class EventManager : MonoBehaviour
 {
- 
+    
     private static EventManager singleton = null;
+    
     private Queue eventQueue;
  
     // event-name => event listerer class instance
@@ -98,6 +97,7 @@ public class EventManager : MonoBehaviour
         
     }
     
+    
     public bool RegisterListener (IEventListener listener, string eventName)
     {
                 
@@ -115,13 +115,28 @@ public class EventManager : MonoBehaviour
     }
  
     
+    bool HasListener(IEvent evnt){
+       return eventListenerMap.ContainsKey (evnt.GetName ());
+    }
+    
+    /// If there is a listener for evnt then relay the event to 
+    /// that listener immediately. 
+    public bool RelayEvent(IEvent evnt){
+        if (!HasListener(evnt)){
+            Debug.LogWarning ("RelayEvent(): No listener for " + evnt.GetName ());
+            return false;  
+        }
+        DispatchEvent(evnt);
+        return true;
+    }
+    
     
     /// If there is a listener for evnt then place the event in the queue
     /// otherwise just ignore it. 
     public bool QueueEvent (IEvent evnt)
     {
        
-        if (!eventListenerMap.ContainsKey (evnt.GetName ())) {
+        if (!HasListener(evnt)){
             Debug.LogWarning ("QueueEvent(): No listener for " + evnt.GetName ());
             return false;
         }
@@ -130,6 +145,7 @@ public class EventManager : MonoBehaviour
         return true;
     }
  
+    
     // Calls the listener's HandleEvent() methods for the event
     void DispatchEvent (IEvent evnt)
     { 
@@ -137,6 +153,7 @@ public class EventManager : MonoBehaviour
         IEventListener listener = eventListenerMap [eventName];
         listener.HandleEvent (evnt);
     }
+    
     
     // Only process the event queue on each update.
     void Update ()
