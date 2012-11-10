@@ -6,5 +6,7 @@ Temp
 *.sln
 *.csproj
 *.pidb
+*.suo
+obj/Debug
 build
 attell.userprefs
