@@ -19,7 +19,7 @@ public class SolutionInputPanel : MonoBehaviour {
     // by an extra layoutSpacing.
     private float layoutSpacing = 2.0f;
 
-	// Use this for initialization
+
 	void Start () {
 
 
