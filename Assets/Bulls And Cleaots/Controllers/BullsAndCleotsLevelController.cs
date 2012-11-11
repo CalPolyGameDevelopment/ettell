@@ -1,33 +1,49 @@
 using UnityEngine;
 using System.Collections;
-using System;
 using System.Collections.Generic;
+using System.Linq;
+
+public class BCLevelData {
+    public int solutionLength;
+    public Color[] possibleColors;
+    public int[] possibleNumbers;
+    public int[] solutionNumbers;
+    public Color[] solutionColors;
+    
+    public BCLevelData(int len, IEnumerable<int> numbers, IEnumerable<Color> colors){
+        solutionLength = len;
+        possibleColors = colors.ToArray();
+        possibleNumbers = numbers.ToArray();
+        
+        solutionColors = possibleColors.AsEnumerable().OrderBy(x=>Random.value)
+                .Take(solutionLength).ToArray();
+       
+        solutionNumbers = possibleNumbers.AsEnumerable()
+            .OrderBy(x=>Random.value)
+                .Take(solutionLength).ToArray();
+        
+                
+
+    }
+}
+
 
 public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
     public Rect attemptButtonRect;
 
-    public int[] winDigits;
-    private int[] guessDigits;
-    public Color[] winColors;
-    private Color[] guessColors;
-
-    private bool hasWon;
-    private Rect messagesRect = new Rect(10, 95, 300, 250);
-    private int maxMessages = 10;
-    private Queue<string> playerMessageQueue;
-    private const int DIGIT_NOT_GUESSED = -1;
-    private static Color COLOR_NOT_GUESSED = Color.gray;
-    private int attemptCount;
+    public SolutionManager solution;
 
     public GameObject numberedBlocks;
     public GameObject coloredBlocks;
-
+    public GameObject inputPane;
+    
     static string onSnapName = typeof(DraggableOnSnapEvent).ToString();
     static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
     static string snapOnExitName = typeof(SnappableOnExitEvent).ToString();
     static string onMoveName = typeof(DraggableOnMoveEvent).ToString();
-
+ 
+   
     private string[] handledEventNames = {
         onSnapName,
         onMoveName,
@@ -35,25 +51,30 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         snapOnExitName,
 
     };
+ 
+    private bool hasWon;
+    private Rect messagesRect = new Rect(10, 95, 300, 250);
+    private int maxMessages = 10;
+    private Queue<string> playerMessageQueue;
+ 
+
+    private int attemptCount;
 
 
-
-
-    public int[] solutionDigits {
-
+    private BCLevelData initData = null;
+    
+    public BCLevelData InitData{
         set {
-
-            Array.Copy(value, winDigits, winDigits.GetLength(0));
+            if (initData != null){
+                Debug.LogWarning("Level data already set!");
+                return;
+            }
+            initData = value;
         }
     }
+        
 
-    public Color[] solutionColors {
-
-        set {
-            Array.Copy(value, winColors, winColors.GetLength(0));
-        }
-    }
-
+  
     void Start() {
 
         // init vars
@@ -61,24 +82,25 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         attemptCount = 0;
         playerMessageQueue = new Queue<string>(maxMessages);
 
-        int length = winDigits.GetLength(0);
-        guessDigits = new int[length];
-        guessColors = new Color[length];
-
-        for (int i = 0; i < length; i++) {
-            guessDigits[i] = DIGIT_NOT_GUESSED;
-            guessColors[i] = COLOR_NOT_GUESSED;
-        }
+        solution = new SolutionManager(initData.solutionLength);
+        solution.Colors = initData.solutionColors;
+        solution.Digits = initData.solutionNumbers;
 
 
-
-        // register event handlers
+        
+        numberedBlocks = Instantiate(numberedBlocks) as GameObject;
+        numberedBlocks.GetComponent<NumberedBlocks>().PossibleNumbers = initData.possibleNumbers;
+        
+        coloredBlocks = Instantiate(coloredBlocks) as GameObject;
+        coloredBlocks.GetComponent<ColoredBlocks>().PossibleColors = initData.possibleColors;
+        
+        inputPane = Instantiate(inputPane) as GameObject;
+        inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
+        
+        // register as listener for desired events
         foreach (string eventName in handledEventNames) {
             EventManager.instance.RegisterListener(this, (string)eventName);
         }
-
-        numberedBlocks = Instantiate(numberedBlocks) as GameObject;
-        coloredBlocks = Instantiate(coloredBlocks) as GameObject;
 
     }
 
@@ -87,13 +109,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         object eventData = evnt.GetData();
 
         if (eventName == onSnapName) {
-            GameObject eData = eventData as GameObject;
-            if (eData.GetComponent<ColoredBlock>() == null) {
-                DigitDropped(eData);
-            }
-            else {
-                ColorDropped(eData);
-            }
+
+            GuessDropped(eventData as GameObject);
         }
         else if (eventName == onMoveName) {
             // ignore
@@ -102,13 +119,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
             // ignore
         }
         else if (eventName == snapOnExitName) {
-            GameObject eData = eventData as GameObject;
-            if (eData.GetComponent<ColoredBlock>() == null) {
-                DigitVacateDropArea(eData);
-            }
-            else {
-                ColorVacateDropArea(eData);
-            }
+  
+            GuessVacate(eventData as GameObject);
 
         }
         else {
@@ -118,58 +130,11 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         return true;
     }
 
-    // Checks for guess slots that have not had a number
-    // dropped into them.
-    bool hasBlankGuesses {
-        get {
-
-            int lenSolution = winDigits.GetLength(0);
-            for (int i = 0; i < lenSolution; i++) {
-                if (guessDigits[i] == DIGIT_NOT_GUESSED &&
-                        guessColors[i] == COLOR_NOT_GUESSED) {
-                    return true;
-
-                }
-
-            }
-            return false;
-        }
-    }
-
-    //
-    bool indexIsCleot(int index) {
-        bool isCleot = false;
-        if (Array.IndexOf(winDigits, guessDigits[index]) > -1) {
-            isCleot = true;
-        }
-        else if (Array.IndexOf(winColors, guessColors[index]) > -1) {
-            isCleot = true;
-        }
-        return isCleot;
-    }
-
-    bool indexIsBull(int index) {
-        bool isBull = false;
-        if (winDigits[index] == guessDigits[index]) {
-            isBull = true;
-        }
-        else if (winColors[index] == guessColors[index]) {
-            isBull = true;
-        }
-        return isBull;
-    }
+ 
 
     void PlayerAttemptSolve() {
 
-        // The length of winDigits and guessDigits should 
-        // be equal.
-        int length = winDigits.GetLength(0);
-
-        int bullCount = 0;
-        int cleotCount = 0;
-        int digitCount = 0;
-
-        if (hasBlankGuesses) {
+        if (solution.HasBlankGuesses) {
             // We don't allow for there to be any unfilled 
             // guess slots because that would make the game 
             // too easy. So complain to the user.
@@ -178,37 +143,16 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
         }
 
-        // Interate through the possible indexes for 
-        // winDigits and guessDigits.
-        for (int i = 0; i < length; i++) {
-            if (guessDigits[i] != DIGIT_NOT_GUESSED)
-                digitCount++;
-
-            if (indexIsBull(i)) {
-                // the value at is equal in both 
-                bullCount++;
-                continue;
-            }
-            else if (indexIsCleot(i)) {
-                // the guess value exists in winDigits
-                cleotCount++;
-                continue;
-            }
-
-        }
+        int bullsCount = solution.BullsCount();
+        int cleotsCount = solution.CleotsCount();
 
 
         attemptCount++;
 
 
-        AddPlayerMessage(BuildAttemptMessage(attemptCount, bullCount, cleotCount));
+        AddPlayerMessage(BuildAttemptMessage(attemptCount, bullsCount, cleotsCount));
 
-        if (bullCount == length) {
-            // winDigits == guessDigits, so the player has guessed
-            // the correct number.
-            hasWon = true;
-            AddPlayerMessage("You win!");
-        }
+
 
 
 
@@ -216,43 +160,36 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         // These do not need to be and should not be events. I got 
         // caught using my shiny new hammer to do something better
         // suited to a screwdriver you might say.
-        EventManager.instance.RelayEvent(new BullsFoundEvent(bullCount));
-        EventManager.instance.RelayEvent(new CleotsFoundEvent(cleotCount));
-        EventManager.instance.RelayEvent(new SolutionMixEvent(digitCount));
+        EventManager.instance.RelayEvent(new BullsFoundEvent(bullsCount));
+        EventManager.instance.RelayEvent(new CleotsFoundEvent(cleotsCount));
+        EventManager.instance.RelayEvent(new SolutionMixEvent(solution.DigitCount()));
 
-        numberedBlocks.GetComponent<NumberedBlocks>().Reset();
-        coloredBlocks.GetComponent<ColoredBlocks>().Reset();
+        if (bullsCount == solution.SolutionLength) {
+            // winDigits == guessDigits, so the player has guessed
+            // the correct number.
+            hasWon = true;
+            AddPlayerMessage("You win!");
+            
+        }
+        else{
+
+            numberedBlocks.GetComponent<NumberedBlocks>().Reset();
+            coloredBlocks.GetComponent<ColoredBlocks>().Reset();
+        }
     }
 
-    string BuildAttemptMessage(int attemptCount, int bullCount, int cleotCount) {
+    string BuildAttemptMessage(int attemptCount, int bullsCount, int cleotsCount) {
 
         string attemptStatusMessage = "";
         string messageFormat = "#{0} ({1}): {2} Bulls, {3} Cleots";
 
-        int lenSolution = winDigits.GetLength(0);
-
-        string[] messageParts = new string[lenSolution];
-
-
-        for (int i = 0; i < lenSolution; i++) {
-            if (guessDigits[i] != DIGIT_NOT_GUESSED) {
-                messageParts[i] = guessDigits[i].ToString();
-            }
-            else if (guessColors[i] != COLOR_NOT_GUESSED) {
-                messageParts[i] = guessColors[i].ToString();
-            }
-            else {
-                messageParts[i] = "?";
-            }
-
-        }
 
         // Example:
         //#1 (1234): 2 Bulls, 1 Cleots 
-        attemptStatusMessage = String.Format(messageFormat,
+        attemptStatusMessage = string.Format(messageFormat,
                 attemptCount,
-                String.Join("", messageParts),
-                bullCount, cleotCount);
+                solution,
+                bullsCount, cleotsCount);
 
         return attemptStatusMessage;
     }
@@ -267,99 +204,74 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         }
     }
 
+
     void PlayerEndGame() {
-        // TODO.D: Get rid of naked string
-        MiniGameController.endMiniGame("bullsAndCleotsWinEdge");
+        if (solution.DigitCount() == 0)
+            MiniGameController.endMiniGame(
+                BullsAndCleots.ExitEdges.IncreaseColors);
+        
+        else if (solution.ColorCount() == 0)
+            MiniGameController.endMiniGame(
+                BullsAndCleots.ExitEdges.IncreaseNumbers);
+        
+        else 
+            MiniGameController.endMiniGame(
+                BullsAndCleots.ExitEdges.IncreaseDifficulty);
     }
 
+    
+    
     // Account for a color block being dropped to the guess pane.
-    void ColorDropped(GameObject obj) {
+    void GuessDropped(GameObject obj) {
         Draggable draggable = obj.GetComponent<Draggable>();
         Snappable snappable = draggable.currentSnappable.GetComponent<Snappable>();
 
-        ColoredBlock colorBlock = obj.GetComponent<ColoredBlock>();
+        SolutionBlock solutionBlock = obj.GetComponent<SolutionBlock>();
         SolutionSnapArea dropArea = draggable.currentSnappable.GetComponent<SolutionSnapArea>();
-        int index = dropArea.Index;
+        
+      int index = dropArea.Index;
+      object guess = solutionBlock.data;
 
         if (snappable.isAlreadyOccupied) {
-            Color temp = winColors[index];
+            object temp = solution.Guesses[index];
             draggable.Reset();
-            guessColors[index] = temp;
+            solution.SetGuessAt(index, temp);
 
 
         }
         else {
-
-            guessColors[index] = colorBlock.color;
+            solution.SetGuessAt(index, guess);
+           
 
         }
 
     }
 
-    // Accounts for a number being dropped in the guess pane.
-    void DigitDropped(GameObject obj) {
-
-        Draggable draggable = obj.GetComponent<Draggable>();
-        Snappable snappable = draggable.currentSnappable.GetComponent<Snappable>();
-
-
-
-        NumericalDigit number = obj.GetComponent<NumericalDigit>();
-        SolutionSnapArea dropArea = draggable.currentSnappable.GetComponent<SolutionSnapArea>();
-
-        int index = dropArea.Index;
-
-
-
-        if (snappable.isAlreadyOccupied) {
-            int temp = guessDigits[index];
-            draggable.Reset();
-            guessDigits[index] = temp;
-
-        }
-        else {
-
-            guessDigits[index] = number.digit;
-        }
-
-
-
-
-    }
-
-    // Called when a NumericalDigit exits a SolutionSnapArea
-    // to make sure that the guessDigit gets reset.
-    void DigitVacateDropArea(GameObject obj) {
+   
+    
+    void GuessVacate(GameObject obj) {
         Draggable d = obj.GetComponent<Draggable>();
-
-        SolutionSnapArea dropArea = d.currentSnappable.GetComponent<SolutionSnapArea>();
-        int index = dropArea.Index;
-        int guessDigit = obj.GetComponent<NumericalDigit>().digit;
-        int currentDigit = guessDigits[index];
-
-        // Make sure this isn't due to a Reset().
-        if (currentDigit == DIGIT_NOT_GUESSED ||
-            guessDigit == currentDigit) {
-            guessDigits[index] = DIGIT_NOT_GUESSED;
-        }
-
-
-
-    }
-    void ColorVacateDropArea(GameObject obj) {
-        Draggable d = obj.GetComponent<Draggable>();
+        SolutionBlock solutionBlock = obj.GetComponent<SolutionBlock>();
 
         SolutionSnapArea dropArea = d.currentSnappable.GetComponent<SolutionSnapArea>();
         int index = dropArea.Index;
 
-        Color guessColor = obj.GetComponent<ColoredBlock>().color;
-        Color currentColor = guessColors[index];
+        object vacatingGuess = solutionBlock.data;
 
-        // Make sure this isn't due to a Reset().
-        if (currentColor == COLOR_NOT_GUESSED ||
-            guessColor == currentColor) {
-            guessColors[index] = COLOR_NOT_GUESSED;
-        }
+        object currentGuess = solution.Guesses[index];
+            
+        // Guess vacating because snaparea already occupied so
+        // keep current guess.
+        if (currentGuess != vacatingGuess)
+            return;
+        
+
+        
+        // Otherwise it means that the snap area will be empty
+        // after the guess vacates so set it to NOT_GUESSED
+        solution.ResetGuessAt(index);
+
+
 
     }
 
