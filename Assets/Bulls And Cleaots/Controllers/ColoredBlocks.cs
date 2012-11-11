@@ -1,49 +1,78 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 public class ColoredBlocks : MonoBehaviour {
 
-    public Color[] blockColors;
-    public GameObject coloredBlock;
 
-    private GameObject[] blocks;
-    private Vector3 spacingVector = new Vector3(1.2f, 0.0f, 0.0f);
+    public GameObject blockPrefab;
+    public Transform startTransform;
+    public static Color[] blockColors = {
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.magenta,
+        Color.cyan,
+        Color.yellow,
+        Color.white,
+        Color.black,
+    };
+    
+    private List<GameObject> blocks; 
+    private float layoutSpacing = 1.2f;
+    private Color[] possibleColors;
+    private int colorCount;
+    
+    public Color[] PossibleColors  {
+        set{
+            colorCount = value.GetLength(0);
+            possibleColors = new Color[colorCount];
+            Array.Copy(value, possibleColors, colorCount);
+        }
+    }
 
     // Use this for initialization
     void Start() {
 
+        Vector3 startPos = startTransform.position;
 
-        int numColors = blockColors.GetLength(0);
-        blocks = new GameObject[numColors];
+        Func<int, Vector3> LayoutObject = c => new Vector3(
+            startPos.x + (c * layoutSpacing), startPos.y, startPos.z);
 
 
-        for (int i = 0; i < numColors; i++) {
-            Color newColor = blockColors[i];
-            GameObject newBlock = Instantiate(coloredBlock) as GameObject;
+
+        blocks = new List<GameObject>();
+  
+        // WHY4UNO HAZ PYTHON'S ENUMERATE, C#?!?
+        for (int index = 0; index < colorCount; index++){
+            Color newColor = possibleColors[index];
+            GameObject newBlock = Instantiate(blockPrefab) as GameObject;
+            SolutionBlock solutionBlock = newBlock.GetComponent<SolutionBlock>();
+
             newBlock.renderer.material.color = newColor;
-
             newBlock.transform.parent = gameObject.transform;
+            newBlock.transform.position = LayoutObject(index);
 
+            solutionBlock.data = newColor;
 
-
-            newBlock.transform.Translate(spacingVector * i);
-
-
-
-            blocks[i] = newBlock;
+            blocks.Add(newBlock);
 
         }
-
-
+        
 
     }
 
 
     public void Reset() {
-        Draggable[] blocks = GetComponentsInChildren<Draggable>();
-        foreach (Draggable block in blocks) {
-            block.Reset();
+        IEnumerable<Draggable> draggables = Enumerable.Select<GameObject,Draggable>(
+            blocks, b => b.GetComponent<Draggable>());
+
+        foreach (Draggable d in draggables) {
+            d.Reset();
         }
+
     }
 
 }
