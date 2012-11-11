@@ -60,16 +60,10 @@
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
 			<solution data="colors">
-				<color data="red" />
-				<color data="blue" />
-				<color data="green" />
-				<color data="magenta" />
+                <colors data="random" />
 			</solution>
 			<solution data="numbers">
-				<number data="4" />
-				<number data="3" />
-				<number data="2" />
-				<number data="1" />
+				<numbers data="random" />
 			</solution>
 		</minigame>
 	</node>
@@ -115,7 +109,7 @@
 				<multiply data="2" />
 			</change>
 		</consequence>
-	</edge>
+	</edge>   
 	<edge id="chooseRed" data="firstPuzzle">
 		<consequence>
 			<change data="year">
@@ -130,7 +124,31 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="bullsAndCleotsWinEdge" data="firstPuzzle" />
+	<edge id="BCIncreaseDifficulty" data="firstPuzzle">
+    <consequence>
+        <change data="BCSolutionLength">
+            <add data="1" />
+          </change>
+        </consequence>
+    </edge>
+       
+ <edge id="BCIncreaseColors" data="firstPuzzle">
+    <consequence>
+        <change data="BCColorCount">
+            <add data="1" />
+          </change>
+        </consequence>
+    </edge>
+    
+    <edge id="BCIncreaseNumbers" data="firstPuzzle">
+    <consequence>
+        <change data="BCNumberCount">
+            <add data="1" />
+          </change>
+        </consequence>
+    </edge>
+    
+    
 	<edge id="winGame" data="youWin" />
 	<edge id="platformEdge" data="platformer" />
 	<edge id="laserEdge" data="laserPlumber" />
