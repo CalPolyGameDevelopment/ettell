@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public class LightningArcs : MonoBehaviour {
 	
@@ -12,8 +13,8 @@ public class LightningArcs : MonoBehaviour {
 		private const float wiggleMag = 2f;
 		private const int pointsPerArc = 5;
 		private const float maxAngularVelocityPerSecond = 0.2f;
-		protected const float outerShellWidth = 2f;
-		protected const float innerShellWidth = 1f;
+		protected const float outerShellWidth = 1.2f;
+		protected const float innerShellWidth = 1.1f;
 		
 		private class ArcPoint {
 			//requires tuning, roughly half the height of a capsule collider
@@ -44,7 +45,10 @@ public class LightningArcs : MonoBehaviour {
 				farPoint.x = Mathf.Cos(genPos.y) * farRadius * Mathf.Cos(genPos.x);
 				farPoint.y = Mathf.Sin(genPos.y) * farRadius * Mathf.Cos(genPos.x);
 				farPoint.z = Mathf.Sin(genPos.x) * farRadius;
-				curPos = innerShell.ClosestPointOnBounds(farPoint) * genPos.z;
+				farPoint = innerShell.transform.TransformPoint(farPoint);
+				curPos = innerShell.ClosestPointOnBounds(farPoint);
+				curPos = innerShell.transform.InverseTransformPoint(curPos);
+				curPos *= genPos.z;
 				if (genPos.z > outerShellWidth) {
 					genVel.z = -Mathf.Abs(genVel.z);
 				}
@@ -118,6 +122,7 @@ public class LightningArcs : MonoBehaviour {
 	
 	private Arc[] arcs;
 	ParticleSystem.Particle[] particles;
+	private bool running;
 	
 	protected static Perlin noise;
 	
@@ -129,22 +134,38 @@ public class LightningArcs : MonoBehaviour {
 	}
 	
 	void Start () {
+	}
+	
+	public void Begin() {
 		if (noise == null) {
 			noise = new Perlin();
 		}
-		
 		particles = new ParticleSystem.Particle[pCount];
 		particleSystem.Emit(pCount);
-		if (particleSystem.GetParticles(particles) < pCount) {
-			Debug.Log("Hey!");
+		StartCoroutine(waitForParticles());
+	}
+	
+	public IEnumerator waitForParticles() {
+		while (particleSystem.GetParticles(particles) < pCount) {
+			yield return 0;
 		}
 		arcs = new Arc[maxConcurrentArcs];
 		for (int i = 0; i < maxConcurrentArcs; i++) {
 			arcs[i] = new Arc(particles, particlesPerArc * i, particlesPerArc);
 		}
+		running = true;
+	}
+	
+	public void End() {
+		running = false;
+		particles = null;
+		arcs = null;
 	}
 	
 	void Update () {
+		if (!running) {
+			return;
+		}
 		foreach (Arc a in activeArcs) {
 			a.Update(collider);
 		}

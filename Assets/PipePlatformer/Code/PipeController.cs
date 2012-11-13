@@ -17,7 +17,9 @@ public class PipeController : MonoBehaviour {
 	private Ray searchDirection;
 
 	void Start () {	
-		//GetComponent<ParticleSystem>().enableEmission = playerHere;
+		if (playerHere) {
+			GetComponent<LightningArcs>().Begin();
+		}
 	}
 	
 	void Update () {
