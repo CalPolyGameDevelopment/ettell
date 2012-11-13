@@ -71,15 +71,23 @@
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
+			<ending data="firstPuzzleRecur">
+				<color data="255,0,0" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="physicsDemoNode">
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
+			<ending data="firstPuzzleRecur">
+				<color data="255,0,0" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="slideshowNode">

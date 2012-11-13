@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour {
 	
 	public float fallSpeed;
 	
-	public XmlUtilities.EdgeColor identity;
+	public Ending ending;
 	public Tile up;
 	public Tile down;
 	public Tile left;
@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour {
 	private bool markGone;
 	
 	private void addIf(HashSet<Tile> border, HashSet<Tile> explored, Tile node) {
-		if (node != null && node.identity.edgeId == identity.edgeId && !explored.Contains(node)) {
+		if (node != null && node.ending.edgeId == ending.edgeId && !explored.Contains(node)) {
 			border.Add(node);
 		}
 	}
@@ -41,14 +41,14 @@ public class Tile : MonoBehaviour {
 	}
 	
 	void Start() {
-		renderer.material.color = identity.appearance;
+		renderer.material.color = ending.color;
 	}
 	
 	void Update () {
 		if (ClickRaycast.clickedMe(gameObject)) {
 			Tile[] matchingNeighbors = getMatchingNeighbors();
 			if (matchingNeighbors.Length >= 3) {
-				Match3.recordDestruction(identity.edgeId, matchingNeighbors.Length);
+				Match3.recordDestruction(ending.edgeId, matchingNeighbors.Length);
 				foreach(Tile t in matchingNeighbors) {
 					Destroy(t.gameObject);
 				}
