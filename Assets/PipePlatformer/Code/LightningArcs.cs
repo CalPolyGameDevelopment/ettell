@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class LightningArcs : MonoBehaviour {
 	
 	private class Arc {
+		
+		private const float wiggleSpeed = 10f;
+		
 		private class ArcPoint {
 			//requires tuning, roughly half the height of a capsule collider
 			private const float farRadius = 5f;
@@ -47,7 +50,7 @@ public class LightningArcs : MonoBehaviour {
 			this.particles = particles;
 			points = new ArcPoint[2];
 			points[0] = new ArcPoint(new Vector3(0f, 0f, 1f), Vector3.zero);
-			points[1] = new ArcPoint(new Vector3(0f, 0f, 2f), new Vector3(0f, 0f, 0.1f));
+			points[1] = new ArcPoint(new Vector3(0f, 0f, 2f), new Vector3(0f, 0f, 0f));
 		}
 		
 		public void Update(Collider innerShell) {
@@ -55,7 +58,11 @@ public class LightningArcs : MonoBehaviour {
 				p.Update(innerShell);
 			}
 			for (int i = start; i < end; i++) {
-				particles[i].position = Vector3.Lerp(points[0].curPos, points[1].curPos, ((float)i - start) / len);
+				Vector3 position = Vector3.Lerp(points[0].curPos, points[1].curPos, ((float)i - start) / len);
+				position.x +=  noise.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z);
+				position.y +=  noise.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z);
+				position.z +=  noise.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z);
+				particles[i].position = position;
 			}
 		}
 	}
@@ -73,6 +80,8 @@ public class LightningArcs : MonoBehaviour {
 	private Arc[] arcs;
 	ParticleSystem.Particle[] particles;
 	
+	protected static Perlin noise;
+	
 	//TODO
 	private IEnumerable<Arc> activeArcs {
 		get {
@@ -81,6 +90,10 @@ public class LightningArcs : MonoBehaviour {
 	}
 	
 	void Start () {
+		if (noise == null) {
+			noise = new Perlin();
+		}
+		
 		particles = new ParticleSystem.Particle[pCount];
 		particleSystem.Emit(pCount);
 		if (particleSystem.GetParticles(particles) < pCount) {
