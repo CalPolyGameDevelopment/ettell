@@ -126,13 +126,6 @@ public class LightningArcs : MonoBehaviour {
 	
 	protected static Perlin noise;
 	
-	//TODO
-	private IEnumerable<Arc> activeArcs {
-		get {
-			return arcs;
-		}
-	}
-	
 	void Start () {
 	}
 	
@@ -166,7 +159,7 @@ public class LightningArcs : MonoBehaviour {
 		if (!running) {
 			return;
 		}
-		foreach (Arc a in activeArcs) {
+		foreach (Arc a in arcs) {
 			a.Update(collider);
 		}
 		particleSystem.SetParticles(particles, pCount);
