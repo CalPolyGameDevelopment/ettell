@@ -4,25 +4,37 @@ using System.Collections.Generic;
 
 public class LightningArcs : MonoBehaviour {
 	
+	protected static float TWO_PI = Mathf.PI * 2f;
+	
 	private class Arc {
 		
-		private const float wiggleSpeed = 10f;
+		private const float wiggleSpeed = 3f;
+		private const float wiggleMag = 2f;
+		private const int pointsPerArc = 5;
+		private const float maxAngularVelocityPerSecond = 0.2f;
+		protected const float outerShellWidth = 2f;
+		protected const float innerShellWidth = 1f;
 		
 		private class ArcPoint {
 			//requires tuning, roughly half the height of a capsule collider
 			private const float farRadius = 5f;
 			private const float farRadiusSquared = farRadius * farRadius;
 			
-			public Vector3 curPos;
+			private Vector3 curPos;
+			public Vector3 CurPos {
+				get {
+					return curPos;
+				}
+			}
 			
-			private Vector3 genPos; //format is rhow, phi, radius
-			private Vector3 genVel;
+			public Vector3 genPos; //format is row, phi, radius
+			public Vector3 genVel;
 			
 			private Vector3 farPoint;
 			
-			public ArcPoint(Vector3 genPos, Vector3 genVel) {
-				this.genPos = genPos;
-				this.genVel = genVel;
+			public ArcPoint() {
+				this.genPos = new Vector3();
+				this.genVel = new Vector3();
 				curPos = new Vector3();
 				farPoint = new Vector3();
 			}
@@ -33,6 +45,12 @@ public class LightningArcs : MonoBehaviour {
 				farPoint.y = Mathf.Sin(genPos.y) * farRadius * Mathf.Cos(genPos.x);
 				farPoint.z = Mathf.Sin(genPos.x) * farRadius;
 				curPos = innerShell.ClosestPointOnBounds(farPoint) * genPos.z;
+				if (genPos.z > outerShellWidth) {
+					genVel.z = -Mathf.Abs(genVel.z);
+				}
+				else if (genPos.z < innerShellWidth) {
+					genVel.z = Mathf.Abs(genVel.z);
+				}
 			}
 			
 		}
@@ -48,9 +66,28 @@ public class LightningArcs : MonoBehaviour {
 			this.end = start + count;
 			len = (float)count;
 			this.particles = particles;
-			points = new ArcPoint[2];
-			points[0] = new ArcPoint(new Vector3(0f, 0f, 1f), Vector3.zero);
-			points[1] = new ArcPoint(new Vector3(0f, 0f, 2f), new Vector3(0f, 0f, 0f));
+			points = new ArcPoint[pointsPerArc];
+			for (int i = 0; i < pointsPerArc; i++) {
+				points[i] = new ArcPoint();
+			}
+			initPoints();
+		}
+			
+		private void initPoints() {
+			for (int i = 0; i < pointsPerArc; i++) {
+				points[i].genPos.x = Random.Range(0f, TWO_PI);
+				points[i].genPos.y = Random.Range(0f, TWO_PI);
+				points[i].genVel.x = Random.Range(0f, TWO_PI) * maxAngularVelocityPerSecond;
+				points[i].genVel.y = Random.Range(0f, TWO_PI) * maxAngularVelocityPerSecond;
+				if (i == 0 || i == pointsPerArc - 1) {
+					points[i].genPos.z = 0f;
+					points[i].genVel.z = 0f;
+				}
+				else {
+					points[i].genPos.z = Random.Range(0f, outerShellWidth);
+					points[i].genVel.z = Random.Range(0f, outerShellWidth) * maxAngularVelocityPerSecond;
+				}
+			}
 		}
 		
 		public void Update(Collider innerShell) {
@@ -58,10 +95,13 @@ public class LightningArcs : MonoBehaviour {
 				p.Update(innerShell);
 			}
 			for (int i = start; i < end; i++) {
-				Vector3 position = Vector3.Lerp(points[0].curPos, points[1].curPos, ((float)i - start) / len);
-				position.x +=  noise.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z);
-				position.y +=  noise.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z);
-				position.z +=  noise.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z);
+				float totalDistance = ((float)((i - start) * (points.Length - 1))) / ((float)(end - start));
+				int pointNum = Mathf.FloorToInt(totalDistance);
+				float partialDistance = totalDistance - (float)pointNum;
+				Vector3 position = Vector3.Lerp(points[pointNum].CurPos, points[pointNum + 1].CurPos, partialDistance);
+				position.x +=  noise.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z) * wiggleMag;
+				position.y +=  noise.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z) * wiggleMag;
+				position.z +=  noise.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z) * wiggleMag;
 				particles[i].position = position;
 			}
 		}
@@ -69,7 +109,6 @@ public class LightningArcs : MonoBehaviour {
 	
 	public int particlesPerArc;
 	public int maxConcurrentArcs;
-	public float outerShellScale;
 	
 	private int pCount {
 		get {
