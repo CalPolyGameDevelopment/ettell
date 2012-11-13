@@ -153,6 +153,7 @@ public class LightningArcs : MonoBehaviour {
 		running = false;
 		particles = null;
 		arcs = null;
+		particleSystem.SetParticles(new ParticleSystem.Particle[0], 0);
 	}
 	
 	void Update () {
