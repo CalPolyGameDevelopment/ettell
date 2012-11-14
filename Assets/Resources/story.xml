@@ -4,7 +4,6 @@
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
 			<prompt data="Placeholder dialog mini-game:" />
-			<response data="example platformer" edge="platformEdge" />
 			<response data="laser plumber" edge="laserEdge" />
 			<response data="dialog recur" edge="firstPuzzleRecur" />
 			<response data="dillon platformer" edge="redBlueChoice" />
@@ -21,11 +20,6 @@
 					</have>
 				</requirement>
 			</response>
-		</minigame>
-	</node>
-	<node id="platformer">
-		<minigame data="platformer">
-			<sceneName data="Platformer1" />
 		</minigame>
 	</node>
 	<node id="laserPlumber">
@@ -182,7 +176,6 @@
     
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
-	<edge id="platformEdge" data="platformer" />
 	<edge id="laserEdge" data="laserPlumber" />
 	<edge id="redBlueChoice" data="redBluePlatformer" />
 	<edge id="match3Edge" data="match3Node" />
