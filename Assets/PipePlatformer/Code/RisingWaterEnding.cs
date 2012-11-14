@@ -8,7 +8,12 @@ public class RisingWaterEnding : CollisionManager {
 	{
 		PipeController other = data.other.GetComponent<PipeController>();
 		if (other != null) {
-			other.kill(GetComponent<EndNode>().Ending.edgeId);
+			if (GetComponent<EndNode>() != null && GetComponent<EndNode>().Ending != null) {
+				other.kill(GetComponent<EndNode>().Ending.edgeId);
+			}
+			else {
+				other.kill("");
+			}
 		}
 	}
 	
@@ -16,5 +21,6 @@ public class RisingWaterEnding : CollisionManager {
 		Vector3 pos = transform.position;
 		pos.y += speed * Time.deltaTime;
 		transform.position = pos;
+		transform.rotation = Quaternion.identity;
 	}
 }
