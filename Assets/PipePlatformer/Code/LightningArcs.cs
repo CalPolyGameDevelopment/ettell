@@ -96,14 +96,15 @@ public class LightningArcs : MonoBehaviour {
 			foreach (ArcPoint p in points) {
 				p.Update(innerShell);
 			}
+			float wiggleDistance = Time.time * wiggleSpeed;
 			for (int i = start; i < end; i++) {
 				float totalDistance = ((float)((i - start) * (points.Length - 1))) / ((float)(end - start));
 				int pointNum = Mathf.FloorToInt(totalDistance);
 				float partialDistance = totalDistance - (float)pointNum;
 				Vector3 position = Vector3.Lerp(points[pointNum].CurPos, points[pointNum + 1].CurPos, partialDistance);
-				position.x +=  perlin.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z) * wiggleMag;
-				position.y +=  perlin.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z) * wiggleMag;
-				position.z +=  perlin.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z) * wiggleMag;
+				position.x +=  perlin.Noise(wiggleDistance + position.x, position.y, position.z) * wiggleMag;
+				position.y +=  perlin.Noise(position.x, wiggleDistance + position.y, position.z) * wiggleMag;
+				position.z +=  perlin.Noise(position.x, position.y, wiggleDistance + position.z) * wiggleMag;
 				particles[i].position = position;
 			}
 		}
