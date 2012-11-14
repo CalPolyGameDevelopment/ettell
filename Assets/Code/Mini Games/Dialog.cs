@@ -5,8 +5,6 @@ using System.Xml;
 
 public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
-	//public Font font;
-	
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
 	private const int BUTTON_SIZE_MODIFIER = 30;
@@ -24,11 +22,6 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			if (possibleOptions.Length == 1) {
 				MiniGameController.endMiniGame(XmlUtilities.getData(possibleOptions[0]));
 			}
-			
-			//style = new GUIStyle();
-			//style.font = font;
-			//style.alignment = TextAnchor.MiddleCenter;
-			//style.
 			
 			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleOptions.Length));
 			HashSet<XmlNode>[] rows = new HashSet<XmlNode>[height];
