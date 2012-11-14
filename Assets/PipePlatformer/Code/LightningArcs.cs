@@ -101,9 +101,9 @@ public class LightningArcs : MonoBehaviour {
 				int pointNum = Mathf.FloorToInt(totalDistance);
 				float partialDistance = totalDistance - (float)pointNum;
 				Vector3 position = Vector3.Lerp(points[pointNum].CurPos, points[pointNum + 1].CurPos, partialDistance);
-				position.x +=  noise.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z) * wiggleMag;
-				position.y +=  noise.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z) * wiggleMag;
-				position.z +=  noise.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z) * wiggleMag;
+				position.x +=  perlin.Noise(Time.time * wiggleSpeed + position.x, position.y, position.z) * wiggleMag;
+				position.y +=  perlin.Noise(position.x, Time.time * wiggleSpeed + position.y, position.z) * wiggleMag;
+				position.z +=  perlin.Noise(position.x, position.y, Time.time * wiggleSpeed + position.z) * wiggleMag;
 				particles[i].position = position;
 			}
 		}
@@ -122,14 +122,14 @@ public class LightningArcs : MonoBehaviour {
 	ParticleSystem.Particle[] particles;
 	private bool running;
 	
-	protected static Perlin noise;
+	protected static Perlin perlin;
 	
 	void Start () {
 	}
 	
 	public void Begin() {
-		if (noise == null) {
-			noise = new Perlin();
+		if (perlin == null) {
+			perlin = new Perlin();
 		}
 		particles = new ParticleSystem.Particle[pCount];
 		particleSystem.Emit(pCount);
