@@ -77,6 +77,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
 
     void LoadLevel() {
         GameObject go = Instantiate(level) as GameObject;
+		go.transform.parent = transform;
         BullsAndCleotsLevelController bcLevel = go.GetComponent<BullsAndCleotsLevelController>();
     
         int solutionLen = int.Parse(UserProperty.getProp(Props.SolutionLength));

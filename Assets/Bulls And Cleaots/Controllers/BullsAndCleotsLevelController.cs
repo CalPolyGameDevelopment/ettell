@@ -21,9 +21,6 @@ public class BCLevelData {
         solutionNumbers = possibleNumbers.AsEnumerable()
             .OrderBy(x=>Random.value)
                 .Take(solutionLength).ToArray();
-        
-                
-
     }
 }
 
@@ -90,12 +87,15 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         
         numberedBlocks = Instantiate(numberedBlocks) as GameObject;
         numberedBlocks.GetComponent<NumberedBlocks>().PossibleNumbers = initData.possibleNumbers;
+		numberedBlocks.transform.parent = transform;
         
         coloredBlocks = Instantiate(coloredBlocks) as GameObject;
         coloredBlocks.GetComponent<ColoredBlocks>().PossibleColors = initData.possibleColors;
+		coloredBlocks.transform.parent = transform;
         
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
+		inputPane.transform.parent = transform;
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {

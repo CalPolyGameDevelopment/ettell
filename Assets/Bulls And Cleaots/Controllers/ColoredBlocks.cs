@@ -45,10 +45,10 @@ public class ColoredBlocks : MonoBehaviour {
 
         blocks = new List<GameObject>();
   
-        // WHY4UNO HAZ PYTHON'S ENUMERATE, C#?!?
         for (int index = 0; index < colorCount; index++){
             Color newColor = possibleColors[index];
             GameObject newBlock = Instantiate(blockPrefab) as GameObject;
+			newBlock.transform.parent = transform;
             SolutionBlock solutionBlock = newBlock.GetComponent<SolutionBlock>();
 
             newBlock.renderer.material.color = newColor;
