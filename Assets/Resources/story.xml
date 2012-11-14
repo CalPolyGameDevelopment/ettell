@@ -13,6 +13,7 @@
 			<response data="Physics Demo" edge="physicsDemoEdge" />
 			<response data="Slideshow" edge="slideshowEdge" />
             <response data="Wave Defense" edge="waveDefenseEdge" />
+            <response data="Pipe Platformer" edge="pipePlatformerEdge" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -79,6 +80,23 @@
 			</ending>
 		</minigame>
 	</node>
+	<node id="pipePlatformerNode">
+		<minigame data="pipePlatformer">
+			<sceneName data="InternetEscapePlatformer" />
+			<ending data="loseGame">
+				<color data="255,0,0" />
+				<difficulty data="-11" />
+			</ending>
+			<ending data="firstPuzzleRecur">
+				<color data="0,0,255" />
+				<difficulty data="1" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+				<difficulty data="2" />
+			</ending>
+		</minigame>
+	</node>
 	<node id="physicsDemoNode">
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
@@ -106,6 +124,11 @@
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
+		</minigame>
+	</node>  
+	<node id="youLose">
+		<minigame data="dialog">
+			<prompt data="You lose!" />
 		</minigame>
 	</node>   
 	<edge id="firstPuzzleRecur" data="firstPuzzle">
@@ -158,6 +181,7 @@
     
     
 	<edge id="winGame" data="youWin" />
+	<edge id="loseGame" data="youLose" />
 	<edge id="platformEdge" data="platformer" />
 	<edge id="laserEdge" data="laserPlumber" />
 	<edge id="redBlueChoice" data="redBluePlatformer" />
@@ -166,4 +190,5 @@
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />
 	<edge id="slideshowEdge" data="slideshowNode" />
     <edge id="waveDefenseEdge" data="waveDefenseNode" />   
+    <edge id="pipePlatformerEdge" data="pipePlatformerNode" />   
 </story>

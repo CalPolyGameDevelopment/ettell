@@ -63,12 +63,10 @@ public class LightningArcs : MonoBehaviour {
 		
 		private int start;
 		private int end;
-		private float len;
 		
 		public Arc(ParticleSystem.Particle[] particles, int start, int count) {
 			this.start = start;
 			this.end = start + count;
-			len = (float)count;
 			this.particles = particles;
 			points = new ArcPoint[pointsPerArc];
 			for (int i = 0; i < pointsPerArc; i++) {

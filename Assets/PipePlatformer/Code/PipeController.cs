@@ -8,11 +8,14 @@ public class PipeController : MonoBehaviour {
 		set {
 			if (value != playerHere) {
 				playerHere = value;
-				if (value) {
+				if (value && GetComponent<LightningArcs>() != null) {
 					GetComponent<LightningArcs>().Begin();
 				}
-				else {
+				else if (GetComponent<LightningArcs>() != null) {
 					GetComponent<LightningArcs>().End();
+				}
+				if (value && GetComponent<EndNode>() != null) {
+					GetComponent<EndNode>().notifyEnd();
 				}
 			}
 		}
@@ -25,6 +28,13 @@ public class PipeController : MonoBehaviour {
 		if (playerHere) {
 			GetComponent<LightningArcs>().Begin();
 		}
+	}
+	
+	public void kill(string edgeId) {
+		if (playerHere) {
+			MiniGameController.endMiniGame(edgeId);
+		}
+		Destroy(gameObject);
 	}
 	
 	void Update () {

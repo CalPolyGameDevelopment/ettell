@@ -22,6 +22,7 @@ public class MiniGameController : MonoBehaviour {
 	public GameObject physics;
 	public GameObject slideshow;
     public GameObject waveDefense;
+    public GameObject pipePlatformer;
     
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -43,6 +44,7 @@ public class MiniGameController : MonoBehaviour {
         miniGameTypes["physics"] = physics;
         miniGameTypes["slideshow"] = slideshow;
         miniGameTypes["WaveDefense"] = waveDefense;
+        miniGameTypes["pipePlatformer"] = pipePlatformer;
 		singleton = this;
 	}
 	
