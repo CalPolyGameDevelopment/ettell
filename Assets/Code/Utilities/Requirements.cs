@@ -4,15 +4,18 @@ using System.Xml;
 
 public class Requirements {
 	
+	private const string REQUIRES = "requires";
+	private const string HAVE = "have";
+	
 	public static bool pass(XmlNode test) {
-		if (test.Attributes[XmlUtilities.requires] == null) {
+		if (test.Attributes[REQUIRES] == null) {
 			return true;
 		}
 		if (!StoryController.Ready) {
 			return false;
 		}
-		XmlNode req = StoryController.findById(test.Attributes[XmlUtilities.requires].Value);
-		foreach (XmlNode haveReq in req.SelectNodes(XmlUtilities.have)) {
+		XmlNode req = StoryController.findById(test.Attributes[REQUIRES].Value);
+		foreach (XmlNode haveReq in req.SelectNodes(HAVE)) {
 			if (!checkHave(haveReq)) {
 				return false;
 			}

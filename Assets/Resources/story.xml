@@ -4,22 +4,41 @@
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
 			<prompt data="Placeholder dialog mini-game:" />
-			<response data="laser plumber" edge="laserEdge" />
-			<response data="dialog recur" edge="firstPuzzleRecur" />
-			<response data="dillon platformer" edge="redBlueChoice" />
-			<response data="match3" edge="match3Edge" />
-			<response data="BC Hack" edge="bullsAndCleotsEdge" />
-			<response data="Physics Demo" edge="physicsDemoEdge" />
-			<response data="Slideshow" edge="slideshowEdge" />
-            <response data="Wave Defense" edge="waveDefenseEdge" />
-            <response data="Pipe Platformer" edge="pipePlatformerEdge" />
-			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
+			<ending data="laserEdge">
+				<display_text data="laser plumber" />
+			</ending>
+			<ending data="firstPuzzleRecur">
+				<display_text data="Dialog Recur" />
+			</ending>
+			<ending data="redBlueChoice">
+				<display_text data="Dillon Platformer" />
+			</ending>
+			<ending data="match3Edge">
+				<display_text data="Match 3" />
+			</ending>
+			<ending data="bullsAndCleotsEdge">
+				<display_text data="Bulls and Cleots" />
+			</ending>
+			<ending data="physicsDemoEdge">
+				<display_text data="Physics Demo" />
+			</ending>
+			<ending data="slideshowEdge">
+				<display_text data="Slideshow" />
+			</ending>
+			<ending data="waveDefenseEdge">
+				<display_text data="Wave Defense" />
+			</ending>
+			<ending data="pipePlatformerEdge">
+				<display_text data="Pipe Platformer" />
+			</ending>
+			<ending data="winGame" requires="enoughCpu">
+				<display_text data="I don't know, who am I?" />
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
 						<atLeast data="128" />
 					</have>
 				</requirement>
-			</response>
+			</ending>
 		</minigame>
 	</node>
 	<node id="laserPlumber">
@@ -55,7 +74,7 @@
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
 			<solution data="colors">
-                <colors data="random" />
+				<colors data="random" />
 			</solution>
 			<solution data="numbers">
 				<numbers data="random" />
@@ -109,22 +128,21 @@
 			<resource data="WallStreetSign" />
 		</minigame>
 	</node>
-    <node id="waveDefenseNode">
-        <minigame data="WaveDefense">
-            <sceneName data="WaveDefense" />
-            
-        </minigame>      
-    </node>   
+	<node id="waveDefenseNode">
+		<minigame data="WaveDefense">
+			<sceneName data="WaveDefense" />
+		</minigame>
+	</node>
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
 		</minigame>
-	</node>  
+	</node>
 	<node id="youLose">
 		<minigame data="dialog">
 			<prompt data="You lose!" />
 		</minigame>
-	</node>   
+	</node>
 	<edge id="firstPuzzleRecur" data="firstPuzzle">
 		<consequence>
 			<change data="year">
@@ -134,7 +152,7 @@
 				<multiply data="2" />
 			</change>
 		</consequence>
-	</edge>   
+	</edge>
 	<edge id="chooseRed" data="firstPuzzle">
 		<consequence>
 			<change data="year">
@@ -150,30 +168,26 @@
 		</consequence>
 	</edge>
 	<edge id="BCIncreaseDifficulty" data="firstPuzzle">
-    <consequence>
-        <change data="BCSolutionLength">
-            <add data="1" />
-          </change>
-        </consequence>
-    </edge>
-       
- <edge id="BCIncreaseColors" data="firstPuzzle">
-    <consequence>
-        <change data="BCColorCount">
-            <add data="1" />
-          </change>
-        </consequence>
-    </edge>
-    
-    <edge id="BCIncreaseNumbers" data="firstPuzzle">
-    <consequence>
-        <change data="BCNumberCount">
-            <add data="1" />
-          </change>
-        </consequence>
-    </edge>
-    
-    
+		<consequence>
+			<change data="BCSolutionLength">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="BCIncreaseColors" data="firstPuzzle">
+		<consequence>
+			<change data="BCColorCount">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="BCIncreaseNumbers" data="firstPuzzle">
+		<consequence>
+			<change data="BCNumberCount">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
 	<edge id="laserEdge" data="laserPlumber" />
@@ -182,6 +196,6 @@
 	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />
 	<edge id="slideshowEdge" data="slideshowNode" />
-    <edge id="waveDefenseEdge" data="waveDefenseNode" />   
-    <edge id="pipePlatformerEdge" data="pipePlatformerNode" />   
+	<edge id="waveDefenseEdge" data="waveDefenseNode" />
+	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
 </story>
