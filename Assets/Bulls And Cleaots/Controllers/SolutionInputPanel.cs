@@ -34,6 +34,7 @@ public class SolutionInputPanel : MonoBehaviour {
         for (int count = 0; count < solutionLength; count++) {
             GameObject go = Instantiate(solutionSnappable) as GameObject;
             go.transform.position = LayoutObject(count);
+			go.transform.parent = transform;
             
             SolutionSnapArea snapArea = go.GetComponent<SolutionSnapArea>();
             snapArea.Index = count;

@@ -23,7 +23,6 @@ public class XmlUtilities : MonoBehaviour {
 	public const string position = "position";
 	public const string width = "width";
 	public const string height = "height";
-	public const string color = "color";
 	public const string solution = "solution";
     public const string number = "number";
 	public const string duration = "duration";
@@ -63,24 +62,6 @@ public class XmlUtilities : MonoBehaviour {
 	
 	public static float[] getPosition(XmlNode position) {
 		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
-	}
-	
-	public struct EdgeColor {
-		public Color appearance;
-		public string edgeId;
-		public EdgeColor (Color apperance, string edgeId) {
-			this.appearance = apperance;
-			this.edgeId = edgeId;
-		}
-	}
-	
-	public static EdgeColor parseColor(XmlNode xn) {
-		string[] hexes = XmlUtilities.getData(xn).Split(',');
-		return new EdgeColor(new Color(
-			float.Parse(hexes[0]) / 255f,
-			float.Parse(hexes[1]) / 255f,
-			float.Parse(hexes[2]) / 255f
-		), hexes[3]);
 	}
 	
 	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {

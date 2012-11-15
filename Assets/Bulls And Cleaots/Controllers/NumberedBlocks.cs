@@ -47,6 +47,7 @@ public class NumberedBlocks : MonoBehaviour {
             int digit = possibleNumbers[index];
             
             GameObject newBlock = Instantiate(blockPrefab) as GameObject;
+			newBlock.transform.parent = transform;
             SolutionBlock solutionBlock = newBlock.GetComponent<SolutionBlock>();
 
             newBlock.renderer.material.mainTexture = newTexture;

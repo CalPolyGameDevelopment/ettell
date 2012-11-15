@@ -2,15 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class EdgeOnTap : CollisionManager {
-	private XmlUtilities.EdgeColor identity;
-	public XmlUtilities.EdgeColor Identity {
+	private Ending ending;
+	public Ending Ending {
 		set {
-			identity = value;
-			renderer.material.color = identity.appearance;
+			ending = value;
+			renderer.material.color = ending.color;
 		}
 	}
 	public override void manageCollision (CollisionData data)
 	{
-		MiniGameController.endMiniGame(identity.edgeId);
+		MiniGameController.endMiniGame(ending.edgeId);
 	}
 }

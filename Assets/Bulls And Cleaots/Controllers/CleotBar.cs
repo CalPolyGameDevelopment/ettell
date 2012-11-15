@@ -1,41 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class CleotsFoundEvent : IEvent {
-    private string name;
-    int cleotCount;
-
-    public CleotsFoundEvent(int count) {
-        name = this.GetType().ToString();
-        cleotCount = count;
-    }
-
-
-    string IEvent.GetName() {
-        return name;
-    }
-    object IEvent.GetData() {
-        return cleotCount;
-    }
-}
-
 [RequireComponent(typeof(EnergyBar))]
-public class CleotBar : MonoBehaviour, IEventListener {
+public class CleotBar : MonoBehaviour {
 
     void Start() {
         GetComponent<EnergyBar>().labelText = "Cleots";
-        EventManager.instance.RegisterListener(this, typeof(CleotsFoundEvent).ToString());
     }
 
-    public bool HandleEvent(IEvent evnt) {
-        FoundCleots((int)evnt.GetData());
-        return true;
-    }
-
-    public void FoundCleots(int numFound) {
-
+    public void FoundCleots(float barFullness) {
         EnergyBar energyBar = gameObject.GetComponent<EnergyBar>();
-        energyBar.Value = energyBar.energyIncrement * numFound;
+        energyBar.Fullness = barFullness;
     }
-
 }

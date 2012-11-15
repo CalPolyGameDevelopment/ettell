@@ -3,10 +3,13 @@
 .DS_Store
 Library
 Temp
+Ettell_Data
 *.sln
 *.csproj
 *.pidb
 *.suo
+*.exe
+*.dll
 obj/Debug
 build
 attell.userprefs

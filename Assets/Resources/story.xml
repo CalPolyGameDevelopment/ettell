@@ -4,7 +4,6 @@
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
 			<prompt data="Placeholder dialog mini-game:" />
-			<response data="example platformer" edge="platformEdge" />
 			<response data="laser plumber" edge="laserEdge" />
 			<response data="dialog recur" edge="firstPuzzleRecur" />
 			<response data="dillon platformer" edge="redBlueChoice" />
@@ -13,6 +12,7 @@
 			<response data="Physics Demo" edge="physicsDemoEdge" />
 			<response data="Slideshow" edge="slideshowEdge" />
             <response data="Wave Defense" edge="waveDefenseEdge" />
+            <response data="Pipe Platformer" edge="pipePlatformerEdge" />
 			<response data="I don't know, who am I?" edge="winGame" requires="enoughCpu">
 				<requirement id="enoughCpu">
 					<have data="cpuPower">
@@ -20,11 +20,6 @@
 					</have>
 				</requirement>
 			</response>
-		</minigame>
-	</node>
-	<node id="platformer">
-		<minigame data="platformer">
-			<sceneName data="Platformer1" />
 		</minigame>
 	</node>
 	<node id="laserPlumber">
@@ -71,15 +66,40 @@
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
+			<ending data="firstPuzzleRecur">
+				<color data="255,0,0" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="pipePlatformerNode">
+		<minigame data="pipePlatformer">
+			<sceneName data="InternetEscapePlatformer" />
+			<ending data="loseGame">
+				<color data="255,0,0" />
+				<difficulty data="-11" />
+			</ending>
+			<ending data="firstPuzzleRecur">
+				<color data="0,0,255" />
+				<difficulty data="1" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+				<difficulty data="2" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="physicsDemoNode">
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
-			<color data="255,0,0,firstPuzzleRecur" />
-			<color data="0,255,0,winGame" />
+			<ending data="firstPuzzleRecur">
+				<color data="255,0,0" />
+			</ending>
+			<ending data="winGame">
+				<color data="0,255,0" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="slideshowNode">
@@ -98,6 +118,11 @@
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
+		</minigame>
+	</node>  
+	<node id="youLose">
+		<minigame data="dialog">
+			<prompt data="You lose!" />
 		</minigame>
 	</node>   
 	<edge id="firstPuzzleRecur" data="firstPuzzle">
@@ -150,7 +175,7 @@
     
     
 	<edge id="winGame" data="youWin" />
-	<edge id="platformEdge" data="platformer" />
+	<edge id="loseGame" data="youLose" />
 	<edge id="laserEdge" data="laserPlumber" />
 	<edge id="redBlueChoice" data="redBluePlatformer" />
 	<edge id="match3Edge" data="match3Node" />
@@ -158,4 +183,5 @@
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />
 	<edge id="slideshowEdge" data="slideshowNode" />
     <edge id="waveDefenseEdge" data="waveDefenseNode" />   
+    <edge id="pipePlatformerEdge" data="pipePlatformerNode" />   
 </story>

@@ -37,9 +37,9 @@ public class Match3 : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private void genBoard() {
 		winReqs = new Dictionary<string, int>();
-		XmlUtilities.EdgeColor[] colors = XmlUtilities.getDataFromNode<XmlUtilities.EdgeColor>(data, XmlUtilities.color, XmlUtilities.parseColor).ToArray();
-		foreach (XmlUtilities.EdgeColor color in colors) {
-			winReqs[color.edgeId] = 0;
+		Ending[] endings = Ending.findEndings(data).ToArray();
+		foreach (Ending ending in endings) {
+			winReqs[ending.edgeId] = 0;
 		}
 		int width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.width, XmlUtilities.getData));
 		int height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.height, XmlUtilities.getData));
@@ -52,8 +52,8 @@ public class Match3 : MonoBehaviour, MiniGameAPI.IMiniGame {
 				go.transform.parent = gameObject.transform;
 				Tile t = go.GetComponent<Tile>();
 				tiles[x, y] = t;
-				t.identity = colors[Random.Range(0, colors.Length)];
-				winReqs[t.identity.edgeId]++;
+				t.ending = endings[Random.Range(0, endings.Length)];
+				winReqs[t.ending.edgeId]++;
 				
 				if (x > 0) {
 					tiles[x-1, y].right = t;

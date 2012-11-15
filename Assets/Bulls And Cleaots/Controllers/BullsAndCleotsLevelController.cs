@@ -21,9 +21,6 @@ public class BCLevelData {
         solutionNumbers = possibleNumbers.AsEnumerable()
             .OrderBy(x=>Random.value)
                 .Take(solutionLength).ToArray();
-        
-                
-
     }
 }
 
@@ -42,8 +39,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
     static string snapOnExitName = typeof(SnappableOnExitEvent).ToString();
     static string onMoveName = typeof(DraggableOnMoveEvent).ToString();
- 
-   
+	
     private string[] handledEventNames = {
         onSnapName,
         onMoveName,
@@ -56,13 +52,12 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     private Rect messagesRect = new Rect(10, 95, 300, 250);
     private int maxMessages = 10;
     private Queue<string> playerMessageQueue;
- 
-
     private int attemptCount;
-
+	private BullBar bullBar;
+	private CleotBar cleotBar;
+	private SolutionMixBar slnMixBar;
 
     private BCLevelData initData = null;
-    
     public BCLevelData InitData{
         set {
             if (initData != null){
@@ -72,36 +67,35 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
             initData = value;
         }
     }
-        
-
-  
+	
     void Start() {
-
-        // init vars
         hasWon = false;
         attemptCount = 0;
         playerMessageQueue = new Queue<string>(maxMessages);
-
         solution = new SolutionManager(initData.solutionLength);
         solution.Colors = initData.solutionColors;
         solution.Digits = initData.solutionNumbers;
-
-
-        
+		
         numberedBlocks = Instantiate(numberedBlocks) as GameObject;
         numberedBlocks.GetComponent<NumberedBlocks>().PossibleNumbers = initData.possibleNumbers;
+		numberedBlocks.transform.parent = transform;
         
         coloredBlocks = Instantiate(coloredBlocks) as GameObject;
         coloredBlocks.GetComponent<ColoredBlocks>().PossibleColors = initData.possibleColors;
+		coloredBlocks.transform.parent = transform;
         
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
+		inputPane.transform.parent = transform;
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
             EventManager.instance.RegisterListener(this, (string)eventName);
         }
-
+		
+		bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
+		cleotBar = FindObjectOfType(typeof(CleotBar)) as CleotBar;
+		slnMixBar = FindObjectOfType(typeof(SolutionMixBar)) as SolutionMixBar;
     }
 
     public bool HandleEvent(IEvent evnt) {
@@ -143,36 +137,20 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
         }
 
-        int bullsCount = solution.BullsCount();
-        int cleotsCount = solution.CleotsCount();
-
-
+        bullBar.FoundBulls(((float)solution.BullsCount()) / ((float)solution.SolutionLength));
+        cleotBar.FoundCleots(((float)solution.CleotsCount()) / ((float)solution.SolutionLength));
+		slnMixBar.FoundSolution(((float)solution.DigitCount()) / ((float)solution.SolutionLength));
         attemptCount++;
+		
+        AddPlayerMessage(BuildAttemptMessage(attemptCount, solution.BullsCount(), solution.CleotsCount()));
 
-
-        AddPlayerMessage(BuildAttemptMessage(attemptCount, bullsCount, cleotsCount));
-
-
-
-
-
-        // TODO.D: Make this sane. Couple the <x>Bar with the level controller.
-        // These do not need to be and should not be events. I got 
-        // caught using my shiny new hammer to do something better
-        // suited to a screwdriver you might say.
-        EventManager.instance.RelayEvent(new BullsFoundEvent(bullsCount));
-        EventManager.instance.RelayEvent(new CleotsFoundEvent(cleotsCount));
-        EventManager.instance.RelayEvent(new SolutionMixEvent(solution.DigitCount()));
-
-        if (bullsCount == solution.SolutionLength) {
+        if (solution.BullsCount() == solution.SolutionLength) {
             // winDigits == guessDigits, so the player has guessed
             // the correct number.
             hasWon = true;
             AddPlayerMessage("You win!");
-            
         }
-        else{
-
+        else {
             numberedBlocks.GetComponent<NumberedBlocks>().Reset();
             coloredBlocks.GetComponent<ColoredBlocks>().Reset();
         }

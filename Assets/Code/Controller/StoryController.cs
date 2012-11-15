@@ -42,8 +42,9 @@ public class StoryController : MonoBehaviour {
 		}
 		string stateMachineNode = UserProperty.getProp("curNode");
 		XmlNode curNode = story.xmlDoc.SelectSingleNode(string.Format(@"//*[@id='{0}']/minigame", stateMachineNode));
-		MiniGameController.startMiniGame(curNode.Attributes[XmlUtilities.data].Value, curNode);
 		ready = true;
+		
+		MiniGameController.startMiniGame(curNode.Attributes[XmlUtilities.data].Value, curNode);
 	}
 	
 	public static void TraverseEdge(string edgeId) {
