@@ -6,6 +6,7 @@ public class Requirements {
 	
 	private const string REQUIRES = "requires";
 	private const string HAVE = "have";
+	private const string AT_LEAST = "atLeast";
 	
 	public static bool pass(XmlNode test) {
 		if (test.Attributes[REQUIRES] == null) {
@@ -24,9 +25,9 @@ public class Requirements {
 	}
 	
 	private static bool checkHave(XmlNode haveReq) {
-		int haveQuantity = int.Parse(UserProperty.getProp(haveReq.Attributes[XmlUtilities.data].Value));
-		foreach (XmlNode atLeast in haveReq.SelectNodes(XmlUtilities.atLeast)) {
-			if (int.Parse(atLeast.Attributes[XmlUtilities.data].Value) > haveQuantity) {
+		int haveQuantity = int.Parse(UserProperty.getProp(XmlUtilities.getData(haveReq)));
+		foreach (XmlNode atLeast in haveReq.SelectNodes(AT_LEAST)) {
+			if (int.Parse(XmlUtilities.getData(atLeast)) > haveQuantity) {
 				return false;
 			}
 		}

@@ -3,12 +3,14 @@ using System.Collections;
 using System.Xml;
 
 public abstract class SceneLoadingMiniGame : MonoBehaviour, MiniGameAPI.IMiniGame {
+	
+	private const string SCENE_NAME = "sceneName";
 
     protected XmlNode data;
     public XmlNode Data {
         set {
             data = value;
-            Application.LoadLevel(XmlUtilities.getData(data.SelectSingleNode(XmlUtilities.sceneName)));
+            Application.LoadLevel(XmlUtilities.getData(data.SelectSingleNode(SCENE_NAME)));
         }
     }
 
@@ -17,7 +19,7 @@ public abstract class SceneLoadingMiniGame : MonoBehaviour, MiniGameAPI.IMiniGam
     }
 
     void OnLevelWasLoaded(int level) {
-        if (Application.loadedLevelName == XmlUtilities.getData(data.SelectSingleNode(XmlUtilities.sceneName))) {
+        if (Application.loadedLevelName == XmlUtilities.getData(data.SelectSingleNode(SCENE_NAME))) {
             onMyLevelLoaded();
         }
     }

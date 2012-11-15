@@ -51,7 +51,7 @@ public class UserProperty : WritableXml {
 			bestParent.RemoveChild(toRemove);
 		}
 		XmlNode xn = singleton.xmlDoc.CreateNode(XmlNodeType.Element, propName, "");
-		XmlAttribute xa = singleton.xmlDoc.CreateAttribute(XmlUtilities.data);
+		XmlAttribute xa = singleton.xmlDoc.CreateAttribute(XmlUtilities.DATA);
 		xa.Value = val;
 		xn.Attributes.Append(xa);
 		bestParent.AppendChild(xn);

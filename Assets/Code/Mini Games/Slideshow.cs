@@ -5,6 +5,9 @@ using System.Xml;
 
 public class Slideshow : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
+	private const string DURATION = "duration";
+	private const string END_EDGE = "endEdge";
+	
 	private XmlNode data;
 	public XmlNode Data {
 		set {
@@ -25,12 +28,12 @@ public class Slideshow : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private void startShow() {
-		textures = XmlUtilities.getDataFromNode<Texture>(data, XmlUtilities.resource, getTexture).ToArray();
+		textures = XmlUtilities.getDataFromNode<Texture>(data, XmlUtilities.RESOURCE, getTexture).ToArray();
 		curPicture = 0;
 		started = true;
-		slideTime = float.Parse(XmlUtilities.getData(data.SelectSingleNode(XmlUtilities.duration)));
+		slideTime = float.Parse(XmlUtilities.getData(data.SelectSingleNode(DURATION)));
 		t = 0f;
-		completionEdge = XmlUtilities.getData(data.SelectSingleNode(XmlUtilities.endEdge));
+		completionEdge = XmlUtilities.getData(data.SelectSingleNode(END_EDGE));
 	}
 	
 	void OnGUI() {
