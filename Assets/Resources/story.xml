@@ -89,10 +89,10 @@
 			<width data="8" />
 			<height data="8" />
 			<ending data="firstPuzzleRecur">
-				<color data="255,0,0" />
+				<color data="#FF0000" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="#00FF00" />
 			</ending>
 		</minigame>
 	</node>
@@ -100,15 +100,15 @@
 		<minigame data="pipePlatformer">
 			<sceneName data="InternetEscapePlatformer" />
 			<ending data="loseGame">
-				<color data="255,0,0" />
+				<color data="#FF0000" />
 				<difficulty data="-1" />
 			</ending>
 			<ending data="firstPuzzleRecur">
-				<color data="0,0,255" />
+				<color data="#0000FF" />
 				<difficulty data="1" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="#00FF00" />
 				<difficulty data="2" />
 			</ending>
 		</minigame>
@@ -117,10 +117,10 @@
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
 			<ending data="firstPuzzleRecur">
-				<color data="255,0,0" />
+				<color data="#FF0000" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="#00FF00" />
 			</ending>
 		</minigame>
 	</node>

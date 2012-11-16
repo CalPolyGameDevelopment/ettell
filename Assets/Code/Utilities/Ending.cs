@@ -7,19 +7,13 @@ public class Ending {
 	
 	private const string ENDING = "ending";
 	private const string DIFFICULTY = "difficulty";
-	private const string COLOR = "color";
 	private const string DISPLAY_TEXT = "display_text";
 	
 	private XmlNode data;
 	
 	public Color color {
 		get {
-            string[] hexes = XmlUtilities
-                .getDatumFromNode<string>(data, COLOR, XmlUtilities.getData).Split(',');
-            return ColorUtilities.Parse(
-                hexes[0],
-                hexes[1],
-                hexes[2]);
+            return ColorUtilities.ColorFromXML(data);
 		}
 	}
 	
