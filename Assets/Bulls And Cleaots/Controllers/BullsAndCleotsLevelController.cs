@@ -34,6 +34,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     public GameObject numberedBlocks;
     public GameObject coloredBlocks;
     public GameObject inputPane;
+    public GameObject testBlocks;
     
     static string onSnapName = typeof(DraggableOnSnapEvent).ToString();
     static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
@@ -88,6 +89,14 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
 		inputPane.transform.parent = transform;
+        
+        testBlocks = Instantiate(testBlocks) as GameObject;
+        SolutionComponent[] ch = new SolutionComponent[1];
+        ch[0] = new SolutionComponent("num1", 1.0f);
+        
+        testBlocks.GetComponent<SolutionBlocks>().Choices = ch;
+        
+        testBlocks.transform.parent = transform;
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
