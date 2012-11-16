@@ -54,7 +54,7 @@ public class StoryController : MonoBehaviour {
 		foreach (XmlNode consequence in edge.SelectNodes(CONSEQUENCE)) {
 			Consequences.apply(consequence);
 		}
-		UserProperty.setProp("curNode", XmlUtilities.getData(edge));
+		UserProperty.setProp("curNode", XmlUtilities.getData<string>(edge));
 		singleton.StartCoroutine(singleton.loadCurNode());
 	}
 }

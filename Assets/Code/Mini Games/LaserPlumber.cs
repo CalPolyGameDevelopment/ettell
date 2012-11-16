@@ -44,7 +44,7 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 		foreach (XmlNode sinkData in data.SelectNodes(SINK)) {
 			GameObject cur = Instantiate(sink) as GameObject;
 			setPos(cur, sinkData);
-			cur.GetComponent<Sink>().edge = XmlUtilities.getData(sinkData);
+			cur.GetComponent<Sink>().edge = XmlUtilities.getData<string>(sinkData);
 		}
 		foreach (XmlNode splitterData in data.SelectNodes(SPLITTER)) {
 			GameObject cur = Instantiate(splitter) as GameObject;

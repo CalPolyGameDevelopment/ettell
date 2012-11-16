@@ -15,7 +15,7 @@ public class Ending {
 	public Color color {
 		get {
             string[] hexes = XmlUtilities
-                .getDatumFromNode<string>(data, COLOR, XmlUtilities.getData).Split(',');
+                .getDatumFromNode<string>(data, COLOR, XmlUtilities.getData<string>).Split(',');
             return ColorUtilities.Parse(
                 hexes[0],
                 hexes[1],
@@ -25,19 +25,19 @@ public class Ending {
 	
 	public float difficulty {
 		get {
-			return float.Parse(XmlUtilities.getDatumFromNode<string>(data, DIFFICULTY, XmlUtilities.getData));
+			return float.Parse(XmlUtilities.getDatumFromNode<string>(data, DIFFICULTY, XmlUtilities.getData<string>));
 		}
 	}
 	
 	public string displayText {
 		get {
-			return XmlUtilities.getDatumFromNode<string>(data, DISPLAY_TEXT, XmlUtilities.getData);
+			return XmlUtilities.getDatumFromNode<string>(data, DISPLAY_TEXT, XmlUtilities.getData<string>);
 		}
 	}
 	
 	public string edgeId {
 		get {
-			return XmlUtilities.getData(data);
+			return XmlUtilities.getData<string>(data);
 		}
 	}
 	

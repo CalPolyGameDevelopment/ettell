@@ -37,10 +37,10 @@ public class UserProperty : WritableXml {
 	
 	public static string getProp(string propName) {
 		try {
-			return singleton.getDatum<string>(string.Format("descendant::{0}", propName), XmlUtilities.getData);
+			return singleton.getDatum<string>(string.Format("descendant::{0}", propName), XmlUtilities.getData<string>);
 		}
 		catch {
-			return singleton.defaultUserState.getDatum<string>(string.Format("descendant::{0}", propName), XmlUtilities.getData);
+			return singleton.defaultUserState.getDatum<string>(string.Format("descendant::{0}", propName), XmlUtilities.getData<string>);
 		}
 	}
 	

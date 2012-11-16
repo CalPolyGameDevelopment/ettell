@@ -10,15 +10,15 @@ public class Consequences {
 	
 	public static void apply(XmlNode consequence) {
 		foreach (XmlNode change in consequence.SelectNodes(CHANGE)) {
-			string changeProp = XmlUtilities.getData(change);
+			string changeProp = XmlUtilities.getData<string>(change);
 			foreach (XmlNode add in change.SelectNodes(ADD)) {
-				int delta = int.Parse(XmlUtilities.getData(add));
+				int delta = int.Parse(XmlUtilities.getData<string>(add));
 				UserProperty.setProp(changeProp,
 					(int.Parse(UserProperty.getProp(changeProp)) + delta).ToString()
 				);
 			}
 			foreach (XmlNode mult in change.SelectNodes(MULTIPLY)) {
-				int factor = int.Parse(XmlUtilities.getData(mult));
+				int factor = int.Parse(XmlUtilities.getData<string>(mult));
 				UserProperty.setProp(changeProp,
 					(int.Parse(UserProperty.getProp(changeProp)) * factor).ToString()
 				);

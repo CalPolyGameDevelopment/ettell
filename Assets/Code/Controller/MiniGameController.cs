@@ -49,7 +49,7 @@ public class MiniGameController : MonoBehaviour {
 	}
 	
 	public static void startMiniGame(XmlNode gameData) {
-		string name = XmlUtilities.getData(gameData);
+		string name = XmlUtilities.getData<string>(gameData);
 		singleton.current = (GameObject)Instantiate(singleton.miniGameTypes[name]);
 		singleton.current.transform.parent = singleton.gameObject.transform;
 		singleton.current.GetComponent<MiniGameAPI>().Data = gameData;

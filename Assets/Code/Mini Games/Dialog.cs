@@ -19,7 +19,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		set {
 			data = value;
 			
-			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
+			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData<string>).ToArray();
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
 			if (possibleEndings.Length == 1) {
