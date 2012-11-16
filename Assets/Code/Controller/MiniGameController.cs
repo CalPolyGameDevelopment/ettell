@@ -23,6 +23,7 @@ public class MiniGameController : MonoBehaviour {
 	public GameObject slideshow;
     public GameObject waveDefense;
     public GameObject pipePlatformer;
+	public GameObject stockSnake;
     
 	private Dictionary<string, GameObject> miniGameTypes;
 	
@@ -45,6 +46,7 @@ public class MiniGameController : MonoBehaviour {
         miniGameTypes["slideshow"] = slideshow;
         miniGameTypes["WaveDefense"] = waveDefense;
         miniGameTypes["pipePlatformer"] = pipePlatformer;
+		miniGameTypes["stockSnake"] = stockSnake;
 		singleton = this;
 	}
 	

@@ -31,6 +31,9 @@
 			<ending data="pipePlatformerEdge">
 				<display_text data="Pipe Platformer" />
 			</ending>
+			<ending data="stockSnakeEdge">
+				<display_text data="Stock Snake" />
+			</ending>
 			<ending data="winGame" requires="enoughCpu">
 				<display_text data="I don't know, who am I?" />
 				<requirement id="enoughCpu">
@@ -98,7 +101,7 @@
 			<sceneName data="InternetEscapePlatformer" />
 			<ending data="loseGame">
 				<color data="255,0,0" />
-				<difficulty data="-11" />
+				<difficulty data="-1" />
 			</ending>
 			<ending data="firstPuzzleRecur">
 				<color data="0,0,255" />
@@ -141,6 +144,18 @@
 	<node id="youLose">
 		<minigame data="dialog">
 			<prompt data="You lose!" />
+		</minigame>
+	</node>
+	<node id="stockSnakeNode">
+		<minigame data="stockSnake">
+			<width data="8" />
+			<height data="8" />
+			<ending data="firstPuzzleRecur">
+				<difficulty data="0" />
+			</ending>
+			<ending data="winGame">
+				<difficulty data="1" />
+			</ending>
 		</minigame>
 	</node>
 	<edge id="firstPuzzleRecur" data="firstPuzzle">
@@ -198,4 +213,5 @@
 	<edge id="slideshowEdge" data="slideshowNode" />
 	<edge id="waveDefenseEdge" data="waveDefenseNode" />
 	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
+	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 </story>
