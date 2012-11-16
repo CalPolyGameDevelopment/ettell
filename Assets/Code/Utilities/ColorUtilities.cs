@@ -168,7 +168,7 @@ static class ColorUtilities
         return Parse (r, g, b, RGBA_COMPONENT_MAX);
     }
     
-    // 0-255 integer strings
+    // 0-255 integer strings for RGBA
     public static Color Parse(string r, string g, string b, string a){
         int rPrime = int.Parse(r);
         int gPrime = int.Parse(g);
@@ -176,6 +176,16 @@ static class ColorUtilities
         int aPrime = int.Parse (a);
         
         return Parse (rPrime, gPrime, bPrime, aPrime);
+        
+    }
+    
+    // 0-255 integer string for RGB
+    public static Color Parse(string r, string g, string b){
+        int rPrime = int.Parse(r);
+        int gPrime = int.Parse(g);
+        int bPrime = int.Parse(b);
+     
+        return Parse (rPrime, gPrime, bPrime, RGBA_COMPONENT_MAX);
         
     }
     
