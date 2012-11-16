@@ -29,7 +29,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
     
     public GameObject level;
  
-    HashSet<int> numbers = new HashSet<int>{
+    List<int> numbers = new List<int>{
         1,2,3,
         4,5,6,
         7,8,9,
@@ -70,7 +70,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
             numbers.OrderBy(x => Random.value).Take(numberCount);
        
         IEnumerable<Color> colorChoices = 
-            colors.OrderBy(x=>Random.value).Take(colorCount);
+            colors.OrderBy(x => Random.value).Take(colorCount);
         
         bcLevel.InitData = new BCLevelData(solutionLen,numberChoices,colorChoices);
                 
