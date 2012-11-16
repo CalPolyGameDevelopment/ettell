@@ -8,12 +8,11 @@ public class Ending {
 	private const string ENDING = "ending";
 	private const string DIFFICULTY = "difficulty";
 	private const string DISPLAY_TEXT = "display_text";
-	
 	private XmlNode data;
 	
 	public Color color {
 		get {
-            return ColorUtilities.ColorFromXML(data);
+			return ColorUtilities.ColorFromXML(data);
 		}
 	}
 	
@@ -35,11 +34,11 @@ public class Ending {
 		}
 	}
 	
-	public Ending (XmlNode xn) {
+	public Ending(XmlNode xn) {
 		data = xn;
 	}
 	
-	public static IEnumerable<Ending> findEndings (XmlNode xn) {
+	public static IEnumerable<Ending> findEndings(XmlNode xn) {
 		return XmlUtilities.getDataFromNode<Ending>(xn, ENDING, x => new Ending(x)).Where(x => Requirements.pass(x.data));
 	}
 }
