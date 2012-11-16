@@ -6,6 +6,8 @@ using System.Linq;
 
 public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
  
+    const string BUTTER = "butter";
+    
     // Props... mad props
     private static class Props {
         public const string SolutionLength = "BCSolutionLength";
@@ -36,18 +38,8 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         0
     };
     
-    List<Color> colors = new List<Color>{
-        Color.black,
-        Color.blue,
-        Color.red,
-        Color.green,
-        Color.yellow,
-        Color.white,
-        Color.magenta,
-        Color.cyan
-    };
  
-    
+      
 
     void LoadLevel() {
         GameObject go = Instantiate(level) as GameObject;
@@ -55,7 +47,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         BullsAndCleotsLevelController bcLevel = go.GetComponent<BullsAndCleotsLevelController>();
     
         int solutionLen = int.Parse(UserProperty.getProp(Props.SolutionLength));
-        int numberCount = int.Parse(UserProperty.getProp (Props.NumberCount));
+        int numberCount = int.Parse(UserProperty.getProp(Props.NumberCount));
         int colorCount  = int.Parse(UserProperty.getProp(Props.ColorCount));
         
         
@@ -70,11 +62,19 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
             numbers.OrderBy(x => Random.value).Take(numberCount);
        
         IEnumerable<Color> colorChoices = 
-            colors.OrderBy(x => Random.value).Take(colorCount);
+            ColorUtilities.nameToValueMap.Values
+                .OrderBy(x => Random.value).Take(colorCount);
         
-        bcLevel.InitData = new BCLevelData(solutionLen,numberChoices,colorChoices);
-                
+        
+        
+
        
-    }
+        //bcLevel.InitData = new BCLevelData(solutionLen,numberChoices,colorChoices);
+          #region Test Code
+        BCLevelData ld = new BCLevelData(solutionLen, numberChoices, colorChoices);
+        ld.fromXml = XmlUtilities.getData<Color>(data.SelectSingleNode(BUTTER));
+          bcLevel.InitData = ld;      
+#endregion
+       }
 
 }
