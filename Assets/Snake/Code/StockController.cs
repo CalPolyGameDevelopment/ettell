@@ -5,9 +5,12 @@ using System.Linq;
 
 public class StockController : MonoBehaviour {
 	
+	private const int stockPlaceTries = 10;
+	
 	public float spawnTimer;
 	public int startStocks;
 	public int maxStocks;
+	public float badStockDiffusionChance;
 	public List<string> symbolsNames;
 	
 	private struct Symbol {
@@ -35,16 +38,21 @@ public class StockController : MonoBehaviour {
 	void spawnSymbol() {
 		Symbol s = new Symbol();
 		int x = 0, y = 0;
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < stockPlaceTries; i++) {
 			x = Random.Range(1, SnakeGame.Width - 1);
 			y = Random.Range(1, SnakeGame.Height - 1);
 			if (SnakeGame.Singleton[x, y] == SnakeGame.EMPTY_COLOR) {
 				break;
 			}
+			if (i == stockPlaceTries - 1) {
+				Debug.Log("Couldn't place a stock");
+				return;
+			}
 		}
 		s.x = x;
 		s.y = y;
-		s.name = symbolsNames[Random.Range(0, symbolsNames.Count)];
+		symbolsNames = symbolsNames.OrderBy<string, float>(a => Random.Range(0f, 1f)).ToList();
+		s.name = symbolsNames.Where(a => !symbols.Any(b => b.name == a)).ElementAt(0);
 		s.changePct = Random.Range(-5f, 5f);
 		symbols.Add(s);
 		SnakeGame.Singleton[s.x, s.y] = s.changePct > 0f ? SnakeGame.Singleton.GoodStock : SnakeGame.Singleton.BadStock;
