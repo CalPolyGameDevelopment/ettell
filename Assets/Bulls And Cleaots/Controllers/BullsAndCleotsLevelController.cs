@@ -71,6 +71,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     void Start() {
         hasWon = false;
         attemptCount = 0;
+        
         playerMessageQueue = new Queue<string>(maxMessages);
         solution = new SolutionManager(initData.solutionLength);
         solution.Colors = initData.solutionColors;
@@ -90,7 +91,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
-            EventManager.instance.RegisterListener(this, (string)eventName);
+            EventManager.instance.RegisterListener(this, eventName);
         }
 		
 		bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
