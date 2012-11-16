@@ -40,7 +40,7 @@
 				</requirement>
 			</ending>
 		</minigame>
-	</node>
+	</node>   
 	<node id="laserPlumber">
 		<minigame data="laserPlumber">
 			<source>
@@ -73,12 +73,7 @@
 	<node id="bullsAndCleotsNode">
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
-			<solution data="colors">
-				<colors data="random" />
-			</solution>
-			<solution data="numbers">
-				<numbers data="random" />
-			</solution>
+            <butter data="\rgb(0,255,255)" />
 		</minigame>
 	</node>
 	<node id="match3Node">
