@@ -5,6 +5,12 @@ using System.Xml;
 
 public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
+	private const string MIRROR = "mirror";
+	private const string SPLITTER = "splitter";
+	private const string SOURCE = "source";
+	private const string SINK = "sink";
+	private const string POSITION = "position";
+	
 	private XmlNode data;
 	public XmlNode Data {
 		set {
@@ -18,7 +24,7 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	public GameObject sink;
 	
 	private void setPos(GameObject toSet, XmlNode theirData) {
-		XmlNode position = theirData.SelectSingleNode(XmlUtilities.position);
+		XmlNode position = theirData.SelectSingleNode(POSITION);
 		if (position != null) {
 			float[] coords = XmlUtilities.getPosition(position);
 			toSet.transform.position = new Vector3(coords[0], coords[1], coords[2]);
@@ -27,20 +33,20 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private void genBoard() {
-		foreach (XmlNode sourceData in data.SelectNodes(XmlUtilities.source)) {
+		foreach (XmlNode sourceData in data.SelectNodes(SOURCE)) {
 			GameObject cur = Instantiate(source) as GameObject;
 			setPos(cur, sourceData);
 		}
-		foreach (XmlNode mirrorData in data.SelectNodes(XmlUtilities.mirror)) {
+		foreach (XmlNode mirrorData in data.SelectNodes(MIRROR)) {
 			GameObject cur = Instantiate(mirror) as GameObject;
 			setPos(cur, mirrorData);
 		}
-		foreach (XmlNode sinkData in data.SelectNodes(XmlUtilities.sink)) {
+		foreach (XmlNode sinkData in data.SelectNodes(SINK)) {
 			GameObject cur = Instantiate(sink) as GameObject;
 			setPos(cur, sinkData);
 			cur.GetComponent<Sink>().edge = XmlUtilities.getData(sinkData);
 		}
-		foreach (XmlNode splitterData in data.SelectNodes(XmlUtilities.splitter)) {
+		foreach (XmlNode splitterData in data.SelectNodes(SPLITTER)) {
 			GameObject cur = Instantiate(splitter) as GameObject;
 			setPos(cur, splitterData);
 		}

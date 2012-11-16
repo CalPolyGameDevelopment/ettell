@@ -4,6 +4,8 @@ using System.Xml;
 
 public class StoryController : MonoBehaviour {
 	
+	private const string CONSEQUENCE = "consequence";
+	
 	public ImmutableData story;
 	public static ImmutableData Story {
 		get {
@@ -44,15 +46,15 @@ public class StoryController : MonoBehaviour {
 		XmlNode curNode = story.xmlDoc.SelectSingleNode(string.Format(@"//*[@id='{0}']/minigame", stateMachineNode));
 		ready = true;
 		
-		MiniGameController.startMiniGame(curNode.Attributes[XmlUtilities.data].Value, curNode);
+		MiniGameController.startMiniGame(curNode);
 	}
 	
 	public static void TraverseEdge(string edgeId) {
-		XmlNode edge = singleton.story.xmlDoc.SelectSingleNode(string.Format(@"//*[@id='{0}']", edgeId));
-		foreach (XmlNode consequence in edge.SelectNodes(XmlUtilities.consequence)) {
+		XmlNode edge = findById(edgeId);
+		foreach (XmlNode consequence in edge.SelectNodes(CONSEQUENCE)) {
 			Consequences.apply(consequence);
 		}
-		UserProperty.setProp("curNode", edge.Attributes[XmlUtilities.data].Value);
+		UserProperty.setProp("curNode", XmlUtilities.getData(edge));
 		singleton.StartCoroutine(singleton.loadCurNode());
 	}
 }

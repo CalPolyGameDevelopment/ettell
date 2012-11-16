@@ -6,28 +6,11 @@ using System.Xml;
 
 public class XmlUtilities : MonoBehaviour {
 	
-	public const string data = "data";
-	public const string edge = "edge";
-	public const string requires = "requires";
-	public const string consequence = "consequence";
-	public const string have = "have";
-	public const string atLeast = "atLeast";
-	public const string change = "change";
-	public const string add = "add";
-	public const string multiply = "multiply";
-	public const string sceneName = "sceneName";
-	public const string mirror = "mirror";
-	public const string splitter = "splitter";
-	public const string source = "source";
-	public const string sink = "sink";
-	public const string position = "position";
-	public const string width = "width";
-	public const string height = "height";
-	public const string solution = "solution";
-    public const string number = "number";
-	public const string duration = "duration";
-	public const string resource = "resource";
-	public const string endEdge = "endEdge";
+	//Shared xml tags
+	public const string DATA = "data";
+	public const string RESOURCE = "resource";
+	public const string WIDTH = "width";
+	public const string HEIGHT = "height";
     
     public static readonly Dictionary<string,Color> colorNameToValueMap = 
         new Dictionary<string, Color>{
@@ -51,7 +34,7 @@ public class XmlUtilities : MonoBehaviour {
 	}
 	
 	public static string getData(XmlNode xn) {
-		string val = xn.Attributes[data].Value;
+		string val = xn.Attributes[DATA].Value;
 		if (val.Contains("\\")) {
 			foreach (Regex replacement in replacers.Keys) {
 				val = replacement.Replace(val, replacers[replacement]());

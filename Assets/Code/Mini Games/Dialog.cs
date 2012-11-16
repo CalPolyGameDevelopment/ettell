@@ -7,38 +7,41 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
+	
 	private const int BUTTON_SIZE_MODIFIER = 30;
 	
 	public GUIStyle style;
-	private XmlNode[][] options;
+	private Ending[][] options;
 	private string[] promptText;
 	
 	private XmlNode data;
 	public XmlNode Data {
 		set {
 			data = value;
-			XmlNode[] possibleOptions = data.SelectNodes(RESPONSE).Cast<XmlNode>().Where(xn => Requirements.pass(xn)).ToArray();
+			
 			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
-			if (possibleOptions.Length == 1) {
-				MiniGameController.endMiniGame(XmlUtilities.getData(possibleOptions[0]));
+			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
+			
+			if (possibleEndings.Length == 1) {
+				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
 			}
 			
-			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleOptions.Length));
-			HashSet<XmlNode>[] rows = new HashSet<XmlNode>[height];
+			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleEndings.Length));
+			HashSet<Ending>[] rows = new HashSet<Ending>[height];
 			for (int i = 0; i < height; i++) {
-				rows[i] = new HashSet<XmlNode>();
+				rows[i] = new HashSet<Ending>();
 			}
 			// This is a greedy approximation to the knapsack problem.  Trying to equalize the number of characters per line
-			foreach (XmlNode xn in possibleOptions.OrderBy<XmlNode, int>(xn => -XmlUtilities.getData(xn).Length)) {
-				rows[0].Add(xn);
-				rows = rows.OrderBy<HashSet<XmlNode>, int>(
-					r => r.Aggregate<XmlNode, int>(0, 
-						(agg, xml) => agg + XmlUtilities.getData(xml).Length + BUTTON_SIZE_MODIFIER
+			foreach (Ending ending in possibleEndings.OrderBy<Ending, int>(e => -e.displayText.Length)) {
+				rows[0].Add(ending);
+				rows = rows.OrderBy<HashSet<Ending>, int>(
+					r => r.Aggregate<Ending, int>(0, 
+						(agg, e) => agg + e.displayText.Length + BUTTON_SIZE_MODIFIER
 					)
 				).ToArray();
 			}
 			
-			options = new XmlNode[height][];
+			options = new Ending[height][];
 			for (int i = 0; i < height; i++) {
 				options[i] = rows[i].ToArray();
 			}
@@ -55,11 +58,11 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		}
 		GUILayout.EndArea();
 		GUILayout.BeginArea(new Rect(0f, 20f, Screen.width, Screen.height - 20f));
-		foreach (XmlNode[] xns in options) {
+		foreach (Ending[] endings in options) {
 			GUILayout.BeginHorizontal();
-			foreach (XmlNode xn in xns) {
-				if (GUILayout.Button(XmlUtilities.getData(xn), style, GUILayout.ExpandHeight(true))) {
-					MiniGameController.endMiniGame(xn.Attributes[XmlUtilities.edge].Value);
+			foreach (Ending ending in endings) {
+				if (GUILayout.Button(ending.displayText, style, GUILayout.ExpandHeight(true))) {
+					MiniGameController.endMiniGame(ending.edgeId);
 				}
 			}
 			GUILayout.EndHorizontal();
