@@ -14,12 +14,12 @@ public class Ending {
 	
 	public Color color {
 		get {
-			string[] hexes = XmlUtilities.getDatumFromNode<string>(data, COLOR, XmlUtilities.getData).Split(',');
-			return new Color(
-				float.Parse(hexes[0]) / 255f,
-				float.Parse(hexes[1]) / 255f,
-				float.Parse(hexes[2]) / 255f
-			);
+            string[] hexes = XmlUtilities
+                .getDatumFromNode<string>(data, COLOR, XmlUtilities.getData).Split(',');
+            return ColorUtilities.Parse(
+                hexes[0],
+                hexes[1],
+                hexes[2]);
 		}
 	}
 	

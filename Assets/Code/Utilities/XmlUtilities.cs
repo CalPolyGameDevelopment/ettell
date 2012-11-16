@@ -12,17 +12,7 @@ public class XmlUtilities : MonoBehaviour {
 	public const string WIDTH = "width";
 	public const string HEIGHT = "height";
     
-    public static readonly Dictionary<string,Color> colorNameToValueMap = 
-        new Dictionary<string, Color>{
-            {"red" , Color.red},
-            {"green",Color.green},
-            {"blue", Color.blue},
-            {"black", Color.black},
-            {"cyan", Color.cyan},
-            {"magenta", Color.magenta},
-            {"white", Color.white},
-            {"yellow", Color.yellow},
-    };
+   
     
 	private delegate string replace();
 	

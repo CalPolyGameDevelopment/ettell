@@ -49,32 +49,6 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
  
     
 
-    void SetSolutionNumbers(BullsAndCleotsLevelController level,
-            XmlNode solutionNode) {
-
-        
-        
-        
-        
-          foreach(int i in numbers.OrderBy(x => Random.value).Take(4)){
-            Debug.Log (i);
-        }
-        
-
-    }
-
-    void DetermineSolutionColors(BullsAndCleotsLevelController level,
-            XmlNode solutionNode) {
-
-   
-        foreach(Color c in colors.OrderBy(x => Random.value).Take(4)){
-            Debug.Log (c);
-        }
-        
-
-
-    }
-
     void LoadLevel() {
         GameObject go = Instantiate(level) as GameObject;
 		go.transform.parent = transform;
@@ -99,13 +73,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
             colors.OrderBy(x=>Random.value).Take(colorCount);
         
         bcLevel.InitData = new BCLevelData(solutionLen,numberChoices,colorChoices);
-        
-        
-        
-        
- 
-        
-        
+                
        
     }
 
