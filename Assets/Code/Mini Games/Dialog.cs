@@ -7,12 +7,20 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
+	private const string INVISIBLE = "invisible";
 	
 	private const int BUTTON_SIZE_MODIFIER = 30;
 	
 	public GUIStyle style;
 	private Ending[][] options;
 	private string[] promptText;
+	
+	private bool allowInvisibleChoice {
+		get {
+			XmlNode xn = data.SelectSingleNode(INVISIBLE);
+			return xn == null ? false : bool.Parse(XmlUtilities.getData(xn));
+		}
+	}
 	
 	private XmlNode data;
 	public XmlNode Data {
@@ -22,7 +30,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
-			if (possibleEndings.Length == 1) {
+			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
 				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
 			}
 			

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <story>
-	<node id="firstPuzzle">
+	<node id="newGame">
+		<minigame data="dialog">
+			<prompt data="Ettell" />
+			<prompt data="Main Menu" />
+			<ending data="miniGameTestRecur">
+				<display_text data="Test Mini-games" />
+			</ending>
+			<ending data="storyBegin">
+				<display_text data="New Game" />
+			</ending>
+		</minigame>
+	</node>	
+	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
 			<prompt data="Placeholder dialog mini-game:" />
 			<ending data="laserEdge">
 				<display_text data="laser plumber" />
 			</ending>
-			<ending data="firstPuzzleRecur">
+			<ending data="miniGameTestRecur">
 				<display_text data="Dialog Recur" />
 			</ending>
 			<ending data="redBlueChoice">
@@ -58,7 +70,7 @@
 			<mirror>
 				<position data="30,-10,0" />
 			</mirror>
-			<sink data="firstPuzzleRecur">
+			<sink data="miniGameTestRecur">
 				<position data="30,0,0" />
 			</sink>
 		</minigame>
@@ -88,7 +100,7 @@
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
-			<ending data="firstPuzzleRecur">
+			<ending data="miniGameTestRecur">
 				<color data="#FF0000" />
 			</ending>
 			<ending data="winGame">
@@ -103,7 +115,7 @@
 				<color data="#FF0000" />
 				<difficulty data="-1" />
 			</ending>
-			<ending data="firstPuzzleRecur">
+			<ending data="miniGameTestRecur">
 				<color data="#0000FF" />
 				<difficulty data="1" />
 			</ending>
@@ -116,7 +128,7 @@
 	<node id="physicsDemoNode">
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
-			<ending data="firstPuzzleRecur">
+			<ending data="miniGameTestRecur">
 				<color data="#FF0000" />
 			</ending>
 			<ending data="winGame">
@@ -126,7 +138,7 @@
 	</node>
 	<node id="slideshowNode">
 		<minigame data="slideshow">
-			<endEdge data="firstPuzzleRecur" />
+			<endEdge data="miniGameTestRecur" />
 			<duration data="5" />
 			<resource data="WallStreetSign" />
 		</minigame>
@@ -139,18 +151,32 @@
 	<node id="youWin">
 		<minigame data="dialog">
 			<prompt data="You win!" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="youLose">
 		<minigame data="dialog">
 			<prompt data="You lose!" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="firstPuzzle">
+		<minigame data="dialog">
+			<prompt data="This node no longer exists" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="stockSnakeNode">
 		<minigame data="stockSnake">
 			<width data="8" />
 			<height data="8" />
-			<ending data="firstPuzzleRecur">
+			<ending data="miniGameTestRecur">
 				<difficulty data="0" />
 			</ending>
 			<ending data="winGame">
@@ -176,7 +202,7 @@
 			</ettellLerp>
 		</minigame>
 	</node>
-	<edge id="firstPuzzleRecur" data="firstPuzzle">
+	<edge id="miniGameTestRecur" data="miniGameTest">
 		<consequence>
 			<change data="year">
 				<add data="2" />
@@ -186,7 +212,7 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="chooseRed" data="firstPuzzle">
+	<edge id="chooseRed" data="miniGameTest">
 		<consequence>
 			<change data="year">
 				<add data="3" />
@@ -200,21 +226,21 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="BCIncreaseDifficulty" data="firstPuzzle">
+	<edge id="BCIncreaseDifficulty" data="miniGameTest">
 		<consequence>
 			<change data="BCSolutionLength">
 				<add data="1" />
 			</change>
 		</consequence>
 	</edge>
-	<edge id="BCIncreaseColors" data="firstPuzzle">
+	<edge id="BCIncreaseColors" data="miniGameTest">
 		<consequence>
 			<change data="BCColorCount">
 				<add data="1" />
 			</change>
 		</consequence>
 	</edge>
-	<edge id="BCIncreaseNumbers" data="firstPuzzle">
+	<edge id="BCIncreaseNumbers" data="miniGameTest">
 		<consequence>
 			<change data="BCNumberCount">
 				<add data="1" />
@@ -232,4 +258,5 @@
 	<edge id="waveDefenseEdge" data="waveDefenseNode" />
 	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
+	<edge id="startOverEdge" data="newGame" />
 </story>
