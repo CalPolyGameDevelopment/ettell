@@ -156,6 +156,24 @@
 			<ending data="winGame">
 				<difficulty data="1" />
 			</ending>
+			<border>
+				<color data="rgb(219,169,51)" />
+			</border>
+			<goodStock>
+				<color data="rgb(56,255,59)" />
+			</goodStock>
+			<badStock>
+				<color data="rgb(242,97,90)" />
+			</badStock>
+			<ettellStart>
+				<color data="rgb(218,230,22)" />
+			</ettellStart>
+			<ettellLerp>
+				<color data="rgb(0,255,41)" />
+				<color data="rgb(80,100,249)" />
+				<color data="rgb(255,0,0)" />
+				<color data="rgb(0,0,0)" />
+			</ettellLerp>
 		</minigame>
 	</node>
 	<edge id="firstPuzzleRecur" data="firstPuzzle">

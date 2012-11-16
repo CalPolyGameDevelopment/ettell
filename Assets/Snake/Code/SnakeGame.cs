@@ -35,11 +35,42 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	public GameObject ettellSnake;
 	public GameObject stockController;
 	
-	public Color borderColor;
-	public Color goodStock;
-	public Color badStock;
-	public Color ettellStart;
-	public Color[] ettellLerp;
+	private const string BORDER = "border";
+	public Color BorderColor {
+		get {
+			return XmlUtilities.getDatumFromNode<Color>(data, BORDER, ColorUtilities.ColorFromXML);
+		}
+	}
+	
+	private const string GOOD_STOCK = "goodStock";
+	public Color GoodStock {
+		get {
+			return XmlUtilities.getDatumFromNode<Color>(data, GOOD_STOCK, ColorUtilities.ColorFromXML);
+		}
+	}
+	
+	private const string BAD_STOCK = "badStock";
+	public Color BadStock {
+		get {
+			return XmlUtilities.getDatumFromNode<Color>(data, BAD_STOCK, ColorUtilities.ColorFromXML);
+		}
+	}
+	
+	
+	private const string ETTELL_START = "ettellStart";
+	public Color EttellStart {
+		get {
+			return XmlUtilities.getDatumFromNode<Color>(data, ETTELL_START, ColorUtilities.ColorFromXML);
+		}
+	}
+	
+	
+	private const string ETTELL_LEFP = "ettellLerp";
+	public Color[] EttellLerp {
+		get {
+			return XmlUtilities.getDatumFromNode<Color[]>(data, ETTELL_LEFP, ColorUtilities.ColorsFromXML);
+		}
+	}
 	
 	private int width;
 	public static int Width {
@@ -131,7 +162,7 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				filledSpaces[x, y] = new Square();
-				this[x, y] = (x == 0 || x == width - 1 || y == 0 || y == height - 1) ? borderColor : EMPTY_COLOR;
+				this[x, y] = (x == 0 || x == width - 1 || y == 0 || y == height - 1) ? BorderColor : EMPTY_COLOR;
 			}
 		}
 		

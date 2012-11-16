@@ -22,7 +22,7 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	private const int MAX_TAIL_LENGTH = 100;
-	private const float FASTEST_TPS = 0.008f;
+	private const float FASTEST_TPS = 0.04f;
 	
 	public float timePerSquare;
 	
@@ -61,15 +61,15 @@ public class SnakeController : MonoBehaviour {
 			return;
 		}
 		
-		if (eating == SnakeGame.Singleton.badStock) {
+		if (eating == SnakeGame.Singleton.BadStock) {
 			if (--tailLength <= 0) {
 				SnakeGame.ettellLose();
 			}
 		}
-		else if (eating == SnakeGame.Singleton.goodStock) {
+		else if (eating == SnakeGame.Singleton.GoodStock) {
 			tailLength++;
 		}
-		else if (eating == SnakeGame.Singleton.ettellStart && interactive) {
+		else if (eating == SnakeGame.Singleton.EttellStart && interactive) {
 			interactive = false;
 			IEnumerable<Position> filledRoute = filledPositions.Reverse().TakeWhile(p => p.x != goingTo.x || p.y != goingTo.y).Reverse();
 			plan = new Position[filledRoute.Count() + newlyFilledPositions.Count + 1];
@@ -117,7 +117,7 @@ public class SnakeController : MonoBehaviour {
 	private void manageTail() {
 		while (newlyFilledPositions.Any()) {
 			Position p = newlyFilledPositions.Dequeue();
-			SnakeGame.Singleton[p.x, p.y] = SnakeGame.Singleton.ettellStart;
+			SnakeGame.Singleton[p.x, p.y] = SnakeGame.Singleton.EttellStart;
 			filledPositions.Enqueue(p);
 		}
 		if (interactive) {

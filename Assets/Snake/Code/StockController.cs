@@ -27,8 +27,8 @@ public class StockController : MonoBehaviour {
 	
 	void checkSymbols() {
 		symbols = symbols.Where(s => 
-			SnakeGame.Singleton[s.x, s.y] == SnakeGame.Singleton.badStock || 
-			SnakeGame.Singleton[s.x, s.y] == SnakeGame.Singleton.goodStock
+			SnakeGame.Singleton[s.x, s.y] == SnakeGame.Singleton.BadStock || 
+			SnakeGame.Singleton[s.x, s.y] == SnakeGame.Singleton.GoodStock
 		).OrderBy<Symbol, float>(s => s.changePct).ToList();
 	}
 	
@@ -39,7 +39,7 @@ public class StockController : MonoBehaviour {
 		s.name = symbolsNames[Random.Range(0, symbolsNames.Count)];
 		s.changePct = Random.Range(-5f, 5f);
 		symbols.Add(s);
-		SnakeGame.Singleton[s.x, s.y] = s.changePct > 0f ? SnakeGame.Singleton.goodStock : SnakeGame.Singleton.badStock;
+		SnakeGame.Singleton[s.x, s.y] = s.changePct > 0f ? SnakeGame.Singleton.GoodStock : SnakeGame.Singleton.BadStock;
 	}
 	
 	void Update() {

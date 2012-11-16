@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -245,12 +246,10 @@ static class ColorUtilities
     
 	#endregion
 	
-	#region Shit that is actually useful to anyone other than Dillon Hicks
-	
 	public static Color ColorFromXML(XmlNode xn) {
 		return XmlUtilities.getDatumFromNode<Color>(xn, COLOR, x => Parse(XmlUtilities.getData(x)));
 	}
-	
-	#endregion
-   
+	public static Color[] ColorsFromXML(XmlNode xn) {
+		return XmlUtilities.getDataFromNode<Color>(xn, COLOR, x => Parse(XmlUtilities.getData(x))).ToArray();
+	}
 }
