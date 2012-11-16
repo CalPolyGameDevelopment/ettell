@@ -34,8 +34,16 @@ public class StockController : MonoBehaviour {
 	
 	void spawnSymbol() {
 		Symbol s = new Symbol();
-		s.x = Random.Range(1, SnakeGame.Width - 1);
-		s.y = Random.Range(1, SnakeGame.Height - 1);
+		int x = 0, y = 0;
+		for (int i = 0; i < 30; i++) {
+			x = Random.Range(1, SnakeGame.Width - 1);
+			y = Random.Range(1, SnakeGame.Height - 1);
+			if (SnakeGame.Singleton[x, y] == SnakeGame.EMPTY_COLOR) {
+				break;
+			}
+		}
+		s.x = x;
+		s.y = y;
 		s.name = symbolsNames[Random.Range(0, symbolsNames.Count)];
 		s.changePct = Random.Range(-5f, 5f);
 		symbols.Add(s);
