@@ -14,7 +14,7 @@ public class XmlUtilities : MonoBehaviour {
     
    
     
-	private delegate string replace();
+	private delegate string replace(string data);
 	
 	private static Dictionary<Regex, replace> replacers;
     
@@ -27,12 +27,32 @@ public class XmlUtilities : MonoBehaviour {
 		string val = xn.Attributes[DATA].Value;
 		if (val.Contains("\\")) {
 			foreach (Regex replacement in replacers.Keys) {
-				val = replacement.Replace(val, replacers[replacement]());
+				val = replacement.Replace(val, replacers[replacement](val));
 			}
 		}
 		return val;
 	}
 	
+    public static bool GetFloat(XmlNode xn, out float data){
+        data = 0.0f;
+        string val = xn.Attributes[DATA].Value;
+        return float.TryParse(val, out data);
+    }
+    
+    public static bool GetInt(XmlNode xn, out int data){
+        data = 0;
+        string val = xn.Attributes[DATA].Value;
+        return int.TryParse(val, out data);
+    }
+    
+    public static bool GetColor(XmlNode xn, out Color data){
+        data = Color.white;
+        string val = xn.Attributes[DATA].Value;
+        return ColorUtilities.TryParse(val, out data);
+    }
+    // Candidates 
+    // Vector3 à la getPosition
+    
 	public static float[] getPosition(XmlNode position) {
 		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
 	}
@@ -47,7 +67,7 @@ public class XmlUtilities : MonoBehaviour {
 		return f(xn);
 	}
 	
-	private string Year() {
+	private string Year(string data) {
 		return UserProperty.getProp("year");
 	}
 }
