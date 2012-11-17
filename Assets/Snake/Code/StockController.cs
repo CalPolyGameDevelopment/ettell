@@ -1033,7 +1033,7 @@ public class StockController : MonoBehaviour {
 	
 	void checkSymbols() {
 		foreach (Symbol s in symbols) {
-			if (SnakeGame.Singleton[s.x, s.y] == SnakeGame.Singleton.BadStock && Random.Range(0f, 1f) < badStockDiffusionChance) {
+			if (Random.Range(0f, 1f) < badStockDiffusionChance) {
 				SnakeGame.Singleton[s.x, s.y] = SnakeGame.EMPTY_COLOR;
 			}
 		}

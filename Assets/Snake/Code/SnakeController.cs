@@ -56,8 +56,7 @@ public class SnakeController : MonoBehaviour {
 	private void onChompSquare() {
 		newlyFilledPositions.Enqueue(goingFrom);
 		
-		Color eating = SnakeGame.Singleton[goingFrom.x, goingFrom.y];
-		Color nextMeal = SnakeGame.Singleton[goingTo.x, goingTo.y];
+		Color eating = SnakeGame.Singleton[goingTo.x, goingTo.y];
 		if (eating == SnakeGame.EMPTY_COLOR) {
 			return;
 		}
@@ -72,9 +71,8 @@ public class SnakeController : MonoBehaviour {
 		}
 		else if (eating == SnakeGame.Singleton.BorderColor) {
 			SnakeGame.ettellLose();
-		}
-		
-		if (nextMeal == SnakeGame.Singleton.EttellStart && interactive) {
+		} 
+		else if (eating == SnakeGame.Singleton.EttellStart && interactive) {
 			interactive = false;
 			IEnumerable<Position> filledRoute = filledPositions.Reverse().TakeWhile(p => p.x != goingTo.x || p.y != goingTo.y).Reverse();
 			plan = new Position[filledRoute.Count() + newlyFilledPositions.Count + 1];
