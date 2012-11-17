@@ -73,7 +73,7 @@
 	<node id="bullsAndCleotsNode">
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
-            <butter data="\rgb(0,255,255)" />
+            <butter data="rgb(0,255,255)" />
 		</minigame>
 	</node>
 	<node id="match3Node">
