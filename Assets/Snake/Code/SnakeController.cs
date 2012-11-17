@@ -76,7 +76,7 @@ public class SnakeController : MonoBehaviour {
 			interactive = false;
 			IEnumerable<Position> filledRoute = filledPositions.Reverse().TakeWhile(p => p.x != goingTo.x || p.y != goingTo.y).Reverse();
 			plan = new Position[filledRoute.Count() + newlyFilledPositions.Count + 1];
-			if (plan.Length < 8) {
+			if (plan.Length < SnakeGame.WinThreshold) {
 				SnakeGame.ettellLose();
 			}
 			plan[0] = goingTo;

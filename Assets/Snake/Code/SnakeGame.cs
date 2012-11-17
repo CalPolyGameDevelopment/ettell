@@ -14,6 +14,8 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		}
 	}
 	
+	private const string SNAKE_LENGTH_THRESHOLD = "snakeLengthThreshold";
+	
 	private struct Square {
 		public Color color;
 		public SnakeTileController tile;
@@ -86,6 +88,13 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		}
 	}
 	
+	private int winThreshold;
+	public static int WinThreshold {
+		get {
+			return singleton.winThreshold;
+		}
+	}
+	
 	private int waitingForTiles;
 	private Queue<SnakeTileController> freeTiles;
 	private Square[,] filledSpaces;
@@ -153,6 +162,7 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		if (endings.Length != 2) {
 			Debug.Log("This game is designed to support 2 endings (in order of ascending difficulty): lose and stockCycle");
 		}
+		winThreshold = MathData.getInt(endings[1].otherData(SNAKE_LENGTH_THRESHOLD));
 		
 		width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.WIDTH, XmlUtilities.getData));
 		height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.HEIGHT, XmlUtilities.getData));

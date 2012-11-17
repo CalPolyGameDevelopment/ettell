@@ -4,6 +4,7 @@
 	<cpuPower data="1" />
     <BCSolutionLength data="2"/> 
     <BCColorCount data="2" />
-    <BCNumberCount data="2" />    
+    <BCNumberCount data="2" />
+	<snakeAttempts data="1" />
 	<curNode data="miniGameTest" />
 </data>

@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9BA1574D-B290-5265-4228-EA3C4A98A558}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AssemblyUnityScript</RootNamespace>
-    <AssemblyName>Assembly-UnityScript</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <UsePartialTypes>false</UsePartialTypes>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{9BA1574D-B290-5265-4228-EA3C4A98A558}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>Temp\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:\Program Files %28x86%29\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraFocus.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraScrolling.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\DeathTrigger.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\LevelAttributes.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\PlatformTarget.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Spaceship\Spaceship.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\2D\SpawnPoint.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionParticleEffect.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionSoundEffect.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\Foot.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\SpecialEffectHandler.js" />
-    <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
-    <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-    <None Include="Assets\Resources\waves.xml" />
-    <None Include="Assets\Resources\defaultUser.xml" />
-    <None Include="Assets\Resources\story.xml" />
-    <None Include="Assets\RedBlue Platformer\Level Prefabs\story.xml" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraFocus.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraScrolling.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Camera\CameraTargetAttributes.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerController.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPlayerAnimation.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Character Controls\PlatformerPushBodies.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\DeathTrigger.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\LevelAttributes.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Moving Platform\PlatformMover.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\PlatformTarget.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\Spaceship\Spaceship.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\2D\SpawnPoint.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionParticleEffect.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\CollisionSoundEffect.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\Foot.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\SpecialEffectHandler.js" />
+     <Compile Include="Assets\RedBlue Platformer\Scripts\Effects\StopEmittingAfterDelay.js" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Resources\waves.xml" />
+     <None Include="Assets\Resources\defaultUser.xml" />
+     <None Include="Assets\Resources\story.xml" />
+     <None Include="Assets\RedBlue Platformer\Level Prefabs\story.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -77,4 +76,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

@@ -176,11 +176,20 @@
 		<minigame data="stockSnake">
 			<width data="30" />
 			<height data="30" />
-			<ending data="miniGameTestRecur">
+			<ending data="snakeFail">
 				<difficulty data="0" />
 			</ending>
 			<ending data="winGame">
 				<difficulty data="1" />
+				<snakeLengthThreshold math="snakeLengthMath">
+					<divide id="snakeLengthMath">
+						<value data="31" />
+						<multiply>
+							<value data="\snakeAttempts" />
+							<value data="\snakeAttempts" />
+						</multiply>
+					</divide>
+				</snakeLengthThreshold>
 			</ending>
 			<border>
 				<color data="rgb(219,169,51)" />
@@ -243,6 +252,13 @@
 	<edge id="BCIncreaseNumbers" data="miniGameTest">
 		<consequence>
 			<change data="BCNumberCount">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="snakeFail" data="miniGameTest">
+		<consequence>
+			<change data="snakeAttempts">
 				<add data="1" />
 			</change>
 		</consequence>

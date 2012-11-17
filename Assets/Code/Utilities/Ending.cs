@@ -34,8 +34,12 @@ public class Ending {
 		}
 	}
 	
-	public Ending(XmlNode xn) {
+	private Ending(XmlNode xn) {
 		data = xn;
+	}
+	
+	public XmlNode otherData (string tagName) {
+		return data.SelectSingleNode(tagName);
 	}
 	
 	public static IEnumerable<Ending> findEndings(XmlNode xn) {

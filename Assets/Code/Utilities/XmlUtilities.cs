@@ -14,20 +14,21 @@ public class XmlUtilities : MonoBehaviour {
     
    
     
-	private delegate string replace();
+	private delegate string replace(string line);
 	
 	private static Dictionary<Regex, replace> replacers;
     
 	void Start() {
 		replacers = new Dictionary<Regex, replace>();
 		replacers[new Regex("\\\\year")] = Year;
+		replacers[new Regex("\\\\snakeAttempts")] = snakeAttempts;
 	}
 	
 	public static string getData(XmlNode xn) {
 		string val = xn.Attributes[DATA].Value;
 		if (val.Contains("\\")) {
 			foreach (Regex replacement in replacers.Keys) {
-				val = replacement.Replace(val, replacers[replacement]());
+				val = replacement.Replace(val, replacers[replacement](val));
 			}
 		}
 		return val;
@@ -47,7 +48,11 @@ public class XmlUtilities : MonoBehaviour {
 		return f(xn);
 	}
 	
-	private string Year() {
+	private string Year(string line) {
 		return UserProperty.getProp("year");
+	}
+	
+	private string snakeAttempts(string line) {
+		return UserProperty.getProp("snakeAttempts");
 	}
 }
