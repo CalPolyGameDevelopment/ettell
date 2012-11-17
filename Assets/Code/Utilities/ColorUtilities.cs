@@ -58,6 +58,7 @@ static class ColorUtilities
          (?<red>[0-9a-f]{2})  # 2 hex digits for red
        (?<green>[0-9a-f]{2})  # 2 hex digits for green
         (?<blue>[0-9a-f]{2})  # 2 hex digits for blue
+       (?<alpha>[0-9a-f]{2})? # opt. 2 hex digigts for alpha
     ";
     public static Regex HtmlHexRegex = new Regex (HTML_HEX_PATTERN,
         RegexOptions.IgnoreCase |
@@ -67,12 +68,12 @@ static class ColorUtilities
     // also will match "rgb(xxx,xxx,xxx,xxx)" which includes
     // the alpha component.
     public const string HTML_RGB_PATTERN = @"
-                 rgb[(]    # The escape + left paren
-        (?<red>\d{1,3}),   # 3 digits for red
-      (?<green>\d{1,3}),   # 3 digits for green
-       (?<blue>\d{1,3})    # 3 digits for blue
-    (,(?<alpha>\d{1,3}))?  # optional 3 digits for alpha
-                     [)]   # right paren
+                 rgba?[(]    # The escape + left paren
+        (?<red>\d{1,3}),     # 3 digits for red
+      (?<green>\d{1,3}),     # 3 digits for green
+       (?<blue>\d{1,3})      # 3 digits for blue
+    (,(?<alpha>\d{1,3}))?    # optional 3 digits for alpha
+                     [)]     # right paren
     ";
     public static Regex HtmlRGBRegex = new Regex (HTML_RGB_PATTERN, 
         RegexOptions.IgnoreCase |
@@ -120,8 +121,6 @@ static class ColorUtilities
              
         return (float)hex / RGBA_COMPONENT_MAX;
     }
-   
-    
     
     public static Color FromName (string name)
     {
@@ -132,6 +131,12 @@ static class ColorUtilities
     {
         return valueToNameMap [color];
     }
+    
+    public static IEnumerable<Color> GetColors(){
+        return nameToValueMap.Values;
+        
+    }
+    
     
 #region Parse Functions
   
@@ -146,7 +151,18 @@ static class ColorUtilities
      
         return new Color (rPrime, gPrime, bPrime, aPrime);
     }
-  
+    
+    // Fault tolerant string parsing.
+    public static bool TryParse (string s, out Color color)
+    {
+        try {
+            color = Parse (s);    
+            return true;
+        } catch (UnparsableColorException) {
+            color = Color.white;
+            return false;
+        }
+    }
     
     // Parse html style colors #xxxxxx and rgb(xxx,...)
     public static Color Parse (string colorCode)
@@ -158,7 +174,7 @@ static class ColorUtilities
         } else if (colorCode.StartsWith (HTML_RGB_ESCAPE)) {
             return ParseHtmlRGB (colorCode);
         }     
-        throw new UnparsableColorException("Is this in HTML format?: " + colorCode);
+        throw new UnparsableColorException ("Is this in HTML format?: " + colorCode);
         
     }
     
@@ -169,10 +185,11 @@ static class ColorUtilities
     }
     
     // 0-255 integer strings for RGBA
-    public static Color Parse(string r, string g, string b, string a){
-        int rPrime = int.Parse(r);
-        int gPrime = int.Parse(g);
-        int bPrime = int.Parse(b);
+    public static Color Parse (string r, string g, string b, string a)
+    {
+        int rPrime = int.Parse (r);
+        int gPrime = int.Parse (g);
+        int bPrime = int.Parse (b);
         int aPrime = int.Parse (a);
         
         return Parse (rPrime, gPrime, bPrime, aPrime);
@@ -180,34 +197,35 @@ static class ColorUtilities
     }
     
     // 0-255 integer string for RGB
-    public static Color Parse(string r, string g, string b){
-        int rPrime = int.Parse(r);
-        int gPrime = int.Parse(g);
-        int bPrime = int.Parse(b);
+    public static Color Parse (string r, string g, string b)
+    {
+        int rPrime = int.Parse (r);
+        int gPrime = int.Parse (g);
+        int bPrime = int.Parse (b);
      
         return Parse (rPrime, gPrime, bPrime, RGBA_COMPONENT_MAX);
         
     }
     
     // Parse from RGB hex string "00"-"FF"
-    private static Color ParseHex (string r, string g, string b)
+    private static Color ParseHex (string r, string g, string b, string a)
     {
         int rPrime = int.Parse (r, NumberStyles.HexNumber);
         int gPrime = int.Parse (g, NumberStyles.HexNumber);
-        int bPrime = int.Parse (g, NumberStyles.HexNumber);
-        
-        return Parse (rPrime, gPrime, bPrime);
+        int bPrime = int.Parse (b, NumberStyles.HexNumber);
+        int aPrime = int.Parse (a, NumberStyles.HexNumber);
+        return Parse (rPrime, gPrime, bPrime, aPrime);
     }
     
-    // Get the unity color from the "#XXXXXX" string.
+    // Get the unity color from the "#XXXXXXXX" string.
     private static Color ParseHtmlHex (string htmlCode)
     {
         
         Match hexMatch = HtmlHexRegex.Match (htmlCode);       
-        string r, g, b = "ff";
+        string r, g, b, a = "ff";
         
         
-        if (!hexMatch.Groups [ColorNames.Red].Success) {
+        if (!hexMatch.Success) {
             throw new UnparsableColorException (
                 "Is this in the HTML hex format?: " + htmlCode.ToString ());
         }
@@ -215,14 +233,16 @@ static class ColorUtilities
         r = hexMatch.Groups [ColorNames.Red].Value;
         g = hexMatch.Groups [ColorNames.Green].Value;
         b = hexMatch.Groups [ColorNames.Blue].Value;
-        
-        return ParseHex (r, g, b);
+        if(hexMatch.Groups[ColorNames.Alpha].Success){
+            a = hexMatch.Groups[ColorNames.Alpha].Value;
+        }
+        return ParseHex (r, g, b, a);
     }
     
     private static Color ParseHtmlRGB (string htmlCode)
     {
         Match rgbMatch = HtmlRGBRegex.Match (htmlCode);
-        string r,g,b,a = "255";
+        string r, g, b, a = "255";
         
         if (!rgbMatch.Groups [ColorNames.Red].Success) {
             throw new UnparsableColorException (
@@ -233,10 +253,11 @@ static class ColorUtilities
         g = rgbMatch.Groups [ColorNames.Green].Value;
         b = rgbMatch.Groups [ColorNames.Blue].Value;
         
-        if (rgbMatch.Groups [ColorNames.Alpha].Success)
+        if (rgbMatch.Groups [ColorNames.Alpha].Success){
             a = rgbMatch.Groups [ColorNames.Alpha].Value;    
+        }
         
-        return Parse (r,g,b,a);
+        return Parse (r, g, b, a);
     }
     
 #endregion
