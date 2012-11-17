@@ -174,8 +174,8 @@
 	</node>
 	<node id="stockSnakeNode">
 		<minigame data="stockSnake">
-			<width data="8" />
-			<height data="8" />
+			<width data="30" />
+			<height data="30" />
 			<ending data="miniGameTestRecur">
 				<difficulty data="0" />
 			</ending>

@@ -111,7 +111,9 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 			}
 			else {
 				filledSpaces[x, y] = t;
-				colorTile(x, y);
+				if (value != EMPTY_COLOR) {
+					colorTile(x, y);
+				}
 			}
 		}
 	}
