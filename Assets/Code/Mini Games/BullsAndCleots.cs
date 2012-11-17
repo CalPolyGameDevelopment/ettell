@@ -6,6 +6,8 @@ using System.Linq;
 
 public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
  
+    const string BUTTER = "butter";
+    
     // Props... mad props
     private static class Props {
         public const string SolutionLength = "BCSolutionLength";
@@ -36,7 +38,6 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         0
     };
     
-    
 
     void LoadLevel() {
         GameObject go = Instantiate(level) as GameObject;
@@ -44,7 +45,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         BullsAndCleotsLevelController bcLevel = go.GetComponent<BullsAndCleotsLevelController>();
     
         int solutionLen = int.Parse(UserProperty.getProp(Props.SolutionLength));
-        int numberCount = int.Parse(UserProperty.getProp (Props.NumberCount));
+        int numberCount = int.Parse(UserProperty.getProp(Props.NumberCount));
         int colorCount  = int.Parse(UserProperty.getProp(Props.ColorCount));
         
         
@@ -58,7 +59,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         IEnumerable<int> numberChoices = 
             numbers.OrderBy(x => Random.value).Take(numberCount);
        
-        IEnumerable<Color> colorChoices = 
+        IEnumerable<Color> colorChoices =
            ColorUtilities.GetColors().OrderBy(x => Random.value).Take(colorCount);
         
         BCLevelData ld = new BCLevelData(solutionLen,numberChoices,colorChoices);
@@ -70,6 +71,10 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         }
         
         bcLevel.InitData = ld;
-    }
 
+        
+        
+ 
+    }
+    
 }

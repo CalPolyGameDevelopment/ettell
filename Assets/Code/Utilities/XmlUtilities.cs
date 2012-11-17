@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Xml;
+using System;
+using System.Reflection;
+
 
 public class XmlUtilities : MonoBehaviour {
 	
@@ -12,26 +15,31 @@ public class XmlUtilities : MonoBehaviour {
 	public const string WIDTH = "width";
 	public const string HEIGHT = "height";
     
-   
-    
+
+
 	private delegate string replace(string data);
 	
 	private static Dictionary<Regex, replace> replacers;
-    
-	void Start() {
-		replacers = new Dictionary<Regex, replace>();
-		replacers[new Regex("\\\\year")] = Year;
-	}
-	
+
+
+    void Start(){
+     replacers = new Dictionary<Regex, replace>();
+     replacers[new Regex(@"\\year")] = Year;
+    } 
 	public static string getData(XmlNode xn) {
 		string val = xn.Attributes[DATA].Value;
-		if (val.Contains("\\")) {
+        
+		if (val.StartsWith(@"\")) {
 			foreach (Regex replacement in replacers.Keys) {
 				val = replacement.Replace(val, replacers[replacement](val));
 			}
+
 		}
-		return val;
+		 
+
+        return val;
 	}
+
 	
     public static bool GetFloat(XmlNode xn, out float data){
         data = 0.0f;
@@ -52,6 +60,7 @@ public class XmlUtilities : MonoBehaviour {
     }
     // Candidates 
     // Vector3 à la getPosition
+
     
 	public static float[] getPosition(XmlNode position) {
 		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
@@ -66,8 +75,9 @@ public class XmlUtilities : MonoBehaviour {
 		XmlNode xn = xDoc.SelectSingleNode(xPath);
 		return f(xn);
 	}
-	
+
 	private string Year(string data) {
 		return UserProperty.getProp("year");
 	}
+
 }
