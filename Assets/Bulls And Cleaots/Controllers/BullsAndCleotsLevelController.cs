@@ -10,6 +10,7 @@ public class BCLevelData {
     public int[] solutionNumbers;
     public Color[] solutionColors;
     
+    public Color fromXml;
     public BCLevelData(int len, IEnumerable<int> numbers, IEnumerable<Color> colors){
         solutionLength = len;
         possibleColors = colors.ToArray();
@@ -21,6 +22,8 @@ public class BCLevelData {
         solutionNumbers = possibleNumbers.AsEnumerable()
             .OrderBy(x=>Random.value)
                 .Take(solutionLength).ToArray();
+        
+        fromXml = Color.black;
     }
 }
 
@@ -90,9 +93,10 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
 		inputPane.transform.parent = transform;
         
+        // TESTORZ
         testBlocks = Instantiate(testBlocks) as GameObject;
         SolutionComponent[] ch = new SolutionComponent[1];
-        ch[0] = new SolutionComponent("num1", 1.0f);
+        ch[0] = new SolutionComponent(initData.fromXml, 1.0f);
         
         testBlocks.GetComponent<SolutionBlocks>().Choices = ch;
         

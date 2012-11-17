@@ -36,17 +36,6 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         0
     };
     
-    List<Color> colors = new List<Color>{
-        Color.black,
-        Color.blue,
-        Color.red,
-        Color.green,
-        Color.yellow,
-        Color.white,
-        Color.magenta,
-        Color.cyan
-    };
- 
     
 
     void LoadLevel() {
@@ -70,11 +59,17 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
             numbers.OrderBy(x => Random.value).Take(numberCount);
        
         IEnumerable<Color> colorChoices = 
-            colors.OrderBy(x => Random.value).Take(colorCount);
+           ColorUtilities.GetColors().OrderBy(x => Random.value).Take(colorCount);
         
-        bcLevel.InitData = new BCLevelData(solutionLen,numberChoices,colorChoices);
-                
-       
+        BCLevelData ld = new BCLevelData(solutionLen,numberChoices,colorChoices);
+        if(XmlUtilities.GetColor(data.SelectSingleNode("butter"), out ld.fromXml)){
+            Debug.Log("Whoo hoo we haz colorz n shit!");
+        }
+        else{
+            Debug.Log ("BAH HUMBUG I HAZ NO COLURZ!");
+        }
+        
+        bcLevel.InitData = ld;
     }
 
 }
