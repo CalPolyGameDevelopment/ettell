@@ -30,14 +30,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
     }
     
     public GameObject level;
- 
-    List<int> numbers = new List<int>{
-        1,2,3,
-        4,5,6,
-        7,8,9,
-        0
-    };
-    
+     
 
     void LoadLevel() {
         GameObject go = Instantiate(level) as GameObject;
@@ -57,18 +50,14 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         
         
         IEnumerable<int> numberChoices = 
-            numbers.OrderBy(x => Random.value).Take(numberCount);
+            Enumerable.Range(0,9).OrderBy(x => Random.value).Take(numberCount);
        
         IEnumerable<Color> colorChoices =
            ColorUtilities.GetColors().OrderBy(x => Random.value).Take(colorCount);
         
         BCLevelData ld = new BCLevelData(solutionLen,numberChoices,colorChoices);
-        if(XmlUtilities.GetColor(data.SelectSingleNode("butter"), out ld.fromXml)){
-            Debug.Log("Whoo hoo we haz colorz n shit!");
-        }
-        else{
-            Debug.Log ("BAH HUMBUG I HAZ NO COLURZ!");
-        }
+        ld.fromXml = MaterialData.GetColor(data.SelectSingleNode("butter"));
+
         
         bcLevel.InitData = ld;
 
