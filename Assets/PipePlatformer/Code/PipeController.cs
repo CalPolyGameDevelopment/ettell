@@ -35,7 +35,6 @@ public class PipeController : MonoBehaviour {
 			MiniGameController.endMiniGame(edgeId);
 		}
 		Destroy(gameObject);
-		Debug.LogWarning("Killing");
 	}
 	
 	void Update () {

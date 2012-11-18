@@ -7,19 +7,12 @@ public class Ending {
 	
 	private const string ENDING = "ending";
 	private const string DIFFICULTY = "difficulty";
-	private const string COLOR = "color";
 	private const string DISPLAY_TEXT = "display_text";
-	
 	private XmlNode data;
 	
 	public Color color {
 		get {
-            string[] hexes = XmlUtilities
-                .getDatumFromNode<string>(data, COLOR, XmlUtilities.getData).Split(',');
-            return ColorUtilities.Parse(
-                hexes[0],
-                hexes[1],
-                hexes[2]);
+			return ColorUtilities.ColorFromXML(data);
 		}
 	}
 	
@@ -41,11 +34,15 @@ public class Ending {
 		}
 	}
 	
-	public Ending (XmlNode xn) {
+	private Ending(XmlNode xn) {
 		data = xn;
 	}
 	
-	public static IEnumerable<Ending> findEndings (XmlNode xn) {
+	public XmlNode otherData (string tagName) {
+		return data.SelectSingleNode(tagName);
+	}
+	
+	public static IEnumerable<Ending> findEndings(XmlNode xn) {
 		return XmlUtilities.getDataFromNode<Ending>(xn, ENDING, x => new Ending(x)).Where(x => Requirements.pass(x.data));
 	}
 }

@@ -11,25 +11,20 @@ public class XmlUtilities : MonoBehaviour {
 	public const string RESOURCE = "resource";
 	public const string WIDTH = "width";
 	public const string HEIGHT = "height";
-    
-   
-    
-	private delegate string replace();
 	
-	private static Dictionary<Regex, replace> replacers;
+	private static Regex userPropReplace;
     
 	void Start() {
-		replacers = new Dictionary<Regex, replace>();
-		replacers[new Regex("\\\\year")] = Year;
+		userPropReplace = new Regex(@"\\(\w*)");
+	}
+	
+	private static string matchEvaluator(Match m) {
+		return UserProperty.getProp(m.Groups[1].Value);
 	}
 	
 	public static string getData(XmlNode xn) {
 		string val = xn.Attributes[DATA].Value;
-		if (val.Contains("\\")) {
-			foreach (Regex replacement in replacers.Keys) {
-				val = replacement.Replace(val, replacers[replacement]());
-			}
-		}
+		val = userPropReplace.Replace(val, matchEvaluator);
 		return val;
 	}
 	
@@ -45,9 +40,5 @@ public class XmlUtilities : MonoBehaviour {
 	public static T getDatumFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
 		XmlNode xn = xDoc.SelectSingleNode(xPath);
 		return f(xn);
-	}
-	
-	private string Year() {
-		return UserProperty.getProp("year");
 	}
 }

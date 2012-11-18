@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 public class UnparsableColorException : Exception
 {
@@ -39,7 +41,10 @@ static class ColorNames
 static class ColorUtilities
 {
  
-#region Constants 
+	#region Constants 
+	
+	private const string COLOR = "color";
+	
     // The hex value for the maximum value of a component of a color 
     // used for converting from the normal color values to the 
     // float values used by Unity.
@@ -102,7 +107,7 @@ static class ColorUtilities
          {Color.yellow, ColorNames.Yellow},    
     };
    
-#endregion
+	#endregion
     
     // Simply convert normal integer value for RGB [0,255] to the unity 
     //desired float [0.0,1.0] by diving it by the maximum integer value.
@@ -133,7 +138,7 @@ static class ColorUtilities
         return valueToNameMap [color];
     }
     
-#region Parse Functions
+	#region Parse Functions
   
     // Parse from RGBA component decimal number
     // eventually all other parse functions call this function.
@@ -173,7 +178,7 @@ static class ColorUtilities
         int rPrime = int.Parse(r);
         int gPrime = int.Parse(g);
         int bPrime = int.Parse(b);
-        int aPrime = int.Parse (a);
+        int aPrime = int.Parse(a);
         
         return Parse (rPrime, gPrime, bPrime, aPrime);
         
@@ -194,7 +199,7 @@ static class ColorUtilities
     {
         int rPrime = int.Parse (r, NumberStyles.HexNumber);
         int gPrime = int.Parse (g, NumberStyles.HexNumber);
-        int bPrime = int.Parse (g, NumberStyles.HexNumber);
+        int bPrime = int.Parse (b, NumberStyles.HexNumber);
         
         return Parse (rPrime, gPrime, bPrime);
     }
@@ -204,7 +209,7 @@ static class ColorUtilities
     {
         
         Match hexMatch = HtmlHexRegex.Match (htmlCode);       
-        string r, g, b = "ff";
+        string r = "ff", g = "ff", b = "ff";
         
         
         if (!hexMatch.Groups [ColorNames.Red].Success) {
@@ -239,6 +244,12 @@ static class ColorUtilities
         return Parse (r,g,b,a);
     }
     
-#endregion
-   
+	#endregion
+	
+	public static Color ColorFromXML(XmlNode xn) {
+		return XmlUtilities.getDatumFromNode<Color>(xn, COLOR, x => Parse(XmlUtilities.getData(x)));
+	}
+	public static Color[] ColorsFromXML(XmlNode xn) {
+		return XmlUtilities.getDataFromNode<Color>(xn, COLOR, x => Parse(XmlUtilities.getData(x))).ToArray();
+	}
 }

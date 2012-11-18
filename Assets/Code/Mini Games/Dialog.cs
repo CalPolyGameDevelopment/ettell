@@ -7,12 +7,47 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
+	private const string INVISIBLE = "invisible";
 	
-	private const int BUTTON_SIZE_MODIFIER = 30;
+	private const int BUTTON_SIZE_MODIFIER = 5;
 	
-	public GUIStyle style;
+	public GUIStyle promptStyle;
+	public GUIStyle buttonStyle;
 	private Ending[][] options;
 	private string[] promptText;
+	private Rect promptRect;
+	private Rect optionsRect;
+	
+	private bool allowInvisibleChoice {
+		get {
+			XmlNode xn = data.SelectSingleNode(INVISIBLE);
+			return xn == null ? false : bool.Parse(XmlUtilities.getData(xn));
+		}
+	}
+	
+	private Vector2 calcPromptSize() {
+		Vector2 r = new Vector2(Screen.width, 0f);
+		foreach (string line in promptText) {
+			r.y += promptStyle.CalcSize(new GUIContent(line)).y;
+		}
+		return r;
+	}
+	
+	private Vector2 calcButtonsSize() {
+		string inflation = new string('m', BUTTON_SIZE_MODIFIER);
+		Vector2 r = Vector2.zero;
+		foreach (Ending[] row in options) {
+			Vector2 rowSize = Vector2.zero;
+			foreach (Ending option in row) {
+				Vector2 optionSize = buttonStyle.CalcSize(new GUIContent(option.displayText + inflation));
+				rowSize.y = Mathf.Max(rowSize.y, optionSize.y);
+				rowSize.x += optionSize.x;
+			}
+			r.x = Mathf.Max(r.x, rowSize.x);
+			r.y += rowSize.y;
+		}
+		return r;
+	}
 	
 	private XmlNode data;
 	public XmlNode Data {
@@ -22,7 +57,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
-			if (possibleEndings.Length == 1) {
+			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
 				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
 			}
 			
@@ -45,6 +80,44 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			for (int i = 0; i < height; i++) {
 				options[i] = rows[i].ToArray();
 			}
+			
+			int maxFontSize = -1;
+			int minFontSize = -1;
+			int curSize = buttonStyle.fontSize;
+			float totalHeight;
+			float totalWidth;
+			Vector2 promptSize = Vector2.zero;
+			Vector2 buttonSize = Vector2.zero;
+			while (maxFontSize > minFontSize + 1 || maxFontSize == -1) {
+				if (minFontSize > 0 && maxFontSize > 0) {
+					curSize = (minFontSize + maxFontSize) / 2;
+				}
+				else if (maxFontSize > 0) {
+					curSize /= 2;
+				}
+				else {
+					curSize *= 2;
+				}
+				
+				promptStyle.fontSize = curSize;
+				buttonStyle.fontSize = curSize;
+				promptSize = calcPromptSize();
+				buttonSize = calcButtonsSize();
+				totalWidth = Mathf.Max(promptSize.x, buttonSize.x);
+				totalHeight = promptSize.y + buttonSize.y;
+				
+				if (totalWidth > Screen.width || totalHeight > Screen.height) {
+					maxFontSize = curSize;
+				}
+				else {
+					minFontSize = curSize;
+				}
+			}
+			
+			promptStyle.fontSize = minFontSize;
+			buttonStyle.fontSize = minFontSize;
+			promptRect = new Rect(0f, 0f, Screen.width, promptSize.y);
+			optionsRect = new Rect(0f, promptSize.y, Screen.width, Screen.height - promptSize.y);
 		}
 	}
 	
@@ -52,16 +125,16 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		if (data == null) {
 			return;
 		}
-		GUILayout.BeginArea(new Rect(0f, 0f, Screen.width, 20f));
+		GUILayout.BeginArea(promptRect);
 		foreach (string promptLine in promptText) {
-			GUILayout.Label(promptLine);
+			GUILayout.Label(promptLine, promptStyle);
 		}
 		GUILayout.EndArea();
-		GUILayout.BeginArea(new Rect(0f, 20f, Screen.width, Screen.height - 20f));
+		GUILayout.BeginArea(optionsRect);
 		foreach (Ending[] endings in options) {
 			GUILayout.BeginHorizontal();
 			foreach (Ending ending in endings) {
-				if (GUILayout.Button(ending.displayText, style, GUILayout.ExpandHeight(true))) {
+				if (GUILayout.Button(ending.displayText, buttonStyle, GUILayout.ExpandHeight(true))) {
 					MiniGameController.endMiniGame(ending.edgeId);
 				}
 			}
