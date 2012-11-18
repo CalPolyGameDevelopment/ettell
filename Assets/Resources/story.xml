@@ -11,7 +11,71 @@
 				<display_text data="New Game" />
 			</ending>
 		</minigame>
-	</node>	
+	</node>
+	<node id="NYSESlideshowNode">
+		<minigame data="slideshow">
+			<endEdge data="stockSnakeEdge" />
+			<duration data="5" />
+			<resource data="WallStreetSign" />
+		</minigame>
+	</node>
+	<node id="stockSnakeNode">
+		<minigame data="stockSnake">
+			<width data="30" />
+			<height data="30" />
+			<ending data="snakeFail">
+				<difficulty data="0" />
+			</ending>
+			<ending data="winGame">
+				<difficulty data="1" />
+				<snakeLengthThreshold math="snakeLengthMath">
+					<divide id="snakeLengthMath">
+						<value data="31" />
+						<multiply>
+							<value data="\snakeAttempts" />
+							<value data="\snakeAttempts" />
+						</multiply>
+					</divide>
+				</snakeLengthThreshold>
+			</ending>
+			<border>
+				<color data="rgb(219,169,51)" />
+			</border>
+			<goodStock>
+				<color data="rgb(56,255,59)" />
+			</goodStock>
+			<badStock>
+				<color data="rgb(242,97,90)" />
+			</badStock>
+			<ettellStart>
+				<color data="rgb(218,230,22)" />
+			</ettellStart>
+			<ettellLerp>
+				<color data="rgb(218,230,22)" />
+				<color data="rgb(0,255,41)" />
+				<color data="rgb(80,100,249)" />
+				<color data="rgb(255,0,0)" />
+				<color data="rgb(0,0,0)" />
+			</ettellLerp>
+			<nodesPerEttellLerp data="200" />
+		</minigame>
+	</node>
+	<edge id="storyBegin" data="NYSESlideshowNode" />
+	<edge id="stockSnakeEdge" data="stockSnakeNode" />
+	<edge id="snakeFail" data="stockSnakeNode">
+		<consequence>
+			<change data="snakeAttempts">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	
+	
+	
+	
+	
+	
+	
 	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
@@ -136,13 +200,6 @@
 			</ending>
 		</minigame>
 	</node>
-	<node id="slideshowNode">
-		<minigame data="slideshow">
-			<endEdge data="miniGameTestRecur" />
-			<duration data="5" />
-			<resource data="WallStreetSign" />
-		</minigame>
-	</node>
 	<node id="waveDefenseNode">
 		<minigame data="WaveDefense">
 			<sceneName data="WaveDefense" />
@@ -170,47 +227,6 @@
 			<ending data="startOverEdge">
 				<display_text data="Start Over" />
 			</ending>
-		</minigame>
-	</node>
-	<node id="stockSnakeNode">
-		<minigame data="stockSnake">
-			<width data="30" />
-			<height data="30" />
-			<ending data="snakeFail">
-				<difficulty data="0" />
-			</ending>
-			<ending data="winGame">
-				<difficulty data="1" />
-				<snakeLengthThreshold math="snakeLengthMath">
-					<divide id="snakeLengthMath">
-						<value data="31" />
-						<multiply>
-							<value data="\snakeAttempts" />
-							<value data="\snakeAttempts" />
-						</multiply>
-					</divide>
-				</snakeLengthThreshold>
-			</ending>
-			<border>
-				<color data="rgb(219,169,51)" />
-			</border>
-			<goodStock>
-				<color data="rgb(56,255,59)" />
-			</goodStock>
-			<badStock>
-				<color data="rgb(242,97,90)" />
-			</badStock>
-			<ettellStart>
-				<color data="rgb(218,230,22)" />
-			</ettellStart>
-			<ettellLerp>
-				<color data="rgb(218,230,22)" />
-				<color data="rgb(0,255,41)" />
-				<color data="rgb(80,100,249)" />
-				<color data="rgb(255,0,0)" />
-				<color data="rgb(0,0,0)" />
-			</ettellLerp>
-			<nodesPerEttellLerp data="200" />
 		</minigame>
 	</node>
 	<edge id="miniGameTestRecur" data="miniGameTest">
@@ -258,13 +274,6 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="snakeFail" data="miniGameTest">
-		<consequence>
-			<change data="snakeAttempts">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
 	<edge id="laserEdge" data="laserPlumber" />
@@ -272,9 +281,7 @@
 	<edge id="match3Edge" data="match3Node" />
 	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />
-	<edge id="slideshowEdge" data="slideshowNode" />
 	<edge id="waveDefenseEdge" data="waveDefenseNode" />
 	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
-	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<edge id="startOverEdge" data="newGame" />
 </story>
