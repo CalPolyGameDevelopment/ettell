@@ -15,6 +15,7 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private const string SNAKE_LENGTH_THRESHOLD = "snakeLengthThreshold";
+	private const string NODES_PER_ETTELL_LERP = "nodesPerEttellLerp";
 	
 	private struct Square {
 		public Color color;
@@ -95,6 +96,13 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		}
 	}
 	
+	private int nodesPerLerp;
+	public static int NodesPerLerp {
+		get {
+			return singleton.nodesPerLerp;
+		}
+	}
+	
 	private int waitingForTiles;
 	private Queue<SnakeTileController> freeTiles;
 	private Square[,] filledSpaces;
@@ -163,6 +171,7 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 			Debug.Log("This game is designed to support 2 endings (in order of ascending difficulty): lose and stockCycle");
 		}
 		winThreshold = MathData.getInt(endings[1].otherData(SNAKE_LENGTH_THRESHOLD));
+		nodesPerLerp = MathData.getInt(data.SelectSingleNode(NODES_PER_ETTELL_LERP));
 		
 		width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.WIDTH, XmlUtilities.getData));
 		height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.HEIGHT, XmlUtilities.getData));
@@ -202,10 +211,14 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	public static void ettellLose() {
-		MiniGameController.endMiniGame(singleton.endings[0].edgeId);
+		if (MiniGameController.Current == singleton.gameObject) {
+			MiniGameController.endMiniGame(singleton.endings[0].edgeId);
+		}
 	}
 	
 	public static void cycleEnd() {
-		MiniGameController.endMiniGame(singleton.endings[1].edgeId);
+		if (MiniGameController.Current == singleton.gameObject) {
+			MiniGameController.endMiniGame(singleton.endings[1].edgeId);
+		}
 	}
 }

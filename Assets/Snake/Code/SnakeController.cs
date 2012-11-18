@@ -22,7 +22,7 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	private const int MAX_TAIL_LENGTH = 100;
-	private const float FASTEST_TPS = 0.04f;
+	private const float FASTEST_TPS = 0.02f;
 	
 	public float timePerSquare;
 	
@@ -41,6 +41,7 @@ public class SnakeController : MonoBehaviour {
 	private bool interactive;
 	private Position[] plan;
 	private int planIndex;
+	private int nodesIntoEnding;
 	
 	public void Start() {
 		direction = Direction.up;
@@ -54,6 +55,10 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	private void onChompSquare() {
+		if (!interactive) {
+			return;
+		}
+		
 		newlyFilledPositions.Enqueue(goingFrom);
 		
 		Color eating = SnakeGame.Singleton[goingTo.x, goingTo.y];
@@ -70,19 +75,29 @@ public class SnakeController : MonoBehaviour {
 			tailLength++;
 		}
 		else if (eating == SnakeGame.Singleton.BorderColor) {
-			SnakeGame.ettellLose();
+			interactive = false;
+			if (tailLength < SnakeGame.WinThreshold) {
+				SnakeGame.ettellLose();
+				return;
+			}
+			plan = filledPositions.Reverse().Concat(filledPositions).ToArray();
+			planIndex = 0;
+			nodesIntoEnding = 0;
 		} 
-		else if (eating == SnakeGame.Singleton.EttellStart && interactive) {
+		else if (eating == SnakeGame.Singleton.EttellStart) {
 			interactive = false;
 			IEnumerable<Position> filledRoute = filledPositions.Reverse().TakeWhile(p => p.x != goingTo.x || p.y != goingTo.y).Reverse();
 			plan = new Position[filledRoute.Count() + newlyFilledPositions.Count + 1];
 			if (plan.Length < SnakeGame.WinThreshold) {
 				SnakeGame.ettellLose();
+				return;
 			}
+
 			plan[0] = goingTo;
 			System.Array.Copy(filledRoute.ToArray(), 0, plan, 1, filledRoute.Count());
 			System.Array.Copy(newlyFilledPositions.ToArray(), 0, plan, 1 + filledRoute.Count(), newlyFilledPositions.Count());
 			planIndex = 0;
+			nodesIntoEnding = 0;
 		}
 	}
 	
@@ -97,12 +112,20 @@ public class SnakeController : MonoBehaviour {
 			}
 			else {
 				planIndex = (planIndex + 1) % plan.Length;
+				nodesIntoEnding++;
+				int endingNo = (nodesIntoEnding / SnakeGame.NodesPerLerp);
+				float endingRatio = ((float)(nodesIntoEnding % SnakeGame.NodesPerLerp)) / ((float)SnakeGame.NodesPerLerp);
+				if (endingNo + 1 >= SnakeGame.Singleton.EttellLerp.Length) {
+					SnakeGame.cycleEnd();
+					return;
+				}
+				Color newEttellColor = Color.Lerp(SnakeGame.Singleton.EttellLerp[endingNo], SnakeGame.Singleton.EttellLerp[endingNo + 1], endingRatio);
+				foreach (Position p in filledPositions) {
+					SnakeGame.Singleton[p.x, p.y] = newEttellColor;
+				}
 				goingTo = plan[planIndex];
 				
 				timePerSquare = Mathf.Max(FASTEST_TPS, timePerSquare / 1.07f);
-				if (timePerSquare <= 0.02f) {
-					Debug.Log("Party Time");
-				}
 			}
 			
 			onChompSquare();
