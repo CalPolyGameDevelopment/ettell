@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Xml;
 using System;
-using System.Reflection;
+
 
 
 public class XmlUtilities : MonoBehaviour {
@@ -24,8 +24,9 @@ public class XmlUtilities : MonoBehaviour {
 
     void Start(){
      replacers = new Dictionary<Regex, replace>();
-     replacers[new Regex(@"\\year")] = Year;
+     replacers[new Regex("\\\\year")] = Year;
     } 
+    
 	public static string getData(XmlNode xn) {
 		string val = xn.Attributes[DATA].Value;
         
@@ -36,35 +37,10 @@ public class XmlUtilities : MonoBehaviour {
 
 		}
 		 
-
         return val;
 	}
 
-	
-    public static bool GetFloat(XmlNode xn, out float data){
-        data = 0.0f;
-        string val = xn.Attributes[DATA].Value;
-        return float.TryParse(val, out data);
-    }
-    
-    public static bool GetInt(XmlNode xn, out int data){
-        data = 0;
-        string val = xn.Attributes[DATA].Value;
-        return int.TryParse(val, out data);
-    }
-    
-    public static bool GetColor(XmlNode xn, out Color data){
-        data = Color.white;
-        string val = xn.Attributes[DATA].Value;
-        return ColorUtilities.TryParse(val, out data);
-    }
-    // Candidates 
-    // Vector3 à la getPosition
 
-    
-	public static float[] getPosition(XmlNode position) {
-		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
-	}
 	
 	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
 		XmlNodeList xnl = xDoc.SelectNodes(xPath);
