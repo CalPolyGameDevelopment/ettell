@@ -50,11 +50,17 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private XmlNode data;
+    
 	public XmlNode Data {
 		set {
 			data = value;
 			
-			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
+			var prompts = 
+                from nodes in data.SelectNodes(PROMPT).Cast<XmlNode>()
+                select XmlUtilities.getData(nodes);
+         
+            promptText = prompts.ToArray();
+            
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
 			if (possibleEndings.Length == 1 && allowInvisibleChoice) {

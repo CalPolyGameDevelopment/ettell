@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Xml;
+using System;
+
+
 
 public class XmlUtilities : MonoBehaviour {
 	
@@ -11,6 +14,7 @@ public class XmlUtilities : MonoBehaviour {
 	public const string RESOURCE = "resource";
 	public const string WIDTH = "width";
 	public const string HEIGHT = "height";
+
 	
 	private static Regex userPropReplace;
     
@@ -28,17 +32,5 @@ public class XmlUtilities : MonoBehaviour {
 		return val;
 	}
 	
-	public static float[] getPosition(XmlNode position) {
-		return getData(position).Split(',').Select(x => float.Parse(x)).ToArray();
-	}
-	
-	public static IEnumerable<T> getDataFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
-		XmlNodeList xnl = xDoc.SelectNodes(xPath);
-		return xnl.Cast<XmlNode>().Select<XmlNode, T>(f);
-	}
-	
-	public static T getDatumFromNode<T>(XmlNode xDoc, string xPath, System.Func<XmlNode, T> f) {
-		XmlNode xn = xDoc.SelectSingleNode(xPath);
-		return f(xn);
-	}
+    
 }

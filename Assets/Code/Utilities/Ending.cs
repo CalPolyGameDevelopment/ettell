@@ -12,19 +12,21 @@ public class Ending {
 	
 	public Color color {
 		get {
-			return ColorUtilities.ColorFromXML(data);
+
+            return MaterialData.GetColor(
+                data.SelectSingleNode(ColorUtilities.COLOR));
 		}
 	}
 	
 	public float difficulty {
 		get {
-			return float.Parse(XmlUtilities.getDatumFromNode<string>(data, DIFFICULTY, XmlUtilities.getData));
+			return MathData.GetFloat(data.SelectSingleNode(DIFFICULTY));
 		}
 	}
 	
 	public string displayText {
 		get {
-			return XmlUtilities.getDatumFromNode<string>(data, DISPLAY_TEXT, XmlUtilities.getData);
+			return XmlUtilities.getData(data.SelectSingleNode(DISPLAY_TEXT));
 		}
 	}
 	
@@ -36,13 +38,26 @@ public class Ending {
 	
 	private Ending(XmlNode xn) {
 		data = xn;
-	}
+    }
 	
+
 	public XmlNode otherData (string tagName) {
 		return data.SelectSingleNode(tagName);
 	}
-	
-	public static IEnumerable<Ending> findEndings(XmlNode xn) {
-		return XmlUtilities.getDataFromNode<Ending>(xn, ENDING, x => new Ending(x)).Where(x => Requirements.pass(x.data));
-	}
+
+	public static IEnumerable<Ending> findEndings (XmlNode xn) {
+        XmlNodeList nodes = xn.SelectNodes(ENDING);
+        
+        
+        var availableEndings = 
+            from n in nodes.Cast<XmlNode>()
+            where Requirements.pass(n)
+            select new Ending(n);
+        
+        
+        foreach (var end in availableEndings){
+            yield return (Ending)end;
+        }
+    }
+
 }

@@ -41,21 +41,22 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string BORDER = "border";
 	public Color BorderColor {
 		get {
-			return XmlUtilities.getDatumFromNode<Color>(data, BORDER, ColorUtilities.ColorFromXML);
+            
+            return MaterialData.GetColor(data.SelectSingleNode(BORDER));
 		}
 	}
 	
 	private const string GOOD_STOCK = "goodStock";
 	public Color GoodStock {
 		get {
-			return XmlUtilities.getDatumFromNode<Color>(data, GOOD_STOCK, ColorUtilities.ColorFromXML);
+			return MaterialData.GetColor(data.SelectSingleNode(GOOD_STOCK));
 		}
 	}
 	
 	private const string BAD_STOCK = "badStock";
 	public Color BadStock {
 		get {
-			return XmlUtilities.getDatumFromNode<Color>(data, BAD_STOCK, ColorUtilities.ColorFromXML);
+			return MaterialData.GetColor(data.SelectSingleNode(BAD_STOCK));
 		}
 	}
 	
@@ -63,15 +64,22 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string ETTELL_START = "ettellStart";
 	public Color EttellStart {
 		get {
-			return XmlUtilities.getDatumFromNode<Color>(data, ETTELL_START, ColorUtilities.ColorFromXML);
+			return MaterialData.GetColor(data.SelectSingleNode(ETTELL_START));;
 		}
 	}
 	
 	
 	private const string ETTELL_LEFP = "ettellLerp";
-	public Color[] EttellLerp {
-		get {
-			return XmlUtilities.getDatumFromNode<Color[]>(data, ETTELL_LEFP, ColorUtilities.ColorsFromXML);
+	public Color[] EttellLerp {      
+		
+        get {
+            XmlNode lefpNode = data.SelectSingleNode(ETTELL_LEFP);
+            XmlNodeList colorNodes = lefpNode.SelectNodes(ColorUtilities.COLOR);
+            var parsedColors = from node in colorNodes.Cast<XmlNode>()
+                where node.Name == ColorUtilities.COLOR
+                select MaterialData.GetColor(node);
+             
+			return parsedColors.ToArray();
 		}
 	}
 	
@@ -170,11 +178,11 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		if (endings.Length != 2) {
 			Debug.Log("This game is designed to support 2 endings (in order of ascending difficulty): lose and stockCycle");
 		}
-		winThreshold = MathData.getInt(endings[1].otherData(SNAKE_LENGTH_THRESHOLD));
-		nodesPerLerp = MathData.getInt(data.SelectSingleNode(NODES_PER_ETTELL_LERP));
+		winThreshold = MathData.GetInt(endings[1].otherData(SNAKE_LENGTH_THRESHOLD));
+		nodesPerLerp = MathData.GetInt(data.SelectSingleNode(NODES_PER_ETTELL_LERP));
 		
-		width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.WIDTH, XmlUtilities.getData));
-		height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.HEIGHT, XmlUtilities.getData));
+		width = MathData.GetInt(data.SelectSingleNode(XmlUtilities.WIDTH));
+		height = MathData.GetInt(data.SelectSingleNode(XmlUtilities.HEIGHT));
 		freeTiles = new Queue<SnakeTileController>();
 		
 		spawnTiles(width * 2 + height * 2 + INITIAL_TILE_EXTRAS - 4);
