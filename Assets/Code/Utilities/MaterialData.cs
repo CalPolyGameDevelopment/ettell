@@ -1,9 +1,27 @@
 using UnityEngine;
-using System;
 using System.Collections;
+using System.Xml;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
+
+/// <summary>
+/// Material Data
+/// </summary>
+public static class MaterialData {
+ 
+    public static Color GetColor(XmlNode node){
+        string rawData = XmlUtilities.getData(node);
+        return ColorUtilities.Parse(rawData);
+    }
+    
+    public static Texture GetTexture(XmlNode node){
+        string path = XmlUtilities.getData(node);
+        return Resources.Load(path) as Texture;
+    }
+}
+
 
 public class UnparsableColorException : Exception
 {
