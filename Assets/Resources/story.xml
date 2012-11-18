@@ -44,19 +44,19 @@
 	<node id="laserPlumber">
 		<minigame data="laserPlumber">
 			<source>
-				<position data="0,0,0" />
+				<position data="vector(0,0,0)" />
 			</source>
 			<mirror>
-				<position data="15,0,0" />
+				<position data="vector(15,0,0)" />
 			</mirror>
 			<mirror>
-				<position data="15,-10,0" />
+				<position data="vector(15,-10,0)" />
 			</mirror>
 			<mirror>
-				<position data="30,-10,0" />
+				<position data="vector(30,-10,0)" />
 			</mirror>
 			<sink data="firstPuzzleRecur">
-				<position data="30,0,0" />
+				<position data="vector(30,0,0)" />
 			</sink>
 		</minigame>
 	</node>
@@ -81,10 +81,10 @@
 			<width data="8" />
 			<height data="8" />
 			<ending data="firstPuzzleRecur">
-				<color data="255,0,0" />
+				<color data="rgb(255,0,0)" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="rgb(0,255,0)" />
 			</ending>
 		</minigame>
 	</node>
@@ -92,15 +92,15 @@
 		<minigame data="pipePlatformer">
 			<sceneName data="InternetEscapePlatformer" />
 			<ending data="loseGame">
-				<color data="255,0,0" />
+				<color data="rgb(255,0,0)" />
 				<difficulty data="-11" />
 			</ending>
 			<ending data="firstPuzzleRecur">
-				<color data="0,0,255" />
+				<color data="rgb(0,0,255)" />
 				<difficulty data="1" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="rgb(0,255,0)" />
 				<difficulty data="2" />
 			</ending>
 		</minigame>
@@ -109,10 +109,10 @@
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
 			<ending data="firstPuzzleRecur">
-				<color data="255,0,0" />
+				<color data="rgb(255,0,0)" />
 			</ending>
 			<ending data="winGame">
-				<color data="0,255,0" />
+				<color data="rgb(0,255,0)" />
 			</ending>
 		</minigame>
 	</node>
