@@ -122,6 +122,8 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			
 			promptStyle.fontSize = minFontSize;
 			buttonStyle.fontSize = minFontSize;
+			promptSize = calcPromptSize();
+			buttonSize = calcButtonsSize();
 			promptRect = new Rect(0f, 0f, Screen.width, promptSize.y);
 			optionsRect = new Rect(0f, promptSize.y, Screen.width, Screen.height - promptSize.y);
 		}

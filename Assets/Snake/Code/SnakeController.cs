@@ -42,6 +42,7 @@ public class SnakeController : MonoBehaviour {
 	private Position[] plan;
 	private int planIndex;
 	private int nodesIntoEnding;
+	private bool gameOver;
 	
 	public void Start() {
 		direction = Direction.up;
@@ -78,6 +79,7 @@ public class SnakeController : MonoBehaviour {
 			interactive = false;
 			if (tailLength < SnakeGame.WinThreshold) {
 				SnakeGame.ettellLose();
+				gameOver = true;
 				return;
 			}
 			plan = filledPositions.Reverse().Concat(filledPositions).ToArray();
@@ -90,6 +92,7 @@ public class SnakeController : MonoBehaviour {
 			plan = new Position[filledRoute.Count() + newlyFilledPositions.Count + 1];
 			if (plan.Length < SnakeGame.WinThreshold) {
 				SnakeGame.ettellLose();
+				gameOver = true;
 				return;
 			}
 
@@ -102,7 +105,7 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	private void setPos() {
-		while (curTime >= timePerSquare) {
+		while (curTime >= timePerSquare && !gameOver) {
 			curTime -= timePerSquare;
 			goingFrom.x = goingTo.x;
 			goingFrom.y = goingTo.y;
@@ -131,7 +134,7 @@ public class SnakeController : MonoBehaviour {
 			onChompSquare();
 		}
 		
-		if (Camera.main != null) {
+		if (Camera.main != null && !gameOver) {
 			Vector3 cameraPos = Camera.main.transform.position;
 			Vector3 myPos = transform.position;
 		
@@ -144,6 +147,9 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	private void manageTail() {
+		if (gameOver) {
+			return;
+		}
 		while (newlyFilledPositions.Any()) {
 			Position p = newlyFilledPositions.Dequeue();
 			SnakeGame.Singleton[p.x, p.y] = SnakeGame.Singleton.EttellStart;

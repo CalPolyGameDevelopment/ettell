@@ -14,9 +14,33 @@
 	</node>
 	<node id="NYSESlideshowNode">
 		<minigame data="slideshow">
-			<endEdge data="stockSnakeEdge" />
+			<endEdge data="snakePreambleEdge" />
 			<duration data="5" />
 			<resource data="WallStreetSign" />
+		</minigame>
+	</node>
+	<node id="snakePreamble">
+		<minigame data="dialog">
+			<prompt data="Tom: All the tests are green." />
+			<prompt data="Tom: Ettell would have made money every day in the historical record." />
+			<prompt data="Tom: With no overfitting we can see." />
+			<prompt data="Tom: She's the perfect algorithmic trader." />
+			<prompt data="Mike: That's great news!" />
+			<prompt data="Mike: When will she be ready for the real deal?" />
+			<prompt data="Tom: That's what I'm telling you." />
+			<prompt data="Tom: She's ready today." />
+			<prompt data="Mike: What about the SEC?  Do they know about this?" />
+			<prompt data="Tom: We've been running an off the shelf bot for months." />
+			<prompt data="Tom: The new behavior shouldn't raise any red flags." />
+			<prompt data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
+			<prompt data="Mike: I guess then today's the day!" />
+			<prompt data="Mike: How much are we putting behind this thing?" />
+			<prompt data="Tom: (whispers)" />
+			<prompt data="Mike: Well I hope it's worth it." />
+			<prompt data="Tom: The bell is about to ring.  Lets watch!" />
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="stockSnakeNode">
@@ -61,6 +85,7 @@
 		</minigame>
 	</node>
 	<edge id="storyBegin" data="NYSESlideshowNode" />
+	<edge id="snakePreambleEdge" data="snakePreamble" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<edge id="snakeFail" data="stockSnakeNode">
 		<consequence>
