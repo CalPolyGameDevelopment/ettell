@@ -31,7 +31,7 @@ public class Slideshow : MonoBehaviour, MiniGameAPI.IMiniGame {
 		textures = XmlUtilities.getDataFromNode<Texture>(data, XmlUtilities.RESOURCE, getTexture).ToArray();
 		curPicture = 0;
 		started = true;
-		slideTime = float.Parse(XmlUtilities.getData(data.SelectSingleNode(DURATION)));
+		slideTime = MathData.GetFloat(data.SelectSingleNode(DURATION));
 		t = 0f;
 		completionEdge = XmlUtilities.getData(data.SelectSingleNode(END_EDGE));
 	}

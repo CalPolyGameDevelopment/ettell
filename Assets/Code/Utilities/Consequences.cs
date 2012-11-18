@@ -12,7 +12,7 @@ public class Consequences {
 		foreach (XmlNode change in consequence.SelectNodes(CHANGE)) {
 			string changeProp = XmlUtilities.getData(change);
 			foreach (XmlNode add in change.SelectNodes(ADD)) {
-				int delta = int.Parse(XmlUtilities.getData(add));
+				int delta = MathData.GetInt(add);
 				UserProperty.setProp(changeProp,
 					(int.Parse(UserProperty.getProp(changeProp)) + delta).ToString()
 				);

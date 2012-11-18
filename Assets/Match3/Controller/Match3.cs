@@ -41,8 +41,8 @@ public class Match3 : MonoBehaviour, MiniGameAPI.IMiniGame {
 		foreach (Ending ending in endings) {
 			winReqs[ending.edgeId] = 0;
 		}
-		int width = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.WIDTH, XmlUtilities.getData));
-		int height = int.Parse(XmlUtilities.getDatumFromNode<string>(data, XmlUtilities.HEIGHT, XmlUtilities.getData));
+		int width = MathData.GetInt(data.SelectSingleNode(XmlUtilities.WIDTH));
+		int height = MathData.GetInt(data.SelectSingleNode(XmlUtilities.HEIGHT));
 		Tile.BOARD_HEIGHT = height;
 		Tile[,] tiles = new Tile[width, height];
 		for (int x = 0; x < width; x++) {
