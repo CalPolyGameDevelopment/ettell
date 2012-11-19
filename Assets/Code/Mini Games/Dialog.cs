@@ -8,9 +8,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
 	private const string INVISIBLE = "invisible";
-	
 	private const int BUTTON_SIZE_MODIFIER = 5;
-	
 	public GUIStyle promptStyle;
 	public GUIStyle buttonStyle;
 	private Ending[][] options;

@@ -13,7 +13,7 @@ public class Ending {
 	public Color color {
 		get {
 
-            return MaterialData.GetColor(data);
+			return MaterialData.GetColor(data);
 		}
 	}
 	
@@ -37,26 +37,25 @@ public class Ending {
 	
 	private Ending(XmlNode xn) {
 		data = xn;
-    }
-	
+	}
 
-	public XmlNode otherData (string tagName) {
+	public XmlNode otherData(string tagName) {
 		return data.SelectSingleNode(tagName);
 	}
 
-	public static IEnumerable<Ending> findEndings (XmlNode xn) {
-        XmlNodeList nodes = xn.SelectNodes(ENDING);
+	public static IEnumerable<Ending> findEndings(XmlNode xn) {
+		XmlNodeList nodes = xn.SelectNodes(ENDING);
         
         
-        var availableEndings = 
+		var availableEndings = 
             from n in nodes.Cast<XmlNode>()
             where Requirements.pass(n)
             select new Ending(n);
         
         
-        foreach (var end in availableEndings){
-            yield return (Ending)end;
-        }
-    }
+		foreach (var end in availableEndings) {
+			yield return (Ending)end;
+		}
+	}
 
 }
