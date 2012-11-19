@@ -54,12 +54,13 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		set {
 			data = value;
 			
-			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
 			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
 				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
 			}
+			
+			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
 			
 			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleEndings.Length));
 			HashSet<Ending>[] rows = new HashSet<Ending>[height];
