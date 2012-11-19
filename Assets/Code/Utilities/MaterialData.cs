@@ -7,18 +7,25 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+public class UnparsableColorException : Exception {
+	public UnparsableColorException(string message) : base(message) {
+	}
+}
+
 /// <summary>
 /// Material Data
 /// </summary>
 public static class MaterialData {
+	
+	private static string COLOR = "color";
  
 	public static Color GetColor(this XmlNode node) {
 		XmlNode colorNode;
-		if (node.Name == ColorUtilities.COLOR) {
+		if (node.Name == COLOR) {
 			colorNode = node;
 		}
 		else {
-			colorNode = node.SelectSingleNode(ColorUtilities.COLOR);
+			colorNode = node.SelectSingleNode(COLOR);
 		}
 		string rawData = colorNode.getString();
 		return ColorUtilities.Parse(rawData);
@@ -30,18 +37,9 @@ public static class MaterialData {
 	}
     
 	public static Color[] GetColors(this XmlNode node) {
-		XmlNodeList colorNodes = node.SelectNodes(ColorUtilities.COLOR);
-		var parsedColors = 
-            from cn in colorNodes.Cast<XmlNode>()
-            select GetColor(cn);
-		return parsedColors.ToArray();
+		return node.childNodes(COLOR).Select<XmlNode, Color>(GetColor).ToArray();
 	}
 
-}
-
-public class UnparsableColorException : Exception {
-	public UnparsableColorException(string message) : base(message) {
-	}    
 }
 
 
@@ -59,7 +57,6 @@ static class ColorUtilities {
  
 	#region Constants 
 	
-	public static string COLOR = "color";
 	public const string Red = "red";
 	public const string Green = "green";
 	public const string Blue = "blue";

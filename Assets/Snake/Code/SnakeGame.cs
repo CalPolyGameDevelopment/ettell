@@ -70,16 +70,9 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	
 	private const string ETTELL_LEFP = "ettellLerp";
-	public Color[] EttellLerp {      
-		
+	public Color[] EttellLerp {
         get {
-            XmlNode lefpNode = data.SelectSingleNode(ETTELL_LEFP);
-            XmlNodeList colorNodes = lefpNode.SelectNodes(ColorUtilities.COLOR);
-            var parsedColors = from node in colorNodes.Cast<XmlNode>()
-                where node.Name == ColorUtilities.COLOR
-                select MaterialData.GetColor(node);
-             
-			return parsedColors.ToArray();
+			return data.childNode(ETTELL_LEFP).GetColors();
 		}
 	}
 	
