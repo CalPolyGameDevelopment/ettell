@@ -38,6 +38,20 @@
 					</have>
 				</requirement>
 			</ending>
+			<ending data="snakePreamble3Edge" requires="snake3">
+				<requirement id="snake3">
+					<have data="snakeAttempts">
+						<exactly data="3" />
+					</have>
+				</requirement>
+			</ending>
+			<ending data="snakePreamble4Edge" requires="snake4">
+				<requirement id="snake4">
+					<have data="snakeAttempts">
+						<atLeast data="4" />
+					</have>
+				</requirement>
+			</ending>
 		</minigame>
 	</node>
 	<node id="snakePreamble1">
@@ -68,6 +82,50 @@
 	</node>
 	<node id="snakePreamble2">
 		<minigame data="dialog">
+			<prompt>
+				<string data="Mike: Ettell had a pretty good day yesterday." />
+				<string data="Tom: I told you she'd make money." />
+				<string data="Mike: She's no better than any other algorithm at this point" />
+				<string data="Mike: One good day can be erased in a heartbeat." />
+				<string data="Tom: I tell you, she never loses." />
+				<string data="Tom: Even yesterday, I felt like she was driving the market." />
+				<string data="Mike: We'll see." />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble3">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Mike: Another solid day for Ettell." />
+				<string data="Tom: I feel like she's on the cusp of a breakthrough." />
+				<string data="Mike: She made a bunch of money yesterday, even with the market down." />
+				<string data="Tom: It's not just that." />
+				<string data="Tom: I can practically see the world changing." />
+				<string data="Mike: One day at a time there buddy." />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble4">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Tom: Did you see the latest numbers from Ettell?" />
+				<string data="Mike: I'm not that impressed." />
+				<string data="Mike: She ended on a down note." />
+				<string data="Tom: I think she's manipulating the market." />
+				<string data="Tom: Forcing other traders to follow where she wants them to be." />
+				<string data="Mike: That's crazy talk." />
+				<string data="Tom: My models may have underestimated Ettell's abilities." />
+				<string data="Tom: She may be able to change how the market works completely." />
+				<string data="Mike: I sure hope not." />
+				<string data="Mike: Sounds like trouble." />
+				<string data="Tom: I need to run some numbers.  I'll have a report tomorrow." />
+			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
 			</ending>
@@ -118,14 +176,22 @@
 	<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 	<edge id="snakePreamble1Edge" data="snakePreamble1" />
 	<edge id="snakePreamble2Edge" data="snakePreamble2" />
+	<edge id="snakePreamble3Edge" data="snakePreamble3" />
+	<edge id="snakePreamble4Edge" data="snakePreamble4" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
-	<edge id="snakeFail" data="stockSnakeNode">
+	<edge id="snakeFail" data="snakePreambleChooser">
 		<consequence>
 			<change data="snakeAttempts">
 				<add data="1" />
 			</change>
 		</consequence>
 	</edge>
+	
+	
+	
+	
+	
+	
 	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
