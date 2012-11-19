@@ -3,163 +3,129 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
-
-public class SolutionManager {
-
-
-
+// public class Solution<T> where T : IComparable?
+public class Solution {
     public static object NOT_GUESSED = null;
     
-    private int solutionLength = 0;
+    private ArrayList solutionList; 
+    private ArrayList guessList;
     
-    private int[] solutionDigits;
-    private Color[] solutionColors;
-    private object[] solutionGuesses;
     
-
-    public SolutionManager(int length) {
-
-        solutionLength = length;
-
-        solutionColors = new Color[solutionLength];
-        solutionDigits = new int[solutionLength];
-        solutionGuesses = new object[solutionLength];
-
-    }
-
-
-
-    public int SolutionLength{
-        get {
-            return solutionLength;
-        }
-      
-
-    }
-
-
-    public int[] Digits {
+    public Solution(IList sList, IList gList){
         
-        set {
+        solutionList = ArrayList.ReadOnly(sList) as ArrayList;
+        guessList = ArrayList.FixedSize(gList) as ArrayList;
 
-            Array.Copy(value, solutionDigits, solutionLength);
+    }
+ 
+    /// <summary>
+    /// Gets the length of the solution.
+    /// </summary>
+    public int Length  {
+     get{ return solutionList.Count; }
+    }
+    
+    public IEnumerable<object> SolutionList{
+        get{ return solutionList.Cast<object>();}
+    }
+     
+    public IEnumerable<object> GuessList{
+        get{ return guessList.Cast<object>(); }
+    }
+ 
+    /// <summary>
+    /// Gets the number of cleots.
+    /// </summary>
+    public int CleotsCount {
+        get{
+   
+            return GuessList.Count(elem => isCleot (elem));
         }
     }
-
-    public Color[] Colors {
-        
-        set {
-            Array.Copy(value, solutionColors, solutionLength);
-        }
-    }
-
-    public object[] Guesses {
+ 
+    /// <summary>
+    /// Gets ths number of bulls.
+    /// </summary>
+    public int BullsCount {
         get {
-            object[] retval = new object[solutionLength];
-            Array.Copy(solutionGuesses, retval, solutionLength);
-            return retval;
+            return GuessList.Count (elem => isBull(elem));
         }
-    }
 
-    public void SetGuessAt(int index, object guess) {
-        if (index < 0 || index > solutionLength) {
-            Debug.LogError("Cannot set guess: index out of range.");
-            return;
-        }
-        if (solutionGuesses[index] != NOT_GUESSED)
-            Debug.LogWarning("Overwriting guess at index: " + index.ToString());
-
-        solutionGuesses[index] = guess;
     }
-  
-    // Checks for guess slots that have not had a number
-    // dropped into them.
+   
     public bool HasBlankGuesses {
         get {
-            return solutionGuesses.Any(elem => elem == NOT_GUESSED);
+            return GuessList.Any (elem => elem == NOT_GUESSED);
+        }
+    }
+ 
+    public bool Solved{
+        get{
+            return GuessList.All (elem => isBull(elem));
         }
     }
 
-    bool GuessIsCleot(object guess) {
+    bool isCleot(object guess) {
         
-        if (GuessIsBull(guess))
+        if (isBull(guess))
             return false;
-
-        Type guessType = guess.GetType();
-
-        if (guessType == typeof(int))
-            return Array.IndexOf<int>(solutionDigits, (int)guess) > -1;
-
-        if (guessType == typeof(Color))
-            return Array.IndexOf<Color>(solutionColors, (Color)guess) > -1;
         
-        return false;
+        return solutionList.Contains(guess);
     }
 
+    bool isBull(object guess) {
+        int index = guessList.IndexOf(guess);
   
-  
-
-    bool GuessIsBull(object guess) {
-        int index = Array.IndexOf(solutionGuesses, guess);
-
-        Type guessType = guess.GetType();
-
-        if (guessType == typeof(int))
-            return solutionDigits[index] == (int)guess;
-        if (guessType == typeof(Color))
-            return solutionColors[index] == (Color)guess;
-       
-        return false;
+        return solutionList[index] == guess;
+      
     }
 
-
-    public int CleotsCount() {
-
-        return solutionGuesses.Count<object>(eleme => GuessIsCleot(eleme));
-    }
-
-    public int BullsCount() {
-        return solutionGuesses.Count<object>(elem => GuessIsBull(elem));
-
-    }
-
-    public int DigitCount() {
-        return solutionGuesses.Count<object>(
-            o => o != null && o.GetType() == typeof(int));
-    }
-    public int ColorCount() {
-        return solutionGuesses.Count<object>(
-            o => o != null && o.GetType() == typeof(Color));
-    }
-
+    /// <summary>
+    /// Sets guessList[index] = NOT_GUESSED.
+    /// </summary>
     public void ResetGuessAt(int index) {
-        if (index < 0 || index > solutionLength)
+        if (index < 0 || index > Length)
         {
             Debug.LogError("Cannot reset guess: index out of range.");
             return;
         }
 
-        solutionGuesses[index] = NOT_GUESSED;
+        guessList[index] = NOT_GUESSED;
     }
-
+ 
+    /// <summary>
+    /// map(x => NOT_GUESSED, guessList)
+    /// </summary>
     public void ResetGuesses() {
-        for (int index = 0; index < solutionLength; index++)
-            ResetGuessAt(index);   
+        for (int index = 0; index < Length; index++)
+            ResetGuessAt(index);
         
     }
 
+    
+}
 
-    public override string ToString() {
-        string retval = "";
 
-        foreach (object guess in solutionGuesses) {
-            if (guess != NOT_GUESSED)
-                retval += guess.ToString();
-            else
-                retval += "?";
+
+public class SolutionManager {
+    
+    private List<Solution> solutions;
+
+   
+    public SolutionManager() {
+        solutions = new List<Solution>();
+    }
+
+    public void AddSolution(Solution sln){
+        if(solutions.Contains(sln)){
+            Debug.LogWarning("Adding duplicate solution.");
         }
-        return retval;
+        solutions.Add(sln);
     }
     
+    
+
+
 }

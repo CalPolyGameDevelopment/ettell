@@ -44,6 +44,7 @@ public class Ending {
 	}
 
 	public static IEnumerable<Ending> findEndings(XmlNode xn) {
-		return xn.childNodes(ENDING).Where(Requirements.passRequirements).Select<XmlNode, Ending>(x => new Ending(x));
+		return xn.childNodes(ENDING).Where(Requirements.passRequirements)
+            .Select<XmlNode, Ending>(x => new Ending(x));
 	}
 }

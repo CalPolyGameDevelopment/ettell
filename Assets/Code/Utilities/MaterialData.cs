@@ -43,7 +43,6 @@ public static class MaterialData {
 }
 
 
-
 /// <summary>
 /// Color Utilities - 
 /// 
@@ -92,6 +91,7 @@ static class ColorUtilities {
     (,(?<alpha>\d{1,3}))?    # optional 3 digits for alpha
                      [)]     # right paren
     ";
+    
 	public static Regex HtmlRGBRegex = new Regex(HTML_RGB_PATTERN, 
         RegexOptions.IgnoreCase |
         RegexOptions.IgnorePatternWhitespace);

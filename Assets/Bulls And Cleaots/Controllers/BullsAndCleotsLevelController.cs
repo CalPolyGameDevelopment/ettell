@@ -44,7 +44,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
     static string snapOnExitName = typeof(SnappableOnExitEvent).ToString();
     static string onMoveName = typeof(DraggableOnMoveEvent).ToString();
-	
+ 
     private string[] handledEventNames = {
         onSnapName,
         onMoveName,
@@ -58,9 +58,9 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     private int maxMessages = 10;
     private Queue<string> playerMessageQueue;
     private int attemptCount;
-	private BullBar bullBar;
-	private CleotBar cleotBar;
-	private SolutionMixBar slnMixBar;
+ private BullBar bullBar;
+ private CleotBar cleotBar;
+ private SolutionMixBar slnMixBar;
 
     private BCLevelData initData = null;
     public BCLevelData InitData{
@@ -72,28 +72,29 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
             initData = value;
         }
     }
-	
+ 
     void Start() {
         hasWon = false;
         attemptCount = 0;
         
         playerMessageQueue = new Queue<string>(maxMessages);
-        solution = new SolutionManager(initData.solutionLength);
-        solution.Colors = initData.solutionColors;
-        solution.Digits = initData.solutionNumbers;
-		
+        solution = new SolutionManager();
+        // solution.Colors = initData.solutionColors;
+        // solution.Digits = initData.solutionNumbers;
+     
+        /*
         numberedBlocks = Instantiate(numberedBlocks) as GameObject;
         numberedBlocks.GetComponent<NumberedBlocks>().PossibleNumbers = initData.possibleNumbers;
-		numberedBlocks.transform.parent = transform;
+        numberedBlocks.transform.parent = transform;
         
         coloredBlocks = Instantiate(coloredBlocks) as GameObject;
         coloredBlocks.GetComponent<ColoredBlocks>().PossibleColors = initData.possibleColors;
-		coloredBlocks.transform.parent = transform;
+        coloredBlocks.transform.parent = transform;
         
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
-		inputPane.transform.parent = transform;
-        
+        inputPane.transform.parent = transform;
+        */
 
         #region Test Code
 
@@ -110,10 +111,10 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         foreach (string eventName in handledEventNames) {
             EventManager.instance.RegisterListener(this, eventName);
         }
-		
-		bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
-		cleotBar = FindObjectOfType(typeof(CleotBar)) as CleotBar;
-		slnMixBar = FindObjectOfType(typeof(SolutionMixBar)) as SolutionMixBar;
+     
+     bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
+     cleotBar = FindObjectOfType(typeof(CleotBar)) as CleotBar;
+     slnMixBar = FindObjectOfType(typeof(SolutionMixBar)) as SolutionMixBar;
     }
 
     public bool HandleEvent(IEvent evnt) {
@@ -145,7 +146,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
  
 
     void PlayerAttemptSolve() {
-
+        /*
         if (solution.HasBlankGuesses) {
             // We don't allow for there to be any unfilled 
             // guess slots because that would make the game 
@@ -157,9 +158,10 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
         bullBar.FoundBulls(((float)solution.BullsCount()) / ((float)solution.SolutionLength));
         cleotBar.FoundCleots(((float)solution.CleotsCount()) / ((float)solution.SolutionLength));
-		slnMixBar.FoundSolution(((float)solution.DigitCount()) / ((float)solution.SolutionLength));
+     slnMixBar.FoundSolution(((float)solution.DigitCount()) / ((float)solution.SolutionLength));
+        
         attemptCount++;
-		
+     
         AddPlayerMessage(BuildAttemptMessage(attemptCount, solution.BullsCount(), solution.CleotsCount()));
 
         if (solution.BullsCount() == solution.SolutionLength) {
@@ -172,6 +174,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
             numberedBlocks.GetComponent<NumberedBlocks>().Reset();
             coloredBlocks.GetComponent<ColoredBlocks>().Reset();
         }
+        */
     }
 
     string BuildAttemptMessage(int attemptCount, int bullsCount, int cleotsCount) {
@@ -202,6 +205,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
 
     void PlayerEndGame() {
+        /*
         if (solution.DigitCount() == 0)
             MiniGameController.endMiniGame(
                 BullsAndCleots.ExitEdges.IncreaseColors);
@@ -213,7 +217,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         else 
             MiniGameController.endMiniGame(
                 BullsAndCleots.ExitEdges.IncreaseDifficulty);
-    }
+ */
+       }
 
     
     
@@ -227,19 +232,21 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         
       int index = dropArea.Index;
       object guess = solutionBlock.data;
-
+  
+        /*
         if (snappable.isAlreadyOccupied) {
+            
             object temp = solution.Guesses[index];
             draggable.Reset();
             solution.SetGuessAt(index, temp);
-
+             
 
         }
         else {
             solution.SetGuessAt(index, guess);
-           
 
         }
+        */
 
     }
 
@@ -253,22 +260,18 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         int index = dropArea.Index;
 
         object vacatingGuess = solutionBlock.data;
-
+        /*
         object currentGuess = solution.Guesses[index];
             
         // Guess vacating because snaparea already occupied so
         // keep current guess.
         if (currentGuess != vacatingGuess)
             return;
-        
 
-        
         // Otherwise it means that the snap area will be empty
         // after the guess vacates so set it to NOT_GUESSED
         solution.ResetGuessAt(index);
-
-
-
+         */
     }
 
     void drawAttemptButton() {
@@ -298,7 +301,6 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         }
         else {
             drawWinButton();
-
         }
 
         drawMessages();

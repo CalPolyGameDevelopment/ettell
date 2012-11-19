@@ -44,7 +44,27 @@ public class UserProperty : WritableXml {
             return singleton.defaultUserState.xmlDoc.SelectSingleNode(propPath).getString();
         }
 	}
-	
+
+    /// <summary>
+    /// Gets the XML node of the property instead of string stored in the 
+    /// data attribute.
+    /// </summary>
+    public static XmlNode GetPropNode(string propName){
+        XmlNode propNode = singleton.xmlDoc.SelectSingleNode(propName);
+        if (propNode != null){
+            return propNode;
+        }
+        
+        propNode = singleton.defaultUserState.xmlDoc.SelectSingleNode(propName);
+        
+        if (propNode != null){
+            return propNode;
+        }
+            
+        throw new System.ArgumentException(
+            string.Format("Unable to locate a UserProp node with name: {}", propName));
+    }
+
 	public static void setProp(string propName, string val) {
 		XmlNode bestParent = singleton.xmlDoc.DocumentElement;
 		foreach (XmlNode toRemove in singleton.xmlDoc.SelectNodes("//" + propName).Cast<XmlNode>().ToArray()) {

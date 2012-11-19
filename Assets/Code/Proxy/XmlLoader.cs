@@ -50,17 +50,4 @@ public abstract class XmlLoader : MonoBehaviour {
 	}
 	
     
-    /*
-	public T getDatum<T>(string xPath, System.Func<XmlNode, T> f) {
-		assertReady();
-		return f(XmlUtilities.getData(xmlDoc.SelectSingleNode(xPath)));
-	}
- */
-	
-    /*
-	public IEnumerable<T> getData<T>(string xPath, System.Func<XmlNode, T> f) {
-		assertReady();
-		return XmlUtilities.getDataFromNode<T>(xmlDoc, xPath, f);
-	}
- */
 }
