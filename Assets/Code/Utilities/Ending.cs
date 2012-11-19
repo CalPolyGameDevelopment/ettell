@@ -25,13 +25,13 @@ public class Ending {
 	
 	public string displayText {
 		get {
-			return XmlUtilities.getData(data.SelectSingleNode(DISPLAY_TEXT));
+			return data.SelectSingleNode(DISPLAY_TEXT).getString();
 		}
 	}
 	
 	public string edgeId {
 		get {
-			return XmlUtilities.getData(data);
+			return data.getString();
 		}
 	}
 	

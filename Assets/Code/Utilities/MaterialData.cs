@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 /// </summary>
 public static class MaterialData {
  
-    public static Color GetColor(XmlNode node){
+    public static Color GetColor(this XmlNode node){
         XmlNode colorNode;
         if (node.Name == ColorUtilities.COLOR){
             colorNode = node;
@@ -21,16 +21,16 @@ public static class MaterialData {
         else {
             colorNode = node.SelectSingleNode(ColorUtilities.COLOR);
         }
-        string rawData = XmlUtilities.getData(colorNode);
+        string rawData = colorNode.getString();
         return ColorUtilities.Parse(rawData);
     }
     
-    public static Texture GetTexture(XmlNode node){
-        string path = XmlUtilities.getData(node);
+    public static Texture GetTexture(this XmlNode node){
+        string path = node.getString();
         return Resources.Load(path) as Texture;
     }
     
-    public static Color[] GetColors(XmlNode node){
+    public static Color[] GetColors(this XmlNode node){
         XmlNodeList colorNodes = node.SelectNodes(ColorUtilities.COLOR);
         var parsedColors = 
             from cn in colorNodes.Cast<XmlNode>()

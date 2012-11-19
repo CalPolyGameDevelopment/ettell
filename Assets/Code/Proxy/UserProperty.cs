@@ -36,16 +36,12 @@ public class UserProperty : WritableXml {
 	}
 	
 	public static string getProp(string propName) {
-         string propPath = string.Format("descendant::{0}", propName);
-        XmlNode propNode; 
+		string propPath = System.String.Format("descendant::{0}", propName);
         try {
-            propNode = singleton.xmlDoc.SelectSingleNode(propPath);
-            return XmlUtilities.getData(propNode);
-            
+            return singleton.xmlDoc.SelectSingleNode(propPath).getString();
         }
 		catch {
-            propNode = singleton.defaultUserState.xmlDoc.SelectSingleNode(propPath);
-			return XmlUtilities.getData(propNode);
+            return singleton.defaultUserState.xmlDoc.SelectSingleNode(propPath).getString();
         }
 	}
 	

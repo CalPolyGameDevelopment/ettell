@@ -7,6 +7,7 @@ public class Requirements {
 	private const string REQUIRES = "requires";
 	private const string HAVE = "have";
 	private const string AT_LEAST = "atLeast";
+	private const string EXACTLY = "exactly";
 	
 	public static bool pass(XmlNode test) {
 		if (test.Attributes[REQUIRES] == null) {
@@ -25,9 +26,14 @@ public class Requirements {
 	}
 	
 	private static bool checkHave(XmlNode haveReq) {
-		int haveQuantity = int.Parse(UserProperty.getProp(XmlUtilities.getData(haveReq)));
+		int haveQuantity = int.Parse(UserProperty.getProp(haveReq.getString()));
 		foreach (XmlNode atLeast in haveReq.SelectNodes(AT_LEAST)) {
 			if (MathData.GetInt(atLeast) > haveQuantity) {
+				return false;
+			}
+		}
+		foreach (XmlNode exactly in haveReq.SelectNodes(EXACTLY)) {
+			if (MathData.GetInt(exactly) != haveQuantity) {
 				return false;
 			}
 		}

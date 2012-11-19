@@ -20,8 +20,8 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private bool allowInvisibleChoice {
 		get {
-			XmlNode xn = data.SelectSingleNode(INVISIBLE);
-			return xn == null ? false : bool.Parse(XmlUtilities.getData(xn));
+			XmlNode xn = data.childNode(INVISIBLE);
+			return xn == null ? false : xn.getBool();
 		}
 	}
 	
@@ -58,9 +58,10 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			
 			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
 				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
+				return;
 			}
 			
-			promptText = new string[0];// XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
+			promptText = data.childNode(PROMPT).getStrings();
 			
 			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleEndings.Length));
 			HashSet<Ending>[] rows = new HashSet<Ending>[height];

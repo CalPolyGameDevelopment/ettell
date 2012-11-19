@@ -11,47 +11,46 @@ public class MiniGameController : MonoBehaviour {
 			return singleton != null;
 		}
 	}
-	
     
 	public GameObject dialog;
 	public GameObject platformer;
-    public GameObject redBluePlatformer;
+	public GameObject redBluePlatformer;
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
 	public GameObject physics;
 	public GameObject slideshow;
-    public GameObject waveDefense;
-    public GameObject pipePlatformer;
+	public GameObject waveDefense;
+	public GameObject pipePlatformer;
 	public GameObject stockSnake;
-    
-	private Dictionary<string, GameObject> miniGameTypes;
 	
+	private Dictionary<string, GameObject> miniGameTypes;
 	private GameObject current;
+
 	public static GameObject Current {
 		get {
 			return singleton.current;
 		}
 	}
 	
-	void Start () {
+	void Start() {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
 		miniGameTypes["platformer"] = platformer;
 		miniGameTypes["laserPlumber"] = laserPlumber;
-        miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
-        miniGameTypes["match3"] = match3;
-        miniGameTypes["BullsAndCleots"] = bullsAndCleots;
-        miniGameTypes["physics"] = physics;
-        miniGameTypes["slideshow"] = slideshow;
-        miniGameTypes["WaveDefense"] = waveDefense;
-        miniGameTypes["pipePlatformer"] = pipePlatformer;
+		miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
+		miniGameTypes["match3"] = match3;
+		miniGameTypes["BullsAndCleots"] = bullsAndCleots;
+		miniGameTypes["physics"] = physics;
+		miniGameTypes["slideshow"] = slideshow;
+		miniGameTypes["WaveDefense"] = waveDefense;
+		miniGameTypes["pipePlatformer"] = pipePlatformer;
 		miniGameTypes["stockSnake"] = stockSnake;
 		singleton = this;
 	}
 	
 	public static void startMiniGame(XmlNode gameData) {
-		string name = XmlUtilities.getData(gameData);
+		string name = gameData.getString();
 		singleton.current = (GameObject)Instantiate(singleton.miniGameTypes[name]);
 		singleton.current.transform.parent = singleton.gameObject.transform;
 		singleton.current.GetComponent<MiniGameAPI>().Data = gameData;
@@ -68,10 +67,5 @@ public class MiniGameController : MonoBehaviour {
 			yield return 0;
 		}
 		StoryController.TraverseEdge(result);
-	
-
- }
-
- 
-
+	}
 }

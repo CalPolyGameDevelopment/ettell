@@ -2,8 +2,10 @@
 <story>
 	<node id="newGame">
 		<minigame data="dialog">
-			<prompt data="Ettell" />
-			<prompt data="Main Menu" />
+			<prompt>
+				<string data="Ettell" />
+				<string data="Main Menu" />
+			</prompt>
 			<ending data="miniGameTestRecur">
 				<display_text data="Test Mini-games" />
 			</ending>
@@ -22,14 +24,14 @@
 	<node id="snakePreambleChooser">
 		<minigame data="dialog">
 			<invisible data="true" />
-			<ending data="snakePreamble1" requires="snake1">
+			<ending data="snakePreamble1Edge" requires="snake1">
 				<requirement id="snake1">
 					<have data="snakeAttempts">
 						<exactly data="1" />
 					</have>
 				</requirement>
 			</ending>
-			<ending data="snakePreamble2" requires="snake2">
+			<ending data="snakePreamble2Edge" requires="snake2">
 				<requirement id="snake2">
 					<have data="snakeAttempts">
 						<exactly data="2" />
@@ -40,23 +42,25 @@
 	</node>
 	<node id="snakePreamble1">
 		<minigame data="dialog">
-			<prompt data="Tom: All the tests are green." />
-			<prompt data="Tom: Ettell would have made money every day in the historical record." />
-			<prompt data="Tom: With no overfitting we can see." />
-			<prompt data="Tom: She's the perfect algorithmic trader." />
-			<prompt data="Mike: That's great news!" />
-			<prompt data="Mike: When will she be ready for the real deal?" />
-			<prompt data="Tom: That's what I'm telling you." />
-			<prompt data="Tom: She's ready today." />
-			<prompt data="Mike: What about the SEC?  Do they know about this?" />
-			<prompt data="Tom: We've been running an off the shelf bot for months." />
-			<prompt data="Tom: The new behavior shouldn't raise any red flags." />
-			<prompt data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
-			<prompt data="Mike: I guess then today's the day!" />
-			<prompt data="Mike: How much are we putting behind this thing?" />
-			<prompt data="Tom: (whispers)" />
-			<prompt data="Mike: Well I hope it's worth it." />
-			<prompt data="Tom: The bell is about to ring.  Lets watch!" />
+			<prompt>
+				<string data="Tom: All the tests are green." />
+				<string data="Tom: Ettell would have made money every day in the historical record." />
+				<string data="Tom: With no overfitting we can see." />
+				<string data="Tom: She's the perfect algorithmic trader." />
+				<string data="Mike: That's great news!" />
+				<string data="Mike: When will she be ready for the real deal?" />
+				<string data="Tom: That's what I'm telling you." />
+				<string data="Tom: She's ready today." />
+				<string data="Mike: What about the SEC?  Do they know about this?" />
+				<string data="Tom: We've been running an off the shelf bot for months." />
+				<string data="Tom: The new behavior shouldn't raise any red flags." />
+				<string data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
+				<string data="Mike: I guess then today's the day!" />
+				<string data="Mike: How much are we putting behind this thing?" />
+				<string data="Tom: (whispers)" />
+				<string data="Mike: Well I hope it's worth it." />
+				<string data="Tom: The bell is about to ring.  Lets watch!" />
+			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
 			</ending>
@@ -112,6 +116,8 @@
 	</node>
 	<edge id="storyBegin" data="NYSESlideshowNode" />
 	<edge id="snakePreambleEdge" data="snakePreambleChooser" />
+	<edge id="snakePreamble1Edge" data="snakePreamble1" />
+	<edge id="snakePreamble2Edge" data="snakePreamble2" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<edge id="snakeFail" data="stockSnakeNode">
 		<consequence>

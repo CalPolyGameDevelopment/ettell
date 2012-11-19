@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 
 
-public class MathData {
+public static class MathData {
 	private const string MATH = "math";
 	private const string VALUE = "value";
 	private const string ADD = "add";
@@ -27,7 +27,7 @@ public class MathData {
 	
 	private sealed class FlOps : IMathOps<float> {
 		public float Parse(XmlNode xn) {
-			return float.Parse(XmlUtilities.getData(xn));
+			return float.Parse(xn.getString());
 		}
 		public float Add(float a, float b) {
 			return a + b;
@@ -45,7 +45,7 @@ public class MathData {
 	
 	private sealed class IntOps : IMathOps<int> {
 		public int Parse(XmlNode xn) {
-			return int.Parse(XmlUtilities.getData(xn));
+			return int.Parse(xn.getString());
 		}
 		public int Add(int a, int b) {
 			return a + b;
@@ -103,21 +103,18 @@ public class MathData {
 		return processMathNode<T>(mathNode, conversions);
 	}
 	
-	public static int GetInt(XmlNode node) {
+	public static int GetInt(this XmlNode node) {
 		return getVal<int>(node, intOps);
 	}
 	
-	public static float GetFloat(XmlNode node) {
+	public static float GetFloat(this XmlNode node) {
 		return getVal<float>(node, flOps);
 	}
  
-    public static Vector3 GetVector(XmlNode node){
-        string data = XmlUtilities.getData(node);
+    public static Vector3 GetVector(this XmlNode node){
+        string data = node.getString();
         return VectorUtilities.Parse(data);
     }
-    
-    
-    
 }
 
 public class UnparsableVectorException: Exception{
