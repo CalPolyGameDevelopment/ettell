@@ -136,9 +136,6 @@
 			<ending data="miniGameTestRecur">
 				<display_text data="Dialog Recur" />
 			</ending>
-			<ending data="redBlueChoice">
-				<display_text data="Dillon Platformer" />
-			</ending>
 			<ending data="match3Edge">
 				<display_text data="Match 3" />
 			</ending>
@@ -192,11 +189,6 @@
 	<node id="redBluePlatformer">
 		<minigame data="RedBlueTurretPlatformer">
 			<sceneName data="RedBlueTurretPlatformer" />
-		</minigame>
-	</node>
-	<node id="redBluePlatformer2Node">
-		<minigame data="RedBlueTurretPlatformer">
-			<sceneName data="RedBlueTurretPlatformer2" />
 		</minigame>
 	</node>
 	<node id="bullsAndCleotsNode">
@@ -286,20 +278,6 @@
 			</change>
 		</consequence>
 	</edge>
-	<edge id="chooseRed" data="miniGameTest">
-		<consequence>
-			<change data="year">
-				<add data="3" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="chooseBlue" data="redBluePlatformer2Node">
-		<consequence>
-			<change data="year">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
 	<edge id="BCIncreaseDifficulty" data="miniGameTest">
 		<consequence>
 			<change data="BCSolutionLength">
@@ -324,7 +302,6 @@
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
 	<edge id="laserEdge" data="laserPlumber" />
-	<edge id="redBlueChoice" data="redBluePlatformer" />
 	<edge id="match3Edge" data="match3Node" />
 	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
 	<edge id="physicsDemoEdge" data="physicsDemoNode" />

@@ -14,7 +14,6 @@ public class MiniGameController : MonoBehaviour {
     
 	public GameObject dialog;
 	public GameObject platformer;
-	public GameObject redBluePlatformer;
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
@@ -38,7 +37,6 @@ public class MiniGameController : MonoBehaviour {
 		miniGameTypes["dialog"] = dialog;
 		miniGameTypes["platformer"] = platformer;
 		miniGameTypes["laserPlumber"] = laserPlumber;
-		miniGameTypes["RedBlueTurretPlatformer"] = redBluePlatformer;
 		miniGameTypes["match3"] = match3;
 		miniGameTypes["BullsAndCleots"] = bullsAndCleots;
 		miniGameTypes["physics"] = physics;
