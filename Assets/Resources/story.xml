@@ -19,7 +19,26 @@
 			<resource data="WallStreetSign" />
 		</minigame>
 	</node>
-	<node id="snakePreamble">
+	<node id="snakePreambleChooser">
+		<minigame data="dialog">
+			<invisible data="true" />
+			<ending data="snakePreamble1" requires="snake1">
+				<requirement id="snake1">
+					<have data="snakeAttempts">
+						<exactly data="1" />
+					</have>
+				</requirement>
+			</ending>
+			<ending data="snakePreamble2" requires="snake2">
+				<requirement id="snake2">
+					<have data="snakeAttempts">
+						<exactly data="2" />
+					</have>
+				</requirement>
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble1">
 		<minigame data="dialog">
 			<prompt data="Tom: All the tests are green." />
 			<prompt data="Tom: Ettell would have made money every day in the historical record." />
@@ -38,6 +57,13 @@
 			<prompt data="Tom: (whispers)" />
 			<prompt data="Mike: Well I hope it's worth it." />
 			<prompt data="Tom: The bell is about to ring.  Lets watch!" />
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble2">
+		<minigame data="dialog">
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
 			</ending>
@@ -85,7 +111,7 @@
 		</minigame>
 	</node>
 	<edge id="storyBegin" data="NYSESlideshowNode" />
-	<edge id="snakePreambleEdge" data="snakePreamble" />
+	<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<edge id="snakeFail" data="stockSnakeNode">
 		<consequence>
