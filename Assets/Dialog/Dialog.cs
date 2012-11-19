@@ -24,9 +24,11 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private Vector2 calcPromptSize() {
-		Vector2 r = new Vector2(Screen.width, 0f);
+		Vector2 r = new Vector2(0f, 0f);
 		foreach (string line in promptText) {
-			r.y += promptStyle.CalcSize(new GUIContent(line)).y;
+			Vector2 lineSize = promptStyle.CalcSize(new GUIContent(line));
+			r.x = Mathf.Max(r.x, lineSize.x);
+			r.y += lineSize.y;
 		}
 		return r;
 	}
