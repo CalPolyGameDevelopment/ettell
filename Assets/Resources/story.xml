@@ -138,7 +138,7 @@
 			<ending data="snakeFail">
 				<difficulty data="0" />
 			</ending>
-			<ending data="winGame">
+			<ending data="snakeEnd">
 				<difficulty data="1" />
 				<snakeLengthThreshold math="snakeLengthMath">
 					<divide id="snakeLengthMath">
@@ -172,6 +172,16 @@
 			<nodesPerEttellLerp data="200" />
 		</minigame>
 	</node>
+	<node id="timelapseNode">
+		<minigame data="timelapse">
+			<timeFormat data="..MM/MM/MMMM...MM:MM:MM.MM.." />
+			<blankSeconds data="4" />
+			<startTime data="Nov 30, 2012" />
+			<endTime data="May 11, 2016" />
+			<lerpSeconds data="9" />
+			<ending data="snakeEnd" />
+		</minigame>
+	</node>
 	<edge id="storyBegin" data="NYSESlideshowNode" />
 	<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 	<edge id="snakePreamble1Edge" data="snakePreamble1" />
@@ -186,6 +196,7 @@
 			</change>
 		</consequence>
 	</edge>
+	<edge id="snakeEnd" data="timelapseNode" />
 	
 	
 	
