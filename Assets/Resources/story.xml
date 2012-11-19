@@ -11,12 +11,14 @@
 			</ending>
 			<ending data="storyBegin">
 				<display_text data="New Game" />
+				<edge id="storyBegin" data="NYSESlideshowNode" />
 			</ending>
 		</minigame>
 	</node>
 	<node id="NYSESlideshowNode">
 		<minigame data="slideshow">
 			<endEdge data="snakePreambleEdge" />
+			<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 			<duration data="5" />
 			<resource data="WallStreetSign" />
 		</minigame>
@@ -30,6 +32,7 @@
 						<exactly data="1" />
 					</have>
 				</requirement>
+				<edge id="snakePreamble1Edge" data="snakePreamble1" />
 			</ending>
 			<ending data="snakePreamble2Edge" requires="snake2">
 				<requirement id="snake2">
@@ -37,6 +40,7 @@
 						<exactly data="2" />
 					</have>
 				</requirement>
+				<edge id="snakePreamble2Edge" data="snakePreamble2" />
 			</ending>
 			<ending data="snakePreamble3Edge" requires="snake3">
 				<requirement id="snake3">
@@ -44,6 +48,7 @@
 						<exactly data="3" />
 					</have>
 				</requirement>
+				<edge id="snakePreamble3Edge" data="snakePreamble3" />
 			</ending>
 			<ending data="snakePreamble4Edge" requires="snake4">
 				<requirement id="snake4">
@@ -51,6 +56,7 @@
 						<atLeast data="4" />
 					</have>
 				</requirement>
+				<edge id="snakePreamble4Edge" data="snakePreamble4" />
 			</ending>
 		</minigame>
 	</node>
@@ -137,6 +143,13 @@
 			<height data="30" />
 			<ending data="snakeFail">
 				<difficulty data="0" />
+				<edge id="snakeFail" data="snakePreambleChooser">
+					<consequence>
+						<change data="snakeAttempts">
+							<add data="1" />
+						</change>
+					</consequence>
+				</edge>
 			</ending>
 			<ending data="snakeEnd">
 				<difficulty data="1" />
@@ -149,6 +162,7 @@
 						</multiply>
 					</divide>
 				</snakeLengthThreshold>
+				<edge id="snakeEnd" data="timelapseNode" />
 			</ending>
 			<border>
 				<color data="rgb(219,169,51)" />
@@ -179,24 +193,10 @@
 			<startTime data="Nov 30, 2012" />
 			<endTime data="May 11, 2016" />
 			<lerpSeconds data="9" />
-			<ending data="snakeEnd" />
+			<ending data="winGame" />
 		</minigame>
 	</node>
-	<edge id="storyBegin" data="NYSESlideshowNode" />
-	<edge id="snakePreambleEdge" data="snakePreambleChooser" />
-	<edge id="snakePreamble1Edge" data="snakePreamble1" />
-	<edge id="snakePreamble2Edge" data="snakePreamble2" />
-	<edge id="snakePreamble3Edge" data="snakePreamble3" />
-	<edge id="snakePreamble4Edge" data="snakePreamble4" />
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
-	<edge id="snakeFail" data="snakePreambleChooser">
-		<consequence>
-			<change data="snakeAttempts">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="snakeEnd" data="timelapseNode" />
 	
 	
 	
