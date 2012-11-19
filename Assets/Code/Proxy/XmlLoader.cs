@@ -49,13 +49,18 @@ public abstract class XmlLoader : MonoBehaviour {
 		return textDoc.bytes;
 	}
 	
+    
+    /*
 	public T getDatum<T>(string xPath, System.Func<XmlNode, T> f) {
 		assertReady();
-		return XmlUtilities.getDatumFromNode<T>(xmlDoc, xPath, f);
+		return f(XmlUtilities.getData(xmlDoc.SelectSingleNode(xPath)));
 	}
+ */
 	
+    /*
 	public IEnumerable<T> getData<T>(string xPath, System.Func<XmlNode, T> f) {
 		assertReady();
 		return XmlUtilities.getDataFromNode<T>(xmlDoc, xPath, f);
 	}
+ */
 }

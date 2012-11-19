@@ -28,10 +28,13 @@ public class Slideshow : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private void startShow() {
-		textures = XmlUtilities.getDataFromNode<Texture>(data, XmlUtilities.RESOURCE, getTexture).ToArray();
-		curPicture = 0;
+
+        var txtrs = from node in data.SelectNodes(XmlUtilities.RESOURCE).Cast<XmlNode>()
+                    select MaterialData.GetTexture(node);
+        textures = txtrs.ToArray();
+        curPicture = 0;
 		started = true;
-		slideTime = float.Parse(XmlUtilities.getData(data.SelectSingleNode(DURATION)));
+		slideTime = MathData.GetFloat(data.SelectSingleNode(DURATION));
 		t = 0f;
 		completionEdge = XmlUtilities.getData(data.SelectSingleNode(END_EDGE));
 	}

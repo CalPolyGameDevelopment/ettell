@@ -50,17 +50,17 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private XmlNode data;
+    
 	public XmlNode Data {
 		set {
 			data = value;
-			
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
 			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
 				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
 			}
 			
-			promptText = XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
+			promptText = new string[0];// XmlUtilities.getDataFromNode<string>(data, PROMPT, XmlUtilities.getData).ToArray();
 			
 			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleEndings.Length));
 			HashSet<Ending>[] rows = new HashSet<Ending>[height];

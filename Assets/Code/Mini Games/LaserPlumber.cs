@@ -12,6 +12,7 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string POSITION = "position";
 	
 	private XmlNode data;
+    
 	public XmlNode Data {
 		set {
 			data = value;
@@ -26,8 +27,7 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private void setPos(GameObject toSet, XmlNode theirData) {
 		XmlNode position = theirData.SelectSingleNode(POSITION);
 		if (position != null) {
-			float[] coords = XmlUtilities.getPosition(position);
-			toSet.transform.position = new Vector3(coords[0], coords[1], coords[2]);
+			toSet.transform.position = MathData.GetVector(position);
 		}
 		toSet.transform.parent = gameObject.transform;
 	}

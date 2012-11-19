@@ -9,16 +9,6 @@ public class ColoredBlocks : MonoBehaviour {
 
     public GameObject blockPrefab;
     public Transform startTransform;
-    public static Color[] blockColors = {
-        Color.red,
-        Color.green,
-        Color.blue,
-        Color.magenta,
-        Color.cyan,
-        Color.yellow,
-        Color.white,
-        Color.black,
-    };
     
     private List<GameObject> blocks; 
     private float layoutSpacing = 1.2f;

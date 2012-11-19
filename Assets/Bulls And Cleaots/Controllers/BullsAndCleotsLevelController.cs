@@ -10,6 +10,8 @@ public class BCLevelData {
     public int[] solutionNumbers;
     public Color[] solutionColors;
     
+    public Color fromXml;
+
     public BCLevelData(int len, IEnumerable<int> numbers, IEnumerable<Color> colors){
         solutionLength = len;
         possibleColors = colors.ToArray();
@@ -21,6 +23,8 @@ public class BCLevelData {
         solutionNumbers = possibleNumbers.AsEnumerable()
             .OrderBy(x=>Random.value)
                 .Take(solutionLength).ToArray();
+        
+        fromXml = Color.black;
     }
 }
 
@@ -34,6 +38,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     public GameObject numberedBlocks;
     public GameObject coloredBlocks;
     public GameObject inputPane;
+    public GameObject testBlocks;
     
     static string onSnapName = typeof(DraggableOnSnapEvent).ToString();
     static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
@@ -71,6 +76,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     void Start() {
         hasWon = false;
         attemptCount = 0;
+        
         playerMessageQueue = new Queue<string>(maxMessages);
         solution = new SolutionManager(initData.solutionLength);
         solution.Colors = initData.solutionColors;
@@ -88,9 +94,21 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
 		inputPane.transform.parent = transform;
         
+
+        #region Test Code
+
+        testBlocks = Instantiate(testBlocks) as GameObject;
+        SolutionComponent[] ch = new SolutionComponent[1];
+        ch[0] = new SolutionComponent(initData.fromXml, 1.0f);
+        
+        testBlocks.GetComponent<SolutionBlocks>().Choices = ch;
+        
+        testBlocks.transform.parent = transform;
+        #endregion
+        
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
-            EventManager.instance.RegisterListener(this, (string)eventName);
+            EventManager.instance.RegisterListener(this, eventName);
         }
 		
 		bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
