@@ -13,8 +13,7 @@ public class Ending {
 	public Color color {
 		get {
 
-            return MaterialData.GetColor(
-                data.SelectSingleNode(ColorUtilities.COLOR));
+            return MaterialData.GetColor(data);
 		}
 	}
 	
