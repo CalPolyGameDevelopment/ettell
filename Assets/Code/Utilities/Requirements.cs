@@ -2,14 +2,14 @@ using UnityEngine;
 using System.Collections;
 using System.Xml;
 
-public class Requirements {
+public static class Requirements {
 	
 	private const string REQUIRES = "requires";
 	private const string HAVE = "have";
 	private const string AT_LEAST = "atLeast";
 	private const string EXACTLY = "exactly";
 	
-	public static bool pass(XmlNode test) {
+	public static bool passRequirements(this XmlNode test) {
 		if (test.Attributes[REQUIRES] == null) {
 			return true;
 		}

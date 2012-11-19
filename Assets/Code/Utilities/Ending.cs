@@ -44,18 +44,6 @@ public class Ending {
 	}
 
 	public static IEnumerable<Ending> findEndings(XmlNode xn) {
-		XmlNodeList nodes = xn.SelectNodes(ENDING);
-        
-        
-		var availableEndings = 
-            from n in nodes.Cast<XmlNode>()
-            where Requirements.pass(n)
-            select new Ending(n);
-        
-        
-		foreach (var end in availableEndings) {
-			yield return (Ending)end;
-		}
+		return xn.childNodes(ENDING).Where(Requirements.passRequirements).Select<XmlNode, Ending>(x => new Ending(x));
 	}
-
 }
