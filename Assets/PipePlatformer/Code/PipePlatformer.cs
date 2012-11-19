@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Linq;
 
-public class PipePlatformer : Platformer {
+public class PipePlatformer : SceneLoadingMiniGame {
 	protected override void onMyLevelLoaded ()
 	{
 		Ending[] endings = Ending.findEndings(data).OrderBy<Ending, float>(x => x.difficulty).ToArray();
