@@ -46,16 +46,17 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     };
  
     private bool hasWon;
-    private Rect messagesRect = new Rect(10, 95, 300, 250);
-    private int maxMessages = 10;
-    private Queue<string> playerMessageQueue;
-    private int attemptCount;
-    private BullBar bullBar;
-    private CleotBar cleotBar;
-    private SolutionMixBar slnMixBar;
-
+	private int attemptCount;
+	
     private BCLevelData initData = null;
     public BCLevelData InitData{
+		get {
+			if( initData != null ){
+				return initData;
+			}
+			throw new System.NullReferenceException(
+				"Bulls and Cleots level data has not been initialized!");
+		}
         set {
             if (initData != null){
                 Debug.LogWarning("Level data already set!");
@@ -69,36 +70,30 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         hasWon = false;
         attemptCount = 0;
         
-        playerMessageQueue = new Queue<string>(maxMessages);
 
         slnManager = initData.SolutionManager;
-
         testBlocks = Instantiate(testBlocks) as GameObject;
 
-
-
         testBlocks.transform.parent = transform;
+		List<Material> allMaterials = new List<Material>();
+		
+		// Look up Aggregate/Accumulate for this instead.
         foreach(List<Material> mats in initData.Choices){
-            testBlocks.GetComponent<SolutionBlocks>().Choices = mats.ToArray();
-            break;
+            
+            allMaterials.AddRange(mats);
         }
-
+		
+		testBlocks.GetComponent<SolutionBlocks>().Choices = allMaterials.ToArray();
+		
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = slnManager.Length;
         inputPane.transform.parent = transform;
-
-
-
-
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
             EventManager.instance.RegisterListener(this, eventName);
         }
      
-     bullBar = FindObjectOfType(typeof(BullBar)) as BullBar;
-     cleotBar = FindObjectOfType(typeof(CleotBar)) as CleotBar;
-     slnMixBar = FindObjectOfType(typeof(SolutionMixBar)) as SolutionMixBar;
     }
 
     public bool HandleEvent(IEvent evnt) {
@@ -161,31 +156,6 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         */
     }
 
-    string BuildAttemptMessage(int attemptCount, int bullsCount, int cleotsCount) {
-
-        string attemptStatusMessage = "";
-        string messageFormat = "#{0} ({1}): {2} Bulls, {3} Cleots";
-
-
-        // Example:
-        //#1 (1234): 2 Bulls, 1 Cleots 
-        attemptStatusMessage = string.Format(messageFormat,
-                attemptCount,
-                slnManager,
-                bullsCount, cleotsCount);
-
-        return attemptStatusMessage;
-    }
-
-    // Adds the message to the message queue. If there are 
-    // more than maxMessageCount messages in the queue 
-    // then remove excess messages.
-    void AddPlayerMessage(string message) {
-        playerMessageQueue.Enqueue(message);
-        while (playerMessageQueue.Count > maxMessages) {
-            playerMessageQueue.Dequeue();
-        }
-    }
 
 
     void PlayerEndGame() {
@@ -214,23 +184,23 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         SolutionBlock solutionBlock = obj.GetComponent<SolutionBlock>();
         SolutionSnapArea dropArea = draggable.currentSnappable.GetComponent<SolutionSnapArea>();
         
-      int index = dropArea.Index;
-      object guess = solutionBlock.data;
-  
-        /*
+      	int index = dropArea.Index;
+      	object guess = solutionBlock.data;
+  	
+        
         if (snappable.isAlreadyOccupied) {
             
-            object temp = solution.Guesses[index];
+            object temp = slnManager.GetGuess(index);
             draggable.Reset();
-            solution.SetGuessAt(index, temp);
+            slnManager.SetGuess(index, temp);
              
 
         }
         else {
-            solution.SetGuessAt(index, guess);
+            slnManager.SetGuess(index, guess);
 
         }
-        */
+        
 
     }
 
@@ -244,8 +214,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         int index = dropArea.Index;
 
         object vacatingGuess = solutionBlock.data;
-        /*
-        object currentGuess = solution.Guesses[index];
+        
+        object currentGuess = slnManager.GetGuess(index);
             
         // Guess vacating because snaparea already occupied so
         // keep current guess.
@@ -254,39 +224,20 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
         // Otherwise it means that the snap area will be empty
         // after the guess vacates so set it to NOT_GUESSED
-        solution.ResetGuessAt(index);
-         */
-    }
-
-    void drawAttemptButton() {
-        if (GUI.Button(attemptButtonRect, "Attempt")) {
-            PlayerAttemptSolve();
-        }
-    }
-
-    void drawWinButton() {
-        if (GUI.Button(attemptButtonRect, "You Win!")) {
-            PlayerEndGame();
-        }
+        slnManager.ResetGuess(index);
+        
     }
 
 
-    // Displays the latest maxMessageCount> messages in a text box 
-    // to the player.
-    void drawMessages() {
-       // GUI.TextArea(messagesRect,
-         //   string.Join("\n", playerMessageQueue.ToArray()));
-    }
-
+	
     void OnGUI() {
 
-        if (!hasWon) {
-            drawAttemptButton();
+        if(!hasWon && GUI.Button(attemptButtonRect, "Attempt")) {
+        	PlayerAttemptSolve();
         }
-        else {
-            drawWinButton();
+        else if (hasWon && GUI.Button(attemptButtonRect, "You Win!")) {
+            PlayerEndGame();
         }
 
-        drawMessages();
     }
 }
