@@ -46,23 +46,24 @@ public class UserProperty : WritableXml {
 	}
 
     /// <summary>
-    /// Gets the XML node of the property instead of string stored in the 
+    /// Gets the XML node of the property instead of string stored in the
     /// data attribute.
     /// </summary>
     public static XmlNode GetPropNode(string propName){
-        XmlNode propNode = singleton.xmlDoc.SelectSingleNode(propName);
+        string propPath = System.String.Format("descendant::{0}", propName);
+        XmlNode propNode = singleton.xmlDoc.childNode(propPath);
         if (propNode != null){
             return propNode;
         }
-        
-        propNode = singleton.defaultUserState.xmlDoc.SelectSingleNode(propName);
-        
+
+        propNode = singleton.defaultUserState.xmlDoc.childNode(propPath);
+
         if (propNode != null){
             return propNode;
         }
-            
+
         throw new System.ArgumentException(
-            string.Format("Unable to locate a UserProp node with name: {}", propName));
+            string.Format("Unable to locate a UserProp node with name: {0}", propPath));
     }
 
 	public static void setProp(string propName, string val) {
