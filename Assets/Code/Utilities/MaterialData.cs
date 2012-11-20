@@ -16,23 +16,41 @@ public class UnparsableColorException : Exception {
 /// Material Data
 /// </summary>
 public static class MaterialData {
-	
+	private static string TEXTURE = "texture";
 	private static string COLOR = "color";
- 
+    public static Color NULL_COLOR = new Color(-1,-1,-1,-1);
+
 	public static Color GetColor(this XmlNode node) {
 		XmlNode colorNode;
 		if (node.Name == COLOR) {
 			colorNode = node;
 		}
 		else {
-			colorNode = node.SelectSingleNode(COLOR);
+			colorNode = node.childNode(COLOR);
 		}
+
+        if(colorNode == null){
+             return NULL_COLOR;
+        }
+
 		string rawData = colorNode.getString();
 		return ColorUtilities.Parse(rawData);
 	}
     
 	public static Texture GetTexture(this XmlNode node) {
-		string path = node.getString();
+        XmlNode textureNode;
+        if (node.Name == TEXTURE){
+            textureNode = node;
+        }
+        else{
+            textureNode = node.childNode(TEXTURE);
+        }
+
+        if (textureNode == null){
+             return null;
+        }
+
+        string path = textureNode.getString();
 		return Resources.Load(path) as Texture;
 	}
     
