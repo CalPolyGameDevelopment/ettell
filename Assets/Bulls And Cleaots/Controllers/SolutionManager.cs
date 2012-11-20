@@ -7,18 +7,14 @@ using System.Linq.Expressions;
 
 // public class Solution<T> where T : IComparable?
 public class Solution {
-    public static object NOT_GUESSED = null;
-    
+      
     private ArrayList solutionList; 
-    private ArrayList guessList;
-    
+  
     
     public Solution(ArrayList slnList){
 
         solutionList = ArrayList.ReadOnly(new ArrayList(slnList)) as ArrayList;
-        guessList = ArrayList.FixedSize(new ArrayList(slnList));
-        ResetGuesses();
-
+		
     }
  
     /// <summary>
@@ -32,108 +28,170 @@ public class Solution {
         get{ return solutionList.Cast<object>();}
     }
      
-    public IEnumerable<object> GuessList{
-        get{ return guessList.Cast<object>(); }
-    }
- 
-    /// <summary>
-    /// Gets the number of cleots.
-    /// </summary>
-    public int CleotsCount {
-        get{
-   
-            return GuessList.Count(elem => isCleot (elem));
-        }
-    }
- 
-    /// <summary>
-    /// Gets ths number of bulls.
-    /// </summary>
-    public int BullsCount {
-        get {
-            return GuessList.Count (elem => isBull(elem));
-        }
 
-    }
-   
-    public bool HasBlankGuesses {
-        get {
-            return GuessList.Any (elem => elem == NOT_GUESSED);
-        }
-    }
- 
-    public bool Solved{
-        get{
-            return GuessList.All (elem => isBull(elem));
-        }
-    }
-
-    bool isCleot(object guess) {
+	bool isCleot(int index, object guess) {
         
-        if (isBull(guess))
+        if (isBull(index, guess))
             return false;
         
         return solutionList.Contains(guess);
     }
 
-    bool isBull(object guess) {
-        int index = guessList.IndexOf(guess);
-  
+    bool isBull(int index, object guess) {
         return solutionList[index] == guess;
       
     }
-
-    /// <summary>
-    /// Sets guessList[index] = NOT_GUESSED.
+	
+	
+	/// <summary>
+    /// Gets ths number of bulls.
     /// </summary>
-    public void ResetGuessAt(int index) {
-        if (index < 0 || index > Length)
-        {
-            Debug.LogError("Cannot reset guess: index out of range.");
-            return;
-        }
-
-        guessList[index] = NOT_GUESSED;
+    public int GetBullsCount(IEnumerable<object> guesses) {	
+		int count = 0;
+		int index = 0;
+		foreach(object guess in guesses){
+			if(isBull(index, guess)){
+				count++;
+			}
+			index++;
+		}
+		return count;
     }
  
-    /// <summary>
-    /// map(x => NOT_GUESSED, guessList)
-    /// </summary>
-    public void ResetGuesses() {
-        for (int index = 0; index < Length; index++)
-            ResetGuessAt(index);
-        
-    }
-
+	/// <summary>
+	/// Gets the number of cleots.
+	/// </summary>
+	public int GetCleotsCount(IEnumerable<object> guesses){
+		int count = 0;
+		int index = 0;
+		foreach(object guess in guesses){
+			if(isCleot(index, guess)){
+				count++;
+			}
+			index++;
+		}
+		return count;
+	}
     
 }
 
 
 
 public class SolutionManager {
+  
+	public static object NOT_GUESSED = null;
     
-    private List<Solution> solutions;
-
+	private List<Solution> solutions;
+	// Each solution should have "length" number of elements.
+	private int length;
    
-    public SolutionManager() {
+	private object[] guesses;
+	
+    public SolutionManager(int slnLength) {
         solutions = new List<Solution>();
-    }
+    	length = slnLength;
+		guesses = new object[length];
+		ResetGuesses();
+	}
 
     public void AddSolution(Solution sln){
         if(solutions.Contains(sln)){
             Debug.LogWarning("Adding duplicate solution.");
         }
+		if(sln.Length != length){
+			throw new System.ArgumentException(string.Format(
+				"Solution.Length == {0} while this solution manager only accepts " +
+				"solutions of Length == {1}.", sln.Length, Length));
+		}
         solutions.Add(sln);
     }
     
     public int Length{
         get{
-            if(solutions.Count == 0){
-                return 0;
-            }
-            return solutions[0].Length;
+			return length;
         }
     }
+	
+	public IEnumerable<object> Guesses{
+		get{
+			return guesses.AsEnumerable();
+		}
+	}
+
+    /// <summary>
+    /// Gets the number of cleots for each solution.
+    /// </summary>
+    public int[] GetCleotsCount(){
+   		List<int> cleots = new List<int>();
+		
+		foreach (Solution sln in solutions){
+			int cleotCount = sln.GetCleotsCount(Guesses);
+			cleots.Add(cleotCount);
+		}
+		
+        return cleots.ToArray();
+    }
+ 
+    /// <summary>
+    /// Gets ths number of bulls for each solution
+    /// </summary>
+    public int[] GetBullsCount(){
+   		List<int> bulls = new List<int>();
+		
+		foreach (Solution sln in solutions){
+			int bullCount = sln.GetBullsCount(Guesses);
+			bulls.Add(bullCount);
+		}
+		
+        return bulls.ToArray();
+    }
+ 
+
+    public bool HasBlankGuesses {
+        get {
+            return Guesses.Any (g => g == NOT_GUESSED);
+        }
+    }
+
+#if UNUSED
+    public bool Solved{
+        get{
+            return GuessList.All (elem => isBull(elem));
+        }
+    }
+
+
+#endif
+	
+	public object GetGuess(int index){
+		return guesses[index];
+	}
+	
+	public void SetGuess(int index, object guess){
+		guesses[index] = guess;
+	}
+	
+    /// <summary>
+    /// Sets guessList[index] = NOT_GUESSED.
+    /// </summary>
+    public void ResetGuess(int index) {
+        if (index < 0 || index > Length)
+        {
+            Debug.LogError("Cannot reset guess: index out of range.");
+            return;
+        }
+
+        guesses[index] = NOT_GUESSED;
+    }
+ 
+    /// <summary>
+    /// map(x => NOT_GUESSED, guessList)
+    /// </summary>
+    public void ResetGuesses() {
+		guesses = Guesses.Select<object,object>(x => NOT_GUESSED).ToArray();
+        
+    }
+
 
 
 }
