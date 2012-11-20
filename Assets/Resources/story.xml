@@ -193,10 +193,25 @@
 			<startTime data="Nov 30, 2012" />
 			<endTime data="May 11, 2016" />
 			<lerpSeconds data="9" />
-			<ending data="winGame" />
+			<ending data="wakeUp">
+				<edge id="wakeUp" data="wakeUp1" />
+			</ending>
 		</minigame>
 	</node>
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
+	<node id="wakeUp1">
+		<minigame data="dialog">
+			<interactive data="wakeDialog" />
+			<prompt>
+				<string data="Isaac: prompt" />
+			</prompt>
+			<ending data="wakeRecur">
+				<display_text data="test" />
+				<edge id="wakeRecur" data="wakeUp1" />
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
 	
 	
 	

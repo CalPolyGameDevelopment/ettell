@@ -8,7 +8,11 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string PROMPT = "prompt";
 	private const string RESPONSE = "response";
 	private const string INVISIBLE = "invisible";
+	private const string INTERACTIVE = "interactive";
+	private const string ETTELL_PREFIX = "ettellPrefix";
+	
 	private const int BUTTON_SIZE_MODIFIER = 5;
+	
 	public GUIStyle promptStyle;
 	public GUIStyle buttonStyle;
 	private Ending[][] options;
@@ -21,6 +25,38 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			XmlNode xn = data.childNode(INVISIBLE);
 			return xn == null ? false : xn.getBool();
 		}
+	}
+	
+	private XmlNode interactionSource {
+		get {
+			XmlNode xn = data.childNode(INTERACTIVE);
+			if (xn == null) {
+				return null;
+			}
+			XmlNode source = UserProperty.GetPropNode(xn.getString());
+			if (source == null) {
+				source = UserProperty.AddProp(xn.getString());
+			}
+			return source;
+		}
+	}
+	
+	private string ettellPrefix {
+		get {
+			XmlNode xn = data.childNode(ETTELL_PREFIX);
+			if (xn == null) {
+				return "";
+			}
+			return xn.getString();
+		}
+	}
+	
+	private void addPrompt(string promptLine) {
+		XmlNode source = interactionSource;
+		if (source == null) {
+			return;
+		}
+		source.CreateStringNode().SetString(promptLine);
 	}
 	
 	private Vector2 calcPromptSize() {
@@ -49,6 +85,19 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		return r;
 	}
 	
+	private string[] getOrCreatePromptText() {
+		XmlNode source = interactionSource;
+		string [] promptText = data.childNode(PROMPT).getStrings();;
+		if (source == null) {
+			return promptText;
+		}
+		foreach (string line in promptText) {
+			source.CreateStringNode().SetString(line);
+		}
+		UserProperty.Save();
+		return source.getStrings();
+	}
+	
 	private XmlNode data;
     
 	public XmlNode Data {
@@ -61,7 +110,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 				return;
 			}
 			
-			promptText = data.childNode(PROMPT).getStrings();
+			promptText = getOrCreatePromptText();
 			
 			int height = Mathf.RoundToInt(Mathf.Sqrt((float)possibleEndings.Length));
 			HashSet<Ending>[] rows = new HashSet<Ending>[height];
@@ -139,11 +188,19 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			GUILayout.BeginHorizontal();
 			foreach (Ending ending in endings) {
 				if (GUILayout.Button(ending.displayText, buttonStyle, GUILayout.ExpandHeight(true))) {
-					MiniGameController.endMiniGame(ending.edgeId);
+					chooseEnding(ending);
 				}
 			}
 			GUILayout.EndHorizontal();
 		}
 		GUILayout.EndArea();
+	}
+	
+	protected void chooseEnding(Ending ending) {
+		XmlNode source = interactionSource;
+		if (source != null) {
+			addPrompt(ettellPrefix + ending.displayText);
+		}	
+		MiniGameController.endMiniGame(ending.edgeId);
 	}
 }

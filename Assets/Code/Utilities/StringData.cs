@@ -24,4 +24,12 @@ public static class StringData {
 	public static string[] getStrings(this XmlNode xn) {
 		return xn.childNodes(STRING).Select<XmlNode, string>(getString).ToArray();
 	}
+	
+	public static XmlNode CreateStringNode(this XmlNode xn) {
+		return xn.CreateChild(STRING);
+	}
+	
+	public static void SetString(this XmlNode xn, string val) {
+		xn.SetAttribute(XmlUtilities.DATA, val);
+	}
 }

@@ -36,33 +36,17 @@ public class UserProperty : WritableXml {
 	}
 	
 	public static string getProp(string propName) {
-		string propPath = System.String.Format("descendant::{0}", propName);
-        try {
-            return singleton.xmlDoc.SelectSingleNode(propPath).getString();
-        }
-		catch {
-            return singleton.defaultUserState.xmlDoc.SelectSingleNode(propPath).getString();
-        }
+		return GetPropNode(propName).getString();
 	}
 
-    /// <summary>
-    /// Gets the XML node of the property instead of string stored in the 
-    /// data attribute.
-    /// </summary>
     public static XmlNode GetPropNode(string propName){
-        XmlNode propNode = singleton.xmlDoc.SelectSingleNode(propName);
+        XmlNode propNode = singleton.xmlDoc.DocumentElement.childNode(propName);
+		
         if (propNode != null){
             return propNode;
         }
         
-        propNode = singleton.defaultUserState.xmlDoc.SelectSingleNode(propName);
-        
-        if (propNode != null){
-            return propNode;
-        }
-            
-        throw new System.ArgumentException(
-            string.Format("Unable to locate a UserProp node with name: {}", propName));
+        return singleton.defaultUserState.xmlDoc.DocumentElement.childNode(propName);
     }
 
 	public static void setProp(string propName, string val) {
@@ -71,6 +55,16 @@ public class UserProperty : WritableXml {
 			root.RemoveChild(toRemove);
 		}
 		root.CreateChild(propName).SetAttribute(XmlUtilities.DATA, val);
+		singleton.save();
+	}
+	
+	public static XmlNode AddProp(string propName) {
+		XmlNode xn = singleton.xmlDoc.DocumentElement.CreateChild(propName);
+		singleton.save();
+		return xn;
+	}
+	
+	public static void Save() {
 		singleton.save();
 	}
 }
