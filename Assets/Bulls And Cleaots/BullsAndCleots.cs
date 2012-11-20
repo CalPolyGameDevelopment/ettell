@@ -4,30 +4,6 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Linq;
 
-public struct DataSetItem{
-    public static Shader DefaultShader = Shader.Find("Diffuse");
-    object val; 
-    Material material;
-    
-    public DataSetItem(object v){
-        val = v;
-        material = new Material(DefaultShader);
-    }
-    
-    public DataSetItem(object v, Color c) : this(v) {
-        material.color = c;
-    }
-    
-    public DataSetItem(object v, Texture t) : this(v) {
-        material.mainTexture = t;
-        
-    }
-    
-    public DataSetItem(object v, Texture t, Color c) : this(v) {
-        material.color = c;
-        material.mainTexture = t;
-    }
-}
 
 public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
  
@@ -49,61 +25,87 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         public const string IncreaseNumbers = "BCIncreaseNumbers";
     }
     
-    private Dictionary<string, List<object>> dataSets;
-    
+    private Dictionary<string, List<Material>> dataSets;
+    private static Color NULL_COLOR = MaterialData.NULL_COLOR;
+
     private XmlNode data;
     public XmlNode Data {
         set {
             data = value;
+
             loadLevel();
         }
     }
     
     public GameObject level;
-    
-    object getItem(XmlNode itemNode){
-        return null;
+
+
+
+    private Material getItem(XmlNode itemNode){
+        Color color = MaterialData.GetColor(itemNode);
+        Texture texture = MaterialData.GetTexture(itemNode);
+        Material material = new Material(Shader.Find("Diffuse"));
+
+        if (color != NULL_COLOR){
+             material.color = color;
+        }
+        if (texture != null){
+            material.mainTexture = texture;
+        }
+        if (texture == null && color == NULL_COLOR){
+            throw new System.MissingFieldException(
+                string.Format("Unable to find a color or texture in the item in dataset {}!",
+                itemNode.ParentNode.Attributes["id"]));
+        }
+
+        return material;
     }
     
     
-    List<object> getDataSet(XmlNode setNode){
-        return XmlUtilities.childNodes(setNode, ITEM)
-                .Select<XmlNode,object>(x => getItem(x)).ToList();
-            
+    private bool addDataSet(XmlNode setNode){
+        List<Material> matsList = new List<Material>();
+        foreach (XmlNode child in setNode.childNodes(ITEM)){
+            matsList.Add (getItem(child));
+        }
+
+
+        string setName = setNode.Attributes["id"].Value;
+
+        dataSets[setName] = matsList;
+        return true;
     }
-    
-    void getDataSets(){
-        XmlUtilities.childNodes(data, DATASET)
-            .Select<XmlNode,List<object>>(x => getDataSet(x));
+
+    private void loadDataSets(){
+        dataSets = new Dictionary<string, List<Material>>();
+        foreach(XmlNode child in data.childNodes(DATASET)){
+             addDataSet(child);
+        }
+
     }
     
 
-    void loadLevel() {
+    private void loadLevel() {
         GameObject go = Instantiate(level) as GameObject;
-     go.transform.parent = transform;
+        go.transform.parent = transform;
         BullsAndCleotsLevelController bcLevel = go.GetComponent<BullsAndCleotsLevelController>();
     
         int solutionLen = MathData.GetInt(UserProperty.GetPropNode(SOLUTION_LEN_PROP));
              
+        loadDataSets();
+        SolutionManager slnManager = new SolutionManager();
+        List<List<Material>> choices = new List<List<Material>>();
 
-        
-    
-        /*
-        
-        IEnumerable<int> numberChoices = 
-            Enumerable.Range(0,9).OrderBy(x => Random.value).Take(numberCount);
-       
-        IEnumerable<Color> colorChoices =
-           ColorUtilities.GetColors().OrderBy(x => Random.value).Take(colorCount);
-        
-        BCLevelData ld = new BCLevelData(solutionLen,numberChoices,colorChoices);
-        ld.fromXml = MaterialData.GetColor(data.SelectSingleNode("butter"));
+        foreach(List<Material> mats in dataSets.Values){
+            IEnumerable<Material> matChoices =
+                mats.OrderBy(x => Random.value).Take(solutionLen);
 
-        
-        bcLevel.InitData = ld;
-
-        */
-        
+            IEnumerable<Material> solution =
+                matChoices.OrderBy(x => Random.value).Take(solutionLen);
+            choices.Add(matChoices.ToList ());
+            Solution sln = new Solution(new ArrayList(solution.ToArray()));
+            slnManager.AddSolution(sln);
+        }
+        bcLevel.InitData = new BCLevelData(slnManager, choices);
  
     }
     

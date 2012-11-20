@@ -4,27 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class BCLevelData {
-    public int solutionLength;
-    public Color[] possibleColors;
-    public int[] possibleNumbers;
-    public int[] solutionNumbers;
-    public Color[] solutionColors;
-    
-    public Color fromXml;
+    public SolutionManager slnManager;
+    public List<List<Material>> choices;
 
-    public BCLevelData(int len, IEnumerable<int> numbers, IEnumerable<Color> colors){
-        solutionLength = len;
-        possibleColors = colors.ToArray();
-        possibleNumbers = numbers.ToArray();
-        
-        solutionColors = possibleColors.AsEnumerable().OrderBy(x=>Random.value)
-                .Take(solutionLength).ToArray();
-       
-        solutionNumbers = possibleNumbers.AsEnumerable()
-            .OrderBy(x=>Random.value)
-                .Take(solutionLength).ToArray();
-        
-        fromXml = Color.black;
+
+    public BCLevelData(SolutionManager mgr, List<List<Material>> chcs){
+        slnManager = mgr;
+        choices = chcs;
+    }
+
+
+    public SolutionManager SolutionManager{
+         get{ return slnManager;}
+    }
+    public List<List<Material>> Choices{
+         get{ return choices; }
     }
 }
 
@@ -33,10 +27,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
     public Rect attemptButtonRect;
 
-    public SolutionManager solution;
+    public SolutionManager slnManager;
 
-    public GameObject numberedBlocks;
-    public GameObject coloredBlocks;
     public GameObject inputPane;
     public GameObject testBlocks;
     
@@ -58,9 +50,9 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     private int maxMessages = 10;
     private Queue<string> playerMessageQueue;
     private int attemptCount;
- private BullBar bullBar;
- private CleotBar cleotBar;
- private SolutionMixBar slnMixBar;
+    private BullBar bullBar;
+    private CleotBar cleotBar;
+    private SolutionMixBar slnMixBar;
 
     private BCLevelData initData = null;
     public BCLevelData InitData{
@@ -78,34 +70,26 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         attemptCount = 0;
         
         playerMessageQueue = new Queue<string>(maxMessages);
-        solution = new SolutionManager();
-        // solution.Colors = initData.solutionColors;
-        // solution.Digits = initData.solutionNumbers;
-     
-        /*
-        numberedBlocks = Instantiate(numberedBlocks) as GameObject;
-        numberedBlocks.GetComponent<NumberedBlocks>().PossibleNumbers = initData.possibleNumbers;
-        numberedBlocks.transform.parent = transform;
-        
-        coloredBlocks = Instantiate(coloredBlocks) as GameObject;
-        coloredBlocks.GetComponent<ColoredBlocks>().PossibleColors = initData.possibleColors;
-        coloredBlocks.transform.parent = transform;
-        
-        inputPane = Instantiate(inputPane) as GameObject;
-        inputPane.GetComponent<SolutionInputPanel>().solutionLength = initData.solutionLength;
-        inputPane.transform.parent = transform;
-        */
 
-        #region Test Code
+        slnManager = initData.SolutionManager;
 
         testBlocks = Instantiate(testBlocks) as GameObject;
-        SolutionComponent[] ch = new SolutionComponent[1];
-        ch[0] = new SolutionComponent(initData.fromXml, 1.0f);
-        
-        testBlocks.GetComponent<SolutionBlocks>().Choices = ch;
-        
+
+
+
         testBlocks.transform.parent = transform;
-        #endregion
+        foreach(List<Material> mats in initData.Choices){
+            testBlocks.GetComponent<SolutionBlocks>().Choices = mats.ToArray();
+            break;
+        }
+
+        inputPane = Instantiate(inputPane) as GameObject;
+        inputPane.GetComponent<SolutionInputPanel>().solutionLength = slnManager.Length;
+        inputPane.transform.parent = transform;
+
+
+
+
         
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
@@ -187,7 +171,7 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         //#1 (1234): 2 Bulls, 1 Cleots 
         attemptStatusMessage = string.Format(messageFormat,
                 attemptCount,
-                solution,
+                slnManager,
                 bullsCount, cleotsCount);
 
         return attemptStatusMessage;
@@ -290,8 +274,8 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     // Displays the latest maxMessageCount> messages in a text box 
     // to the player.
     void drawMessages() {
-        GUI.TextArea(messagesRect,
-            string.Join("\n", playerMessageQueue.ToArray()));
+       // GUI.TextArea(messagesRect,
+         //   string.Join("\n", playerMessageQueue.ToArray()));
     }
 
     void OnGUI() {

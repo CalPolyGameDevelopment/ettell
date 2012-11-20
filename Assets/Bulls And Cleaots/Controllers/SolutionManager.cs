@@ -13,10 +13,11 @@ public class Solution {
     private ArrayList guessList;
     
     
-    public Solution(IList sList, IList gList){
-        
-        solutionList = ArrayList.ReadOnly(sList) as ArrayList;
-        guessList = ArrayList.FixedSize(gList) as ArrayList;
+    public Solution(ArrayList slnList){
+
+        solutionList = ArrayList.ReadOnly(new ArrayList(slnList)) as ArrayList;
+        guessList = ArrayList.FixedSize(new ArrayList(slnList));
+        ResetGuesses();
 
     }
  
@@ -125,7 +126,14 @@ public class SolutionManager {
         solutions.Add(sln);
     }
     
-    
+    public int Length{
+        get{
+            if(solutions.Count == 0){
+                return 0;
+            }
+            return solutions[0].Length;
+        }
+    }
 
 
 }

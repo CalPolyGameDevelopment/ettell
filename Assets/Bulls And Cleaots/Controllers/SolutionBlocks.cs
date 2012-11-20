@@ -4,42 +4,6 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class SolutionComponent {
-       
-    Texture2D texture;
-    Color color;
-    object data;
-    bool isColor;
-    
-    public bool IsColor{
-        get {
-            return isColor;
-        }
-    }
-    
-    public SolutionComponent(string textureName, object slnData){
-        texture = Resources.Load(textureName) as Texture2D;
-        data = slnData;
-        isColor = false;
-    }
-    
-    public SolutionComponent(Color c, object slnData) {
-        color = c;
-        data = slnData;
-        isColor = true;
-    }
-    
-    public Texture2D GetTexture(){
-        return texture;
-    }
-    public Color GetColor(){
-        return color;
-    }
-    public object GetData(){
-        return data;
-    }
-    
-}
 
 public class SolutionBlocks : MonoBehaviour {
  
@@ -50,14 +14,16 @@ public class SolutionBlocks : MonoBehaviour {
     
     private List<GameObject> blocks; 
     private float layoutSpacing = 1.2f;
-    
-    private SolutionComponent[] choices;
+    // For some reason how I setup the scene makes the textures upside down
+    // so flip them.
+    private static Vector3 orientation = new Vector3(0,0,180);
+    private Material[] choices;
     private int count;
     
-    public SolutionComponent[] Choices  {
+    public Material[] Choices  {
         set{
             count = value.GetLength(0);
-            choices = new SolutionComponent[count];
+            choices = new Material[count];
             Array.Copy(value, choices, count);
         }
     }
@@ -74,20 +40,18 @@ public class SolutionBlocks : MonoBehaviour {
 
         blocks = new List<GameObject>();
         
-        foreach (SolutionComponent sc in choices){
+        foreach (Material mat in choices){
             GameObject newBlock = Instantiate(blockPrefab) as GameObject;
             newBlock.transform.parent = gameObject.transform;
             
             SolutionBlock solutionBlock = newBlock.GetComponent<SolutionBlock>();
             newBlock.transform.parent = gameObject.transform;
             newBlock.transform.position = LayoutObject(pos);
-   
-            if (sc.IsColor)
-                newBlock.renderer.material.color = sc.GetColor();
-            else
-                newBlock.renderer.material.mainTexture = sc.GetTexture();
+            newBlock.transform.Rotate(orientation);
+
+            newBlock.renderer.material = mat;
             
-            solutionBlock.data = sc.GetData();
+            solutionBlock.data = mat;
             blocks.Add(newBlock);
             
             pos = newBlock.transform.position;
