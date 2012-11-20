@@ -27,7 +27,8 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
     
     private Dictionary<string, List<Material>> dataSets;
     private static Color NULL_COLOR = MaterialData.NULL_COLOR;
-
+	public GameObject level;
+	
     private XmlNode data;
     public XmlNode Data {
         set {
@@ -37,44 +38,19 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         }
     }
     
-    public GameObject level;
-
-
-
-    private Material getItem(XmlNode itemNode){
-        Color color = MaterialData.GetColor(itemNode);
-        Texture texture = MaterialData.GetTexture(itemNode);
-        Material material = new Material(Shader.Find("Diffuse"));
-
-        if (color != NULL_COLOR){
-             material.color = color;
-        }
-        if (texture != null){
-            material.mainTexture = texture;
-        }
-        if (texture == null && color == NULL_COLOR){
-            throw new System.MissingFieldException(
-                string.Format("Unable to find a color or texture in the item in dataset {}!",
-                itemNode.ParentNode.Attributes["id"]));
-        }
-
-        return material;
-    }
-    
-    
     private bool addDataSet(XmlNode setNode){
         List<Material> matsList = new List<Material>();
-        foreach (XmlNode child in setNode.childNodes(ITEM)){
-            matsList.Add (getItem(child));
+        foreach (Material mat in setNode.GetMaterials()){
+            matsList.Add (mat);
         }
-
 
         string setName = setNode.Attributes["id"].Value;
 
         dataSets[setName] = matsList;
         return true;
     }
-
+	
+	
     private void loadDataSets(){
         dataSets = new Dictionary<string, List<Material>>();
         foreach(XmlNode child in data.childNodes(DATASET)){
@@ -92,7 +68,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         int solutionLen = MathData.GetInt(UserProperty.GetPropNode(SOLUTION_LEN_PROP));
              
         loadDataSets();
-        SolutionManager slnManager = new SolutionManager();
+        SolutionManager slnManager = new SolutionManager(solutionLen);
         List<List<Material>> choices = new List<List<Material>>();
 
         foreach(List<Material> mats in dataSets.Values){

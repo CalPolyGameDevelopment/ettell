@@ -272,62 +272,62 @@
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
                 <dataset id="digits">
-                <item>
+                <material>
                     <texture data="num0" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num1" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num2" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num3" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num4" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num5" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num6" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num7" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num8" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <texture data="num9" />
-                </item>
+                </material>
             </dataset>
             <dataset id="colors">
-                <item>
+                <material>
                     <color data="rgb(0,0,0)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(255,0,0)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(0,255,0)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(0,0,255)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(255,255,0)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(255,0,255)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(0,255,255)" />
-                </item>
-                <item>
+                </material>
+                <material>
                     <color data="rgb(255,255,255)" />
-                </item>
+                </material>
             </dataset>
 		</minigame>
 	</node>

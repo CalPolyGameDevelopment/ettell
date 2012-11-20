@@ -18,7 +18,10 @@ public class UnparsableColorException : Exception {
 public static class MaterialData {
 	private static string TEXTURE = "texture";
 	private static string COLOR = "color";
-    public static Color NULL_COLOR = new Color(-1,-1,-1,-1);
+	private static string MATERIAL = "material";
+    private static Shader DEFAULT_SHADER = Shader.Find("Diffuse");
+	
+	public static Color NULL_COLOR = new Color(-1,-1,-1,-1);
 
 	public static Color GetColor(this XmlNode node) {
 		XmlNode colorNode;
@@ -54,6 +57,55 @@ public static class MaterialData {
 		return Resources.Load(path) as Texture;
 	}
     
+	
+	public static Material GetMaterial(this XmlNode node){
+		XmlNode matNode;
+		
+		if (node.Name == MATERIAL){
+            matNode = node;
+        }
+        else{
+            matNode = node.childNode(MATERIAL);
+        }
+
+        if (matNode == null){
+             return null;
+        }
+	
+		 if (matNode == null) {
+            throw new System.MissingFieldException(
+                string.Format("Unable to find a Material node in {}!",
+                node.Name));
+        }
+
+		
+		// Init a Material with the default shader 
+		// since we have a reason for a GetShader() yet.
+        Material material = new Material(DEFAULT_SHADER);
+		Color color = MaterialData.GetColor(matNode);
+        Texture texture = MaterialData.GetTexture(matNode);
+        
+
+        if (color != NULL_COLOR){
+             material.color = color;
+        }
+        if (texture != null){
+            material.mainTexture = texture;
+        }
+        if (texture == null && color == NULL_COLOR){
+            throw new System.MissingFieldException(
+                string.Format("Unable to find a color or texture in Material node {}!",
+                matNode.Name));
+        }
+		
+        return material;
+    }
+    
+	public static Material[] GetMaterials(this XmlNode node){
+		return node.childNodes(MATERIAL)
+			.Select<XmlNode,Material>(GetMaterial).ToArray();
+	}
+	
 	public static Color[] GetColors(this XmlNode node) {
 		return node.childNodes(COLOR).Select<XmlNode, Color>(GetColor).ToArray();
 	}
@@ -179,10 +231,6 @@ static class ColorUtilities {
         
 	}
     
-	// Parse from RGB component decimal numbers
-	public static Color Parse(int r, int g, int b) {
-		return Parse(r, g, b, RGBA_COMPONENT_MAX);
-	}
     
 	// 0-255 integer strings for RGBA
 	public static Color Parse(string r, string g, string b, string a) {
