@@ -66,16 +66,11 @@ public class UserProperty : WritableXml {
     }
 
 	public static void setProp(string propName, string val) {
-		XmlNode bestParent = singleton.xmlDoc.DocumentElement;
-		foreach (XmlNode toRemove in singleton.xmlDoc.SelectNodes("//" + propName).Cast<XmlNode>().ToArray()) {
-			bestParent = toRemove.ParentNode;
-			bestParent.RemoveChild(toRemove);
+		XmlNode root = singleton.xmlDoc.DocumentElement;
+		foreach (XmlNode toRemove in root.childNodes(propName).ToArray()) {
+			root.RemoveChild(toRemove);
 		}
-		XmlNode xn = singleton.xmlDoc.CreateNode(XmlNodeType.Element, propName, "");
-		XmlAttribute xa = singleton.xmlDoc.CreateAttribute(XmlUtilities.DATA);
-		xa.Value = val;
-		xn.Attributes.Append(xa);
-		bestParent.AppendChild(xn);
+		root.CreateChild(propName).SetAttribute(XmlUtilities.DATA, val);
 		singleton.save();
 	}
 }

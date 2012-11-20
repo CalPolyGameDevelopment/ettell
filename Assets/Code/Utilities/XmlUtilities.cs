@@ -19,4 +19,16 @@ public static class XmlUtilities {
 	public static XmlNode childNode(this XmlNode xn, string tagName) {
 		return xn.SelectSingleNode(tagName);
 	}
+	
+	public static XmlNode CreateChild(this XmlNode xn, string tagName) {
+		XmlNode x = xn.OwnerDocument.CreateNode(XmlNodeType.Element, tagName, "");
+		xn.AppendChild(x);
+		return x;
+	}
+	
+	public static void SetAttribute(this XmlNode xn, string attribute, string val) {
+		XmlAttribute xa = xn.OwnerDocument.CreateAttribute(attribute);
+		xa.Value = val;
+		xn.Attributes.Append(xa);
+	}
 }
