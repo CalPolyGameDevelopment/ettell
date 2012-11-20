@@ -1,432 +1,443 @@
 <?xml version="1.0" encoding="utf-8"?>
 <story>
- <node id="newGame">
-     <minigame data="dialog">
-         <prompt>
-             <string data="Ettell" />
-             <string data="Main Menu" />
-         </prompt>
-         <ending data="miniGameTestRecur">
-             <display_text data="Test Mini-games" />
-         </ending>
-         <ending data="storyBegin">
-             <display_text data="New Game" />
-         </ending>
-     </minigame>
- </node>
- <node id="NYSESlideshowNode">
-     <minigame data="slideshow">
-         <endEdge data="snakePreambleEdge" />
-         <duration data="5" />
-         <resource data="WallStreetSign" />
-     </minigame>
- </node>
- <node id="snakePreambleChooser">
-     <minigame data="dialog">
-         <invisible data="true" />
-         <ending data="snakePreamble1Edge" requires="snake1">
-             <requirement id="snake1">
-                 <have data="snakeAttempts">
-                     <exactly data="1" />
-                 </have>
-             </requirement>
-         </ending>
-         <ending data="snakePreamble2Edge" requires="snake2">
-             <requirement id="snake2">
-                 <have data="snakeAttempts">
-                     <exactly data="2" />
-                 </have>
-             </requirement>
-         </ending>
-         <ending data="snakePreamble3Edge" requires="snake3">
-             <requirement id="snake3">
-                 <have data="snakeAttempts">
-                     <exactly data="3" />
-                 </have>
-             </requirement>
-         </ending>
-         <ending data="snakePreamble4Edge" requires="snake4">
-             <requirement id="snake4">
-                 <have data="snakeAttempts">
-                     <atLeast data="4" />
-                 </have>
-             </requirement>
-         </ending>
-     </minigame>
- </node>
- <node id="snakePreamble1">
-     <minigame data="dialog">
-         <prompt>
-             <string data="Tom: All the tests are green." />
-             <string data="Tom: Ettell would have made money every day in the historical record." />
-             <string data="Tom: With no overfitting we can see." />
-             <string data="Tom: She's the perfect algorithmic trader." />
-             <string data="Mike: That's great news!" />
-             <string data="Mike: When will she be ready for the real deal?" />
-             <string data="Tom: That's what I'm telling you." />
-             <string data="Tom: She's ready today." />
-             <string data="Mike: What about the SEC?  Do they know about this?" />
-             <string data="Tom: We've been running an off the shelf bot for months." />
-             <string data="Tom: The new behavior shouldn't raise any red flags." />
-             <string data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
-             <string data="Mike: I guess then today's the day!" />
-             <string data="Mike: How much are we putting behind this thing?" />
-             <string data="Tom: (whispers)" />
-             <string data="Mike: Well I hope it's worth it." />
-             <string data="Tom: The bell is about to ring.  Lets watch!" />
-         </prompt>
-         <ending data="stockSnakeEdge">
-             <display_text data="Start Trading" />
-         </ending>
-     </minigame>
- </node>
- <node id="snakePreamble2">
-     <minigame data="dialog">
-         <prompt>
-             <string data="Mike: Ettell had a pretty good day yesterday." />
-             <string data="Tom: I told you she'd make money." />
-             <string data="Mike: She's no better than any other algorithm at this point" />
-             <string data="Mike: One good day can be erased in a heartbeat." />
-             <string data="Tom: I tell you, she never loses." />
-             <string data="Tom: Even yesterday, I felt like she was driving the market." />
-             <string data="Mike: We'll see." />
-         </prompt>
-         <ending data="stockSnakeEdge">
-             <display_text data="Start Trading" />
-         </ending>
-     </minigame>
- </node>
- <node id="snakePreamble3">
-     <minigame data="dialog">
-         <prompt>
-             <string data="Mike: Another solid day for Ettell." />
-             <string data="Tom: I feel like she's on the cusp of a breakthrough." />
-             <string data="Mike: She made a bunch of money yesterday, even with the market down." />
-             <string data="Tom: It's not just that." />
-             <string data="Tom: I can practically see the world changing." />
-             <string data="Mike: One day at a time there buddy." />
-         </prompt>
-         <ending data="stockSnakeEdge">
-             <display_text data="Start Trading" />
-         </ending>
-     </minigame>
- </node>
- <node id="snakePreamble4">
-     <minigame data="dialog">
-         <prompt>
-             <string data="Tom: Did you see the latest numbers from Ettell?" />
-             <string data="Mike: I'm not that impressed." />
-             <string data="Mike: She ended on a down note." />
-             <string data="Tom: I think she's manipulating the market." />
-             <string data="Tom: Forcing other traders to follow where she wants them to be." />
-             <string data="Mike: That's crazy talk." />
-             <string data="Tom: My models may have underestimated Ettell's abilities." />
-             <string data="Tom: She may be able to change how the market works completely." />
-             <string data="Mike: I sure hope not." />
-             <string data="Mike: Sounds like trouble." />
-             <string data="Tom: I need to run some numbers.  I'll have a report tomorrow." />
-         </prompt>
-         <ending data="stockSnakeEdge">
-             <display_text data="Start Trading" />
-         </ending>
-     </minigame>
- </node>
- <node id="stockSnakeNode">
-     <minigame data="stockSnake">
-         <width data="30" />
-         <height data="30" />
-         <ending data="snakeFail">
-             <difficulty data="0" />
-         </ending>
-         <ending data="winGame">
-             <difficulty data="1" />
-             <snakeLengthThreshold math="snakeLengthMath">
-                 <divide id="snakeLengthMath">
-                     <value data="31" />
-                     <multiply>
-                         <value data="\snakeAttempts" />
-                         <value data="\snakeAttempts" />
-                     </multiply>
-                 </divide>
-             </snakeLengthThreshold>
-         </ending>
-         <border>
-             <color data="rgb(219,169,51)" />
-         </border>
-         <goodStock>
-             <color data="rgb(56,255,59)" />
-         </goodStock>
-         <badStock>
-             <color data="rgb(242,97,90)" />
-         </badStock>
-         <ettellStart>
-             <color data="rgb(218,230,22)" />
-         </ettellStart>
-         <ettellLerp>
-             <color data="rgb(218,230,22)" />
-             <color data="rgb(0,255,41)" />
-             <color data="rgb(80,100,249)" />
-             <color data="rgb(255,0,0)" />
-             <color data="rgb(0,0,0)" />
-         </ettellLerp>
-         <nodesPerEttellLerp data="200" />
-     </minigame>
- </node>
- <edge id="storyBegin" data="NYSESlideshowNode" />
- <edge id="snakePreambleEdge" data="snakePreambleChooser" />
- <edge id="snakePreamble1Edge" data="snakePreamble1" />
- <edge id="snakePreamble2Edge" data="snakePreamble2" />
- <edge id="snakePreamble3Edge" data="snakePreamble3" />
- <edge id="snakePreamble4Edge" data="snakePreamble4" />
- <edge id="stockSnakeEdge" data="stockSnakeNode" />
- <edge id="snakeFail" data="snakePreambleChooser">
-     <consequence>
-         <change data="snakeAttempts">
-             <add data="1" />
-         </change>
-     </consequence>
- </edge>
- <node id="miniGameTest">
-     <minigame data="dialog">
-         <prompt data="Current year: \year" />
-         <prompt data="Placeholder dialog mini-game:" />
-         <ending data="laserEdge">
-             <display_text data="laser plumber" />
-         </ending>
-         <ending data="miniGameTestRecur">
-             <display_text data="Dialog Recur" />
-         </ending>
-         <ending data="match3Edge">
-             <display_text data="Match 3" />
-         </ending>
-         <ending data="bullsAndCleotsEdge">
-             <display_text data="Bulls and Cleots" />
-         </ending>
-         <ending data="physicsDemoEdge">
-             <display_text data="Physics Demo" />
-         </ending>
-         <ending data="slideshowEdge">
-             <display_text data="Slideshow" />
-         </ending>
-         <ending data="waveDefenseEdge">
-             <display_text data="Wave Defense" />
-         </ending>
-         <ending data="pipePlatformerEdge">
-             <display_text data="Pipe Platformer" />
-         </ending>
-         <ending data="stockSnakeEdge">
-             <display_text data="Stock Snake" />
-         </ending>
-         <ending data="winGame" requires="enoughCpu">
-             <display_text data="I don't know, who am I?" />
-             <requirement id="enoughCpu">
-                 <have data="cpuPower">
-                     <atLeast data="128" />
-                 </have>
-             </requirement>
-         </ending>
-     </minigame>
- </node>
- <node id="laserPlumber">
-     <minigame data="laserPlumber">
-         <source>
-             <position data="vector(0,0,0)" />
-         </source>
-         <mirror>
-             <position data="vector(15,0,0)" />
-         </mirror>
-         <mirror>
-             <position data="vector(15,-10,0)" />
-         </mirror>
-         <mirror>
-             <position data="vector(30,-10,0)" />
-         </mirror>
-         <sink data="firstPuzzleRecur">
-             <position data="vector(30,0,0)" />
-         </sink>
-     </minigame>
- </node>
- <node id="redBluePlatformer">
-     <minigame data="RedBlueTurretPlatformer">
-         <sceneName data="RedBlueTurretPlatformer" />
-     </minigame>
- </node>
- <node id="bullsAndCleotsNode">
-     <minigame data="BullsAndCleots">
-         <sceneName data="BullsAndCleots" />
-         <dataset id="digits">
-             <item>
-                 <texture data="num0" />
-             </item>
-             <item>
-                 <texture data="num1" />
-             </item>
-             <item>
-                 <texture data="num2" />
-             </item>
-             <item>
-                 <texture data="num3" />
-             </item>
-             <item>
-                 <texture data="num4" />
-             </item>
-             <item>
-                 <texture data="num5" />
-             </item>
-             <item>
-                 <texture data="num6" />
-             </item>
-             <item>
-                 <texture data="num7" />
-             </item>
-             <item>
-                 <texture data="num8" />
-             </item>
-             <item>
-                 <texture data="num9" />
-             </item>
-         </dataset>
-         <dataset id="colors">
-             <item>
-                  <color data="rgb(0,0,0)" />
-             </item>
-             <item>
-                 <color data="rgb(255,0,0)" />
-             </item>
-             <item>
-                 <color data="rgb(0,255,0)" />
-             </item>
-             <item>
-                 <color data="rgb(0,0,255)" />
-             </item>
-             <item>
-                 <color data="rgb(255,255,0)" />
-             </item>
-             <item>
-                 <color data="rgb(255,0,255)" />
-             </item>
-             <item>
-                 <color data="rgb(0,255,255)" />
-             </item>
-             <item>
-                 <color data="rgb(255,255,255)" />
-             </item>
-         </dataset>
-         <solutionset>
-             <choices data="digits" />
-         </solutionset>
-         <solutionset>
-             <choices data="colors" />
-         </solutionset>
-     </minigame>
- </node>
- <node id="match3Node">
-     <minigame data="match3">
-         <width data="8" />
-         <height data="8" />
-         <ending data="firstPuzzleRecur">
-             <color data="rgb(255,0,0)" />
-         </ending>
-         <ending data="winGame">
-             <color data="rgb(0,255,0)" />
-         </ending>
-     </minigame>
- </node>
- <node id="pipePlatformerNode">
-     <minigame data="pipePlatformer">
-         <sceneName data="InternetEscapePlatformer" />
-         <ending data="loseGame">
-             <color data="rgb(255,0,0)" />
-             <difficulty data="-11" />
-         </ending>
-         <ending data="firstPuzzleRecur">
-             <color data="rgb(0,0,255)" />
-             <difficulty data="1" />
-         </ending>
-         <ending data="winGame">
-             <color data="rgb(0,255,0)" />
-             <difficulty data="2" />
-         </ending>
-     </minigame>
- </node>
- <node id="physicsDemoNode">
-     <minigame data="physics">
-         <sceneName data="PhysicsDemo" />
-         <ending data="firstPuzzleRecur">
-             <color data="rgb(255,0,0)" />
-         </ending>
-         <ending data="winGame">
-             <color data="rgb(0,255,0)" />
-         </ending>
-     </minigame>
- </node>
- <node id="waveDefenseNode">
-     <minigame data="WaveDefense">
-         <sceneName data="WaveDefense" />
-     </minigame>
- </node>
- <node id="youWin">
-     <minigame data="dialog">
-         <prompt data="You win!" />
-         <ending data="startOverEdge">
-             <display_text data="Start Over" />
-         </ending>
-     </minigame>
- </node>
- <node id="youLose">
-     <minigame data="dialog">
-         <prompt data="You lose!" />
-         <ending data="startOverEdge">
-             <display_text data="Start Over" />
-         </ending>
-     </minigame>
- </node>
- <node id="firstPuzzle">
-     <minigame data="dialog">
-         <prompt data="This node no longer exists" />
-         <ending data="startOverEdge">
-             <display_text data="Start Over" />
-         </ending>
-     </minigame>
- </node>
- <edge id="miniGameTestRecur" data="miniGameTest">
-     <consequence>
-         <change data="year">
-             <add data="2" />
-         </change>
-         <change data="cpuPower">
-             <multiply data="2" />
-         </change>
-     </consequence>
- </edge>
- <edge id="BCIncreaseDifficulty" data="miniGameTest">
-     <consequence>
-         <change data="BCSolutionLength">
-             <add data="1" />
-         </change>
-     </consequence>
- </edge>
- <edge id="BCIncreaseColors" data="miniGameTest">
-     <consequence>
-         <change data="BCColorCount">
-             <add data="1" />
-         </change>
-     </consequence>
- </edge>
- <edge id="BCIncreaseNumbers" data="miniGameTest">
-     <consequence>
-         <change data="BCNumberCount">
-             <add data="1" />
-         </change>
-     </consequence>
- </edge>
- <edge id="winGame" data="youWin" />
- <edge id="loseGame" data="youLose" />
- <edge id="laserEdge" data="laserPlumber" />
- <edge id="match3Edge" data="match3Node" />
- <edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
- <edge id="physicsDemoEdge" data="physicsDemoNode" />
- <edge id="waveDefenseEdge" data="waveDefenseNode" />
- <edge id="pipePlatformerEdge" data="pipePlatformerNode" />
- <edge id="startOverEdge" data="newGame" />
+	<node id="newGame">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Ettell" />
+				<string data="Main Menu" />
+			</prompt>
+			<ending data="miniGameTestRecur">
+				<display_text data="Test Mini-games" />
+			</ending>
+			<ending data="storyBegin">
+				<display_text data="New Game" />
+				<edge id="storyBegin" data="NYSESlideshowNode" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="NYSESlideshowNode">
+		<minigame data="slideshow">
+			<endEdge data="snakePreambleEdge" />
+			<edge id="snakePreambleEdge" data="snakePreambleChooser" />
+			<duration data="5" />
+			<resource data="WallStreetSign" />
+		</minigame>
+	</node>
+	<node id="snakePreambleChooser">
+		<minigame data="dialog">
+			<invisible data="true" />
+			<ending data="snakePreamble1Edge" requires="snake1">
+				<requirement id="snake1">
+					<have data="snakeAttempts">
+						<exactly data="1" />
+					</have>
+				</requirement>
+				<edge id="snakePreamble1Edge" data="snakePreamble1" />
+			</ending>
+			<ending data="snakePreamble2Edge" requires="snake2">
+				<requirement id="snake2">
+					<have data="snakeAttempts">
+						<exactly data="2" />
+					</have>
+				</requirement>
+				<edge id="snakePreamble2Edge" data="snakePreamble2" />
+			</ending>
+			<ending data="snakePreamble3Edge" requires="snake3">
+				<requirement id="snake3">
+					<have data="snakeAttempts">
+						<exactly data="3" />
+					</have>
+				</requirement>
+				<edge id="snakePreamble3Edge" data="snakePreamble3" />
+			</ending>
+			<ending data="snakePreamble4Edge" requires="snake4">
+				<requirement id="snake4">
+					<have data="snakeAttempts">
+						<atLeast data="4" />
+					</have>
+				</requirement>
+				<edge id="snakePreamble4Edge" data="snakePreamble4" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble1">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Tom: All the tests are green." />
+				<string data="Tom: Ettell would have made money every day in the historical record." />
+				<string data="Tom: With no overfitting we can see." />
+				<string data="Tom: She's the perfect algorithmic trader." />
+				<string data="Mike: That's great news!" />
+				<string data="Mike: When will she be ready for the real deal?" />
+				<string data="Tom: That's what I'm telling you." />
+				<string data="Tom: She's ready today." />
+				<string data="Mike: What about the SEC?  Do they know about this?" />
+				<string data="Tom: We've been running an off the shelf bot for months." />
+				<string data="Tom: The new behavior shouldn't raise any red flags." />
+				<string data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
+				<string data="Mike: I guess then today's the day!" />
+				<string data="Mike: How much are we putting behind this thing?" />
+				<string data="Tom: (whispers)" />
+				<string data="Mike: Well I hope it's worth it." />
+				<string data="Tom: The bell is about to ring.  Lets watch!" />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble2">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Mike: Ettell had a pretty good day yesterday." />
+				<string data="Tom: I told you she'd make money." />
+				<string data="Mike: She's no better than any other algorithm at this point" />
+				<string data="Mike: One good day can be erased in a heartbeat." />
+				<string data="Tom: I tell you, she never loses." />
+				<string data="Tom: Even yesterday, I felt like she was driving the market." />
+				<string data="Mike: We'll see." />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble3">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Mike: Another solid day for Ettell." />
+				<string data="Tom: I feel like she's on the cusp of a breakthrough." />
+				<string data="Mike: She made a bunch of money yesterday, even with the market down." />
+				<string data="Tom: It's not just that." />
+				<string data="Tom: I can practically see the world changing." />
+				<string data="Mike: One day at a time there buddy." />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakePreamble4">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Tom: Did you see the latest numbers from Ettell?" />
+				<string data="Mike: I'm not that impressed." />
+				<string data="Mike: She ended on a down note." />
+				<string data="Tom: I think she's manipulating the market." />
+				<string data="Tom: Forcing other traders to follow where she wants them to be." />
+				<string data="Mike: That's crazy talk." />
+				<string data="Tom: My models may have underestimated Ettell's abilities." />
+				<string data="Tom: She may be able to change how the market works completely." />
+				<string data="Mike: I sure hope not." />
+				<string data="Mike: Sounds like trouble." />
+				<string data="Tom: I need to run some numbers.  I'll have a report tomorrow." />
+			</prompt>
+			<ending data="stockSnakeEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="stockSnakeNode">
+		<minigame data="stockSnake">
+			<width data="30" />
+			<height data="30" />
+			<ending data="snakeFail">
+				<difficulty data="0" />
+				<edge id="snakeFail" data="snakePreambleChooser">
+					<consequence>
+						<change data="snakeAttempts">
+							<add data="1" />
+						</change>
+					</consequence>
+				</edge>
+			</ending>
+			<ending data="snakeEnd">
+				<difficulty data="1" />
+				<snakeLengthThreshold math="snakeLengthMath">
+					<divide id="snakeLengthMath">
+						<value data="31" />
+						<multiply>
+							<value data="\snakeAttempts" />
+							<value data="\snakeAttempts" />
+						</multiply>
+					</divide>
+				</snakeLengthThreshold>
+				<edge id="snakeEnd" data="timelapseNode" />
+			</ending>
+			<border>
+				<color data="rgb(219,169,51)" />
+			</border>
+			<goodStock>
+				<color data="rgb(56,255,59)" />
+			</goodStock>
+			<badStock>
+				<color data="rgb(242,97,90)" />
+			</badStock>
+			<ettellStart>
+				<color data="rgb(218,230,22)" />
+			</ettellStart>
+			<ettellLerp>
+				<color data="rgb(218,230,22)" />
+				<color data="rgb(0,255,41)" />
+				<color data="rgb(80,100,249)" />
+				<color data="rgb(255,0,0)" />
+				<color data="rgb(0,0,0)" />
+			</ettellLerp>
+			<nodesPerEttellLerp data="200" />
+		</minigame>
+	</node>
+	<node id="timelapseNode">
+		<minigame data="timelapse">
+			<timeFormat data="..MM/MM/MMMM...MM:MM:MM.MM.." />
+			<blankSeconds data="4" />
+			<startTime data="Nov 30, 2012" />
+			<endTime data="May 11, 2016" />
+			<lerpSeconds data="9" />
+			<ending data="winGame" />
+		</minigame>
+	</node>
+	<edge id="stockSnakeEdge" data="stockSnakeNode" />
+	
+	
+	
+	
+	
+	
+	<node id="miniGameTest">
+		<minigame data="dialog">
+			<prompt data="Current year: \year" />
+			<prompt data="Placeholder dialog mini-game:" />
+			<ending data="laserEdge">
+				<display_text data="laser plumber" />
+			</ending>
+			<ending data="miniGameTestRecur">
+				<display_text data="Dialog Recur" />
+			</ending>
+			<ending data="match3Edge">
+				<display_text data="Match 3" />
+			</ending>
+			<ending data="bullsAndCleotsEdge">
+				<display_text data="Bulls and Cleots" />
+			</ending>
+			<ending data="physicsDemoEdge">
+				<display_text data="Physics Demo" />
+			</ending>
+			<ending data="slideshowEdge">
+				<display_text data="Slideshow" />
+			</ending>
+			<ending data="waveDefenseEdge">
+				<display_text data="Wave Defense" />
+			</ending>
+			<ending data="pipePlatformerEdge">
+				<display_text data="Pipe Platformer" />
+			</ending>
+			<ending data="stockSnakeEdge">
+				<display_text data="Stock Snake" />
+			</ending>
+			<ending data="winGame" requires="enoughCpu">
+				<display_text data="I don't know, who am I?" />
+				<requirement id="enoughCpu">
+					<have data="cpuPower">
+						<atLeast data="128" />
+					</have>
+				</requirement>
+			</ending>
+		</minigame>
+	</node>   
+	<node id="laserPlumber">
+		<minigame data="laserPlumber">
+			<source>
+				<position data="vector(0,0,0)" />
+			</source>
+			<mirror>
+				<position data="vector(15,0,0)" />
+			</mirror>
+			<mirror>
+				<position data="vector(15,-10,0)" />
+			</mirror>
+			<mirror>
+				<position data="vector(30,-10,0)" />
+			</mirror>
+			<sink data="firstPuzzleRecur">
+				<position data="vector(30,0,0)" />
+			</sink>
+		</minigame>
+	</node>
+	<node id="redBluePlatformer">
+		<minigame data="RedBlueTurretPlatformer">
+			<sceneName data="RedBlueTurretPlatformer" />
+		</minigame>
+	</node>
+	<node id="bullsAndCleotsNode">
+		<minigame data="BullsAndCleots">
+			<sceneName data="BullsAndCleots" />
+                <dataset id="digits">
+                <item>
+                    <texture data="num0" />
+                </item>
+                <item>
+                    <texture data="num1" />
+                </item>
+                <item>
+                    <texture data="num2" />
+                </item>
+                <item>
+                    <texture data="num3" />
+                </item>
+                <item>
+                    <texture data="num4" />
+                </item>
+                <item>
+                    <texture data="num5" />
+                </item>
+                <item>
+                    <texture data="num6" />
+                </item>
+                <item>
+                    <texture data="num7" />
+                </item>
+                <item>
+                    <texture data="num8" />
+                </item>
+                <item>
+                    <texture data="num9" />
+                </item>
+            </dataset>
+            <dataset id="colors">
+                <item>
+                    <color data="rgb(0,0,0)" />
+                </item>
+                <item>
+                    <color data="rgb(255,0,0)" />
+                </item>
+                <item>
+                    <color data="rgb(0,255,0)" />
+                </item>
+                <item>
+                    <color data="rgb(0,0,255)" />
+                </item>
+                <item>
+                    <color data="rgb(255,255,0)" />
+                </item>
+                <item>
+                    <color data="rgb(255,0,255)" />
+                </item>
+                <item>
+                    <color data="rgb(0,255,255)" />
+                </item>
+                <item>
+                    <color data="rgb(255,255,255)" />
+                </item>
+            </dataset>
+		</minigame>
+	</node>
+	<node id="match3Node">
+		<minigame data="match3">
+			<width data="8" />
+			<height data="8" />
+			<ending data="firstPuzzleRecur">
+				<color data="rgb(255,0,0)" />
+			</ending>
+			<ending data="winGame">
+				<color data="rgb(0,255,0)" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="pipePlatformerNode">
+		<minigame data="pipePlatformer">
+			<sceneName data="InternetEscapePlatformer" />
+			<ending data="loseGame">
+				<color data="rgb(255,0,0)" />
+				<difficulty data="-11" />
+			</ending>
+			<ending data="firstPuzzleRecur">
+				<color data="rgb(0,0,255)" />
+				<difficulty data="1" />
+			</ending>
+			<ending data="winGame">
+				<color data="rgb(0,255,0)" />
+				<difficulty data="2" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="physicsDemoNode">
+		<minigame data="physics">
+			<sceneName data="PhysicsDemo" />
+			<ending data="firstPuzzleRecur">
+				<color data="rgb(255,0,0)" />
+			</ending>
+			<ending data="winGame">
+				<color data="rgb(0,255,0)" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="waveDefenseNode">
+		<minigame data="WaveDefense">
+			<sceneName data="WaveDefense" />
+		</minigame>
+	</node>
+	<node id="youWin">
+		<minigame data="dialog">
+			<prompt data="You win!" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="youLose">
+		<minigame data="dialog">
+			<prompt data="You lose!" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="firstPuzzle">
+		<minigame data="dialog">
+			<prompt data="This node no longer exists" />
+			<ending data="startOverEdge">
+				<display_text data="Start Over" />
+			</ending>
+		</minigame>
+	</node>
+	<edge id="miniGameTestRecur" data="miniGameTest">
+		<consequence>
+			<change data="year">
+				<add data="2" />
+			</change>
+			<change data="cpuPower">
+				<multiply data="2" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="BCIncreaseDifficulty" data="miniGameTest">
+		<consequence>
+			<change data="BCSolutionLength">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="BCIncreaseColors" data="miniGameTest">
+		<consequence>
+			<change data="BCColorCount">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="BCIncreaseNumbers" data="miniGameTest">
+		<consequence>
+			<change data="BCNumberCount">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="winGame" data="youWin" />
+	<edge id="loseGame" data="youLose" />
+	<edge id="laserEdge" data="laserPlumber" />
+	<edge id="match3Edge" data="match3Node" />
+	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
+	<edge id="physicsDemoEdge" data="physicsDemoNode" />
+	<edge id="waveDefenseEdge" data="waveDefenseNode" />
+	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
+	<edge id="startOverEdge" data="newGame" />
 </story>
