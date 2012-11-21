@@ -7,4 +7,5 @@
 	<curNode data="newGame" />
 	<IsaacEttelName data="0" />
 	<IsaacEttelFunction data="0" />
+	<wakeDialog />
 </data>
