@@ -6,9 +6,7 @@ using System.Xml;
 
 public class UserProperty : WritableXml {
 	public XmlLoader defaultUserState;
-	
 	private static UserProperty singleton;
-	
 	public bool alwaysWipe;
 	
 	public override void Start() {
@@ -40,19 +38,19 @@ public class UserProperty : WritableXml {
 	}
 
 
-    /// <summary>
-    /// Gets the XML node of the property instead of string stored in the
-    /// data attribute.
-    /// </summary>
-    public static XmlNode GetPropNode(string propName){
-        XmlNode propNode = singleton.xmlDoc.DocumentElement.childNode(propName);
+	/// <summary>
+	/// Gets the XML node of the property instead of string stored in the
+	/// data attribute.
+	/// </summary>
+	public static XmlNode GetPropNode(string propName) {
+		XmlNode propNode = singleton.xmlDoc.DocumentElement.childNode(propName);
 		
-        if (propNode != null){
-            return propNode;
-        }
+		if (propNode != null) {
+			return propNode;
+		}
         
-        return singleton.defaultUserState.xmlDoc.DocumentElement.childNode(propName);
-    }
+		return singleton.defaultUserState.xmlDoc.DocumentElement.childNode(propName);
+	}
 
 	public static void setProp(string propName, string val) {
 		XmlNode root = singleton.xmlDoc.DocumentElement;

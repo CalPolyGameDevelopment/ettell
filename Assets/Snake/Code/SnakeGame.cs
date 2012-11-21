@@ -41,7 +41,6 @@ public class SnakeGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string BORDER = "border";
 	public Color BorderColor {
 		get {
-            
             return MaterialData.GetColor(data.SelectSingleNode(BORDER));
 		}
 	}

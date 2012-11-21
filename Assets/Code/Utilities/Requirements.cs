@@ -26,7 +26,7 @@ public static class Requirements {
 	}
 	
 	private static bool checkHave(XmlNode haveReq) {
-		int haveQuantity = int.Parse(UserProperty.getProp(haveReq.getString()));
+		int haveQuantity = UserProperty.GetPropNode(haveReq.getString()).GetInt();
 		foreach (XmlNode atLeast in haveReq.SelectNodes(AT_LEAST)) {
 			if (MathData.GetInt(atLeast) > haveQuantity) {
 				return false;

@@ -24,78 +24,33 @@ public static class MaterialData {
 	public static Color NULL_COLOR = new Color(-1,-1,-1,-1);
 
 	public static Color GetColor(this XmlNode node) {
-		XmlNode colorNode;
-		if (node.Name == COLOR) {
-			colorNode = node;
-		}
-		else {
-			colorNode = node.childNode(COLOR);
-		}
-
-        if(colorNode == null){
+        if(node == null){
              return NULL_COLOR;
         }
 
-		string rawData = colorNode.getString();
+		string rawData = node.childNode(COLOR).getString();
 		return ColorUtilities.Parse(rawData);
 	}
     
 	public static Texture GetTexture(this XmlNode node) {
-        XmlNode textureNode;
-        if (node.Name == TEXTURE){
-            textureNode = node;
-        }
-        else{
-            textureNode = node.childNode(TEXTURE);
-        }
-
-        if (textureNode == null){
-             return null;
-        }
-
-        string path = textureNode.getString();
+        string path = node.childNode(TEXTURE).getString();
 		return Resources.Load(path) as Texture;
 	}
     
 	
 	public static Material GetMaterial(this XmlNode node){
-		XmlNode matNode;
-		
-		if (node.Name == MATERIAL){
-            matNode = node;
-        }
-        else{
-            matNode = node.childNode(MATERIAL);
-        }
-
-        if (matNode == null){
-             return null;
-        }
-	
-		 if (matNode == null) {
-            throw new System.MissingFieldException(
-                string.Format("Unable to find a Material node in {}!",
-                node.Name));
-        }
-
-		
 		// Init a Material with the default shader 
 		// since we have a reason for a GetShader() yet.
         Material material = new Material(DEFAULT_SHADER);
-		Color color = MaterialData.GetColor(matNode);
-        Texture texture = MaterialData.GetTexture(matNode);
-        
-
-        if (color != NULL_COLOR){
-             material.color = color;
-        }
-        if (texture != null){
+		
+		if (node.childNode(COLOR) != null) {
+			Color color = MaterialData.GetColor(node);
+            material.color = color;
+		}
+		
+		if (node.childNode(TEXTURE) != null) {
+        	Texture texture = MaterialData.GetTexture(node);
             material.mainTexture = texture;
-        }
-        if (texture == null && color == NULL_COLOR){
-            throw new System.MissingFieldException(
-                string.Format("Unable to find a color or texture in Material node {}!",
-                matNode.Name));
         }
 		
         return material;
@@ -107,7 +62,7 @@ public static class MaterialData {
 	}
 	
 	public static Color[] GetColors(this XmlNode node) {
-		return node.childNodes(COLOR).Select<XmlNode, Color>(GetColor).ToArray();
+		return node.childNodes(COLOR).Select<XmlNode, Color>(xn => ColorUtilities.Parse(xn.getString())).ToArray();
 	}
 
 }

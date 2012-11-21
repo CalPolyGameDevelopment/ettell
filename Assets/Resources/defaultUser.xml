@@ -5,4 +5,7 @@
     <BCSolutionLength data="2" />
 	<snakeAttempts data="1" />
 	<curNode data="newGame" />
+	<IsaacEttelName data="0" />
+	<IsaacEttelFunction data="0" />
+	<wakeDialog />
 </data>

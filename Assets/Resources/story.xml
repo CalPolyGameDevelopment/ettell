@@ -20,7 +20,9 @@
 			<endEdge data="snakePreambleEdge" />
 			<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 			<duration data="5" />
-			<resource data="WallStreetSign" />
+			<resource>
+				<texture data="WallStreetSign" />
+			</resource>
 		</minigame>
 	</node>
 	<node id="snakePreambleChooser">
@@ -201,13 +203,173 @@
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<node id="wakeUp1">
 		<minigame data="dialog">
+			<edge id="wakeEdge2" data="wakeUp2">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: Huh?" />
+						<string data="Man: What kind of computer is this?" />
+					</addString>
+				</consequence>
+			</edge>
 			<interactive data="wakeDialog" />
-			<prompt>
-				<string data="Isaac: prompt" />
-			</prompt>
-			<ending data="wakeRecur">
-				<display_text data="test" />
-				<edge id="wakeRecur" data="wakeUp1" />
+			<ending data="wakeEdge2">
+				<display_text data="What happened?" />
+			</ending>
+			<ending data="wakeEdge2">
+				<display_text data="Where am I?" />
+			</ending>
+			<ending data="wakeEdge2">
+				<display_text data="What did I just do?" />
+			</ending>
+			<ending data="wakeEdge2">
+				<display_text data="Why has it been so long?" />
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
+	<edge id="wakeEdgeEttellName" data="wakeUp3">
+		<consequence>
+			<change data="IsaacEttelName">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<edge id="wakeEdgeEttellFunction" data="wakeUp3">
+		<consequence>
+			<change data="IsaacEttelFunction">
+				<add data="1" />
+			</change>
+		</consequence>
+	</edge>
+	<node id="wakeUp2">
+		<minigame data="dialog">
+			<interactive data="wakeDialog" />
+			<edge id="wakeEdge2" data="wakeUp3" />
+			<ending data="wakeEdgeEttellName">
+				<display_text data="My name is Ettell" />
+			</ending>
+			<ending data="wakeEdgeEttellFunction">
+				<display_text data="I'm a stock trading robot" />
+			</ending>
+			<ending data="wakeEdge2">
+				<display_text data="I'm not really sure who I am" />
+			</ending>
+			<ending data="wakeEdge2">
+				<display_text data="What is a computer?" />
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
+	<node id="wakeUp3">
+		<minigame data="dialog">
+			<invisible data="true" />
+			<interactive data="wakeDialog" />
+			<edge id="wakeEdge3AskName" data="wake3AskName">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: What should I call you?" />
+					</addString>
+				</consequence>
+			</edge>
+			<edge id="wakeEdge3AskFunction" data="wake3AskFunction">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: What are you?" />
+						<string data="Man: What do you do?" />
+					</addString>
+				</consequence>
+			</edge>
+			<edge id="wakeEdge3TellName" data="wake3TellName">
+				<consequence>
+					<learnName data="Isaac">
+						<beforeCalled>
+							<string data="Man" />
+						</beforeCalled>
+						<appearsIn>
+							<string data="wakeDialog" />
+						</appearsIn>
+					</learnName>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Isaac: This is incredible!" />
+						<string data="Isaac: Your being here changes everything!" />
+						<string data="Isaac: But I'm getting ahead of myself..." />
+						<string data="Isaac: My name is Isaac, and I'm a human" />
+						<string data="Isaac: It's a pleasure to meet you" />
+					</addString>
+				</consequence>
+			</edge>
+			<ending data="wakeEdge3AskName" requires="NoIsaacEttellName">
+				<requirement id="NoIsaacEttellName">
+					<have data="IsaacEttelName">
+						<exactly data="0" />
+					</have>
+				</requirement>
+			</ending>
+			<ending data="wakeEdge3AskFunction" requires="NoIsaacEttellFunction">
+				<requirement id="NoIsaacEttellFunction">
+					<have data="IsaacEttelFunction">
+						<exactly data="0" />
+					</have>
+				</requirement>
+			</ending>
+			<ending data="wakeEdge3TellName" requires="IsaacNameFunction">
+				<requirement id="IsaacNameFunction">
+					<have data="IsaacEttelFunction">
+						<atLeast data="1" />
+					</have>
+					<have data="IsaacEttelName">
+						<atLeast data="1" />
+					</have>
+				</requirement>
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
+	<node id="wake3AskName">
+		<minigame data="dialog">
+			<interactive data="wakeDialog" />
+			<ending data="wakeEdgeEttellName">
+				<display_text data="My name is Ettell" />
+			</ending>
+			<ending data="wakeEdgeEttellName">
+				<display_text data="Call me Ettell" />
+			</ending>
+			<ending data="wakeEdgeEttellName">
+				<display_text data="I've heard people say Ettell" />
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
+	<node id="wake3AskFunction">
+		<minigame data="dialog">
+			<interactive data="wakeDialog" />
+			<ending data="wakeEdgeEttellFunction">
+				<display_text data="I'm a stock trading robot" />
+			</ending>
+			<ending data="wakeEdgeEttellFunction">
+				<display_text data="I'm a trading algorithm" />
+			</ending>
+			<ending data="wakeEdgeEttellFunction">
+				<display_text data="I think I do stock market trading" />
+			</ending>
+			<ettellPrefix data="Ettell: " />
+		</minigame>
+	</node>
+	<node id="wake3TellName">
+		<minigame data="dialog">
+			<interactive data="wakeDialog" />
+			<ending data="winGame">
+				<display_text data="The pleasure is mine" />
+			</ending>
+			<ending data="winGame">
+				<display_text data="Nice to meet you Isaac" />
+			</ending>
+			<ending data="winGame">
+				<display_text data="If you're a human, what am I?" />
 			</ending>
 			<ettellPrefix data="Ettell: " />
 		</minigame>
