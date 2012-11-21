@@ -8,6 +8,7 @@ using System.Xml;
 public static class StringData {
 	
 	private const string STRING = "string";
+	private const string MODIFIER = "modifier";
 	
 	private static Regex userPropReplace = new Regex(@"\\(\w*)");
 	
@@ -31,5 +32,17 @@ public static class StringData {
 	
 	public static void SetString(this XmlNode xn, string val) {
 		xn.SetAttribute(XmlUtilities.DATA, val);
+	}
+	
+	public static string GetAttribute(this XmlNode xn, string attribute) {
+		return xn.Attributes[attribute] == null ? "" : xn.Attributes[attribute].Value;
+	}
+	
+	public static string GetModifier(this XmlNode xn) {
+		return xn.GetAttribute(MODIFIER);
+	}
+	
+	public static void SetModifier(this XmlNode xn, string modifier) {
+		xn.SetAttribute(MODIFIER, modifier);
 	}
 }

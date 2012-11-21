@@ -20,7 +20,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private Rect promptRect;
 	private Rect optionsRect;
 	
-	private bool allowInvisibleChoice {
+	private bool ForceInvisibleChoice {
 		get {
 			XmlNode xn = data.childNode(INVISIBLE);
 			return xn == null ? false : xn.getBool();
@@ -87,14 +87,18 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	
 	private string[] getOrCreatePromptText() {
 		XmlNode source = interactionSource;
-		string [] promptText = data.childNode(PROMPT).getStrings();;
+		XmlNode prompt = data.childNode(PROMPT);
+		string [] promptText = prompt == null ? new string[0] : prompt.getStrings();
 		if (source == null) {
 			return promptText;
 		}
-		foreach (string line in promptText) {
-			source.CreateStringNode().SetString(line);
+		if (source.GetModifier() != data.getString()) {
+			foreach (string line in promptText) {
+				source.CreateStringNode().SetString(line);
+			}
+			source.SetModifier(data.getString());
+			UserProperty.Save();
 		}
-		UserProperty.Save();
 		return source.getStrings();
 	}
 	
@@ -105,8 +109,8 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 			data = value;
 			Ending[] possibleEndings = Ending.findEndings(data).ToArray();
 			
-			if (possibleEndings.Length == 1 && allowInvisibleChoice) {
-				MiniGameController.endMiniGame(possibleEndings[0].edgeId);
+			if (ForceInvisibleChoice) {
+				MiniGameController.endMiniGame(possibleEndings[Random.Range(0, possibleEndings.Length)].edgeId);
 				return;
 			}
 			

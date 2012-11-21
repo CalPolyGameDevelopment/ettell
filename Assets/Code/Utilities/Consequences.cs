@@ -7,6 +7,7 @@ public class Consequences {
 	private const string CHANGE = "change";
 	private const string ADD = "add";
 	private const string MULTIPLY = "multiply";
+	private const string LEARN_NAME = "learnName";
 	
 	public static void apply(XmlNode consequence) {
 		foreach (XmlNode change in consequence.SelectNodes(CHANGE)) {
@@ -14,15 +15,18 @@ public class Consequences {
 			foreach (XmlNode add in change.SelectNodes(ADD)) {
 				int delta = MathData.GetInt(add);
 				UserProperty.setProp(changeProp,
-					(int.Parse(UserProperty.getProp(changeProp)) + delta).ToString()
+					(UserProperty.GetPropNode(changeProp).GetInt() + delta).ToString()
 				);
 			}
 			foreach (XmlNode mult in change.SelectNodes(MULTIPLY)) {
 				int factor = MathData.GetInt(mult);
 				UserProperty.setProp(changeProp,
-					(int.Parse(UserProperty.getProp(changeProp)) * factor).ToString()
+					(UserProperty.GetPropNode(changeProp).GetInt() * factor).ToString()
 				);
 			}
+		}
+		foreach (XmlNode newName in consequence.SelectNodes(LEARN_NAME)) {
+			//TODO
 		}
 	}
 }
