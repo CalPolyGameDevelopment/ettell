@@ -1,5 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 public class Consequences {
@@ -9,6 +12,8 @@ public class Consequences {
 	private const string MULTIPLY = "multiply";
 	private const string LEARN_NAME = "learnName";
 	private const string ADD_STRING = "addString";
+	private const string BEFORE_CALLED = "beforeCalled";
+	private const string APPEARS_IN = "appearsIn";
 	private const string STRING_TARGET = "stringTarget";
 	
 	public static void apply(XmlNode consequence) {
@@ -27,8 +32,19 @@ public class Consequences {
 				);
 			}
 		}
-		foreach (XmlNode newName in consequence.SelectNodes(LEARN_NAME)) {
-			//TODO
+		foreach (XmlNode newNameNode in consequence.SelectNodes(LEARN_NAME)) {
+			string newName = newNameNode.getString();
+			foreach (string oldName in newNameNode.childNode(BEFORE_CALLED).getStrings()) {
+				Regex regex = new Regex(string.Format("^({0}):", oldName));
+				foreach (string setting in newNameNode.childNode(APPEARS_IN).getStrings()) {
+					XmlNode uProp = UserProperty.GetPropNode(setting);
+					foreach (XmlNode replaceable in uProp.GetStringNodes()) {
+						replaceable.SetString(regex.Replace(replaceable.getString(), delegate(Match m) {
+							return newName + ":";
+						}));
+					}
+				}
+			}
 		}
 		foreach (XmlNode addLines in consequence.SelectNodes(ADD_STRING)) {
 			XmlNode dialog = UserProperty.GetPropNode(addLines.childNode(STRING_TARGET).getString());

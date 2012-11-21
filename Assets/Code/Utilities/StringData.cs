@@ -23,7 +23,11 @@ public static class StringData {
 	}
 	
 	public static string[] getStrings(this XmlNode xn) {
-		return xn.childNodes(STRING).Select<XmlNode, string>(getString).ToArray();
+		return xn.GetStringNodes().Select<XmlNode, string>(getString).ToArray();
+	}
+	
+	public static IEnumerable<XmlNode> GetStringNodes(this XmlNode xn) {
+		return xn.childNodes(STRING);
 	}
 	
 	public static XmlNode CreateStringNode(this XmlNode xn) {
