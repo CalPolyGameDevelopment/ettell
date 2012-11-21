@@ -26,7 +26,7 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
     }
     
     private Dictionary<string, List<Material>> dataSets;
-    private static Color NULL_COLOR = MaterialData.NULL_COLOR;
+
 	public GameObject level;
 	
     private XmlNode data;
@@ -72,12 +72,12 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
         List<List<Material>> choices = new List<List<Material>>();
 
         foreach(List<Material> mats in dataSets.Values){
-            IEnumerable<Material> matChoices =
-                mats.OrderBy(x => Random.value).Take(solutionLen);
+            List<Material> matChoices =
+                mats.OrderBy(x => Random.value).Take(solutionLen).ToList();
 
             IEnumerable<Material> solution =
                 matChoices.OrderBy(x => Random.value).Take(solutionLen);
-            choices.Add(matChoices.ToList ());
+            choices.Add(matChoices);
             Solution sln = new Solution(new ArrayList(solution.ToArray()));
             slnManager.AddSolution(sln);
         }
