@@ -9,7 +9,7 @@ public class Consequences {
 	private const string MULTIPLY = "multiply";
 	private const string LEARN_NAME = "learnName";
 	private const string ADD_STRING = "addString";
-	private const string DIALOG_TARGET = "dialogTarget";
+	private const string STRING_TARGET = "stringTarget";
 	
 	public static void apply(XmlNode consequence) {
 		foreach (XmlNode change in consequence.SelectNodes(CHANGE)) {
@@ -31,7 +31,7 @@ public class Consequences {
 			//TODO
 		}
 		foreach (XmlNode addLines in consequence.SelectNodes(ADD_STRING)) {
-			XmlNode dialog = UserProperty.GetPropNode(addLines.childNode(DIALOG_TARGET));
+			XmlNode dialog = UserProperty.GetPropNode(addLines.childNode(STRING_TARGET).getString());
 			foreach (string line in addLines.getStrings()) {
 				dialog.CreateStringNode().SetString(line);
 			}

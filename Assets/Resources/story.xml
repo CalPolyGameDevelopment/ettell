@@ -201,7 +201,15 @@
 	<edge id="stockSnakeEdge" data="stockSnakeNode" />
 	<node id="wakeUp1">
 		<minigame data="dialog">
-			<edge id="wakeEdge2" data="wakeUp2" />
+			<edge id="wakeEdge2" data="wakeUp2">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: Huh?" />
+						<string data="Man: What kind of computer is this?" />
+					</addString>
+				</consequence>
+			</edge>
 			<interactive data="wakeDialog" />
 			<ending data="wakeEdge2">
 				<display_text data="What happened?" />
@@ -235,10 +243,6 @@
 	<node id="wakeUp2">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<prompt>
-				<string data="Man: Huh?" />
-				<string data="Man: What kind of computer is this?" />
-			</prompt>
 			<edge id="wakeEdge2" data="wakeUp3" />
 			<ending data="wakeEdgeEttellName">
 				<display_text data="My name is Ettell" />
@@ -259,14 +263,34 @@
 		<minigame data="dialog">
 			<invisible data="true" />
 			<interactive data="wakeDialog" />
-			<edge id="wakeEdge3AskName" data="wakeUp3AskName" />
-			<edge id="wakeEdge3AskFunction" data="wakeUp3AskFunction" />
+			<edge id="wakeEdge3AskName" data="wakeUp3AskName">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: What should I call you?" />
+					</addString>
+				</consequence>
+			</edge>
+			<edge id="wakeEdge3AskFunction" data="wakeUp3AskFunction">
+				<consequence>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Man: What are you?" />
+						<string data="Man: What do you do?" />
+					</addString>
+				</consequence>
+			</edge>
 			<edge id="wakeEdge3TellName" data="wakeUp3TellName">
 				<consequence>
 					<learnName data="Isaac">
 						<beforeCalled data="Man" />
 						<appearsIn data="wakeDialog" />
 					</learnName>
+					<addString>
+						<stringTarget data="wakeDialog" />
+						<string data="Isaac: My name is Isaac, and I'm a human" />
+						<string data="Isaac: It's a pleasure to meet you" />
+					</addString>
 				</consequence>
 			</edge>
 			<ending data="wakeEdge3AskName" requires="NoIsaacEttellName">
@@ -299,9 +323,6 @@
 	<node id="wakeEdge3AskName">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<prompt>
-				<string data="Man: What should I call you?" />
-			</prompt>
 			<ending data="wakeEdgeEttellName">
 				<display_text data="My name is Ettell" />
 			</ending>
@@ -317,10 +338,6 @@
 	<node id="wakeEdge3AskFunction">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<prompt>
-				<string data="Man: What are you?" />
-				<string data="Man: What do you do?" />
-			</prompt>
 			<ending data="wakeEdgeEttellFunction">
 				<display_text data="I'm a stock trading robot" />
 			</ending>
@@ -336,10 +353,6 @@
 	<node id="wakeEdge3TellName">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<prompt>
-				<string data="Isaac: My name is Isaac, and I'm a human" />
-				<string data="Isaac: It's a pleasure to meet you" />
-			</prompt>
 			<ending data="winGame">
 				<display_text data="The pleasure is mine" />
 			</ending>
