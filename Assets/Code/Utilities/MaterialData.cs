@@ -24,55 +24,26 @@ public static class MaterialData {
 	public static Color NULL_COLOR = new Color(-1,-1,-1,-1);
 
 	public static Color GetColor(this XmlNode node) {
-		XmlNode colorNode;
-		if (node.Name == COLOR) {
-			colorNode = node;
-		}
-		else {
-			colorNode = node.childNode(COLOR);
-		}
-
-        if(colorNode == null){
+        if(node == null){
              return NULL_COLOR;
         }
 
-		string rawData = colorNode.getString();
+		string rawData = node.getString();
 		return ColorUtilities.Parse(rawData);
 	}
     
 	public static Texture GetTexture(this XmlNode node) {
-        XmlNode textureNode;
-        if (node.Name == TEXTURE){
-            textureNode = node;
-        }
-        else{
-            textureNode = node.childNode(TEXTURE);
-        }
-
-        if (textureNode == null){
-             return null;
-        }
-
-        string path = textureNode.getString();
+        string path = node.getString();
 		return Resources.Load(path) as Texture;
 	}
     
 	
 	public static Material GetMaterial(this XmlNode node){
-		XmlNode matNode;
-		
-		if (node.Name == MATERIAL){
-            matNode = node;
-        }
-        else{
-            matNode = node.childNode(MATERIAL);
-        }
-
-        if (matNode == null){
+        if (node == null){
              return null;
         }
 	
-		 if (matNode == null) {
+		 if (node == null) {
             throw new System.MissingFieldException(
                 string.Format("Unable to find a Material node in {}!",
                 node.Name));
@@ -82,8 +53,8 @@ public static class MaterialData {
 		// Init a Material with the default shader 
 		// since we have a reason for a GetShader() yet.
         Material material = new Material(DEFAULT_SHADER);
-		Color color = MaterialData.GetColor(matNode);
-        Texture texture = MaterialData.GetTexture(matNode);
+		Color color = MaterialData.GetColor(node);
+        Texture texture = MaterialData.GetTexture(node);
         
 
         if (color != NULL_COLOR){
@@ -95,7 +66,7 @@ public static class MaterialData {
         if (texture == null && color == NULL_COLOR){
             throw new System.MissingFieldException(
                 string.Format("Unable to find a color or texture in Material node {}!",
-                matNode.Name));
+                node.Name));
         }
 		
         return material;
