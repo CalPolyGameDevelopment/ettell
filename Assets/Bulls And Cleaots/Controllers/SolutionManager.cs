@@ -29,15 +29,15 @@ public class Solution {
     }
      
 
-	bool isCleot(int index, object guess) {
+	public bool IsCleot(int index, object guess) {
         
-        if (isBull(index, guess))
+        if (IsBull(index, guess))
             return false;
         
         return solutionList.Contains(guess);
     }
 
-    bool isBull(int index, object guess) {
+    public bool IsBull(int index, object guess) {
         return solutionList[index] == guess;
       
     }
@@ -50,7 +50,7 @@ public class Solution {
 		int count = 0;
 		int index = 0;
 		foreach(object guess in guesses){
-			if(isBull(index, guess)){
+			if(IsBull(index, guess)){
 				count++;
 			}
 			index++;
@@ -65,7 +65,7 @@ public class Solution {
 		int count = 0;
 		int index = 0;
 		foreach(object guess in guesses){
-			if(isCleot(index, guess)){
+			if(IsCleot(index, guess)){
 				count++;
 			}
 			index++;
@@ -153,23 +153,30 @@ public class SolutionManager {
         }
     }
 
-#if UNUSED
+	
     public bool Solved{
         get{
-            return GuessList.All (elem => isBull(elem));
-        }
-    }
-
-
-#endif
+			int index = 0;
+			foreach(object guess in Guesses){
+				if(!solutions.Any(sln => sln.IsBull(index, guess))){
+					return false;
+				}
+				index++;
+			}
+				return true;
+		}
+	}
+	
 	
 	public object GetGuess(int index){
 		return guesses[index];
 	}
 	
+	
 	public void SetGuess(int index, object guess){
 		guesses[index] = guess;
 	}
+	
 	
     /// <summary>
     /// Sets guessList[index] = NOT_GUESSED.
@@ -184,6 +191,7 @@ public class SolutionManager {
         guesses[index] = NOT_GUESSED;
     }
  
+	
     /// <summary>
     /// map(x => NOT_GUESSED, guessList)
     /// </summary>
@@ -191,7 +199,5 @@ public class SolutionManager {
 		guesses = Guesses.Select<object,object>(x => NOT_GUESSED).ToArray();
         
     }
-
-
-
+	
 }
