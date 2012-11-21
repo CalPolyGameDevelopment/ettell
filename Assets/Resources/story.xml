@@ -20,7 +20,9 @@
 			<endEdge data="snakePreambleEdge" />
 			<edge id="snakePreambleEdge" data="snakePreambleChooser" />
 			<duration data="5" />
-			<resource data="WallStreetSign" />
+			<resource>
+				<texture data="WallStreetSign" />
+			</resource>
 		</minigame>
 	</node>
 	<node id="snakePreambleChooser">
