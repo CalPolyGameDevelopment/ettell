@@ -92,13 +92,6 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		if (source == null) {
 			return promptText;
 		}
-		if (source.GetModifier() != data.getString()) {
-			foreach (string line in promptText) {
-				source.CreateStringNode().SetString(line);
-			}
-			source.SetModifier(data.getString());
-			UserProperty.Save();
-		}
 		return source.getStrings();
 	}
 	

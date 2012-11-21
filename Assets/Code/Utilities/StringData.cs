@@ -37,12 +37,4 @@ public static class StringData {
 	public static string GetAttribute(this XmlNode xn, string attribute) {
 		return xn.Attributes[attribute] == null ? "" : xn.Attributes[attribute].Value;
 	}
-	
-	public static string GetModifier(this XmlNode xn) {
-		return xn.GetAttribute(MODIFIER);
-	}
-	
-	public static void SetModifier(this XmlNode xn, string modifier) {
-		xn.SetAttribute(MODIFIER, modifier);
-	}
 }
