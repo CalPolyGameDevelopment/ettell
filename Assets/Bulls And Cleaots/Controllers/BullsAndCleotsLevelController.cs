@@ -125,54 +125,33 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
  
 
     void PlayerAttemptSolve() {
-        /*
-        if (solution.HasBlankGuesses) {
-            // We don't allow for there to be any unfilled 
-            // guess slots because that would make the game 
-            // too easy. So complain to the user.
-            AddPlayerMessage("Blank Guesses!");
-            return;
-
-        }
-
-        bullBar.FoundBulls(((float)solution.BullsCount()) / ((float)solution.SolutionLength));
-        cleotBar.FoundCleots(((float)solution.CleotsCount()) / ((float)solution.SolutionLength));
-     slnMixBar.FoundSolution(((float)solution.DigitCount()) / ((float)solution.SolutionLength));
-        
-        attemptCount++;
-     
-        AddPlayerMessage(BuildAttemptMessage(attemptCount, solution.BullsCount(), solution.CleotsCount()));
-
-        if (solution.BullsCount() == solution.SolutionLength) {
-            // winDigits == guessDigits, so the player has guessed
-            // the correct number.
-            hasWon = true;
-            AddPlayerMessage("You win!");
-        }
-        else {
-            numberedBlocks.GetComponent<NumberedBlocks>().Reset();
-            coloredBlocks.GetComponent<ColoredBlocks>().Reset();
-        }
-        */
+		
+		if(slnManager.HasBlankGuesses){
+			Debug.Log("blank guesses");
+			return;
+		}
+		
+		attemptCount++;
+		
+		if(slnManager.Solved){
+			hasWon = true;
+			Debug.Log ("solved");
+			return;
+		}
+		
+		
+		Debug.Log(attemptCount);
+		ResetGuesses();
     }
 
 
 
     void PlayerEndGame() {
-        /*
-        if (solution.DigitCount() == 0)
-            MiniGameController.endMiniGame(
-                BullsAndCleots.ExitEdges.IncreaseColors);
-        
-        else if (solution.ColorCount() == 0)
-            MiniGameController.endMiniGame(
-                BullsAndCleots.ExitEdges.IncreaseNumbers);
-        
-        else 
-            MiniGameController.endMiniGame(
-                BullsAndCleots.ExitEdges.IncreaseDifficulty);
- */
-       }
+
+		MiniGameController.endMiniGame(
+        	BullsAndCleots.ExitEdges.IncreaseDifficulty);
+
+	}
 
     
     
@@ -228,7 +207,13 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         
     }
 
-
+	void ResetGuesses(){
+		GetComponentInChildren<SolutionBlocks>().Reset();
+		// Might be belt and suspenders to do this as well
+		// as the prevous reset since the blocks moving outside of the
+		// input blocks will cause a reset event.
+		slnManager.ResetGuesses();
+	}
 	
     void OnGUI() {
 
