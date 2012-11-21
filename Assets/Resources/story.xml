@@ -263,7 +263,7 @@
 		<minigame data="dialog">
 			<invisible data="true" />
 			<interactive data="wakeDialog" />
-			<edge id="wakeEdge3AskName" data="wakeUp3AskName">
+			<edge id="wakeEdge3AskName" data="wake3AskName">
 				<consequence>
 					<addString>
 						<stringTarget data="wakeDialog" />
@@ -271,7 +271,7 @@
 					</addString>
 				</consequence>
 			</edge>
-			<edge id="wakeEdge3AskFunction" data="wakeUp3AskFunction">
+			<edge id="wakeEdge3AskFunction" data="wake3AskFunction">
 				<consequence>
 					<addString>
 						<stringTarget data="wakeDialog" />
@@ -280,7 +280,7 @@
 					</addString>
 				</consequence>
 			</edge>
-			<edge id="wakeEdge3TellName" data="wakeUp3TellName">
+			<edge id="wakeEdge3TellName" data="wake3TellName">
 				<consequence>
 					<learnName data="Isaac">
 						<beforeCalled data="Man" />
@@ -288,6 +288,9 @@
 					</learnName>
 					<addString>
 						<stringTarget data="wakeDialog" />
+						<string data="Isaac: This is incredible!" />
+						<string data="Isaac: Your being here changes everything!" />
+						<string data="Isaac: But I'm getting ahead of myself..." />
 						<string data="Isaac: My name is Isaac, and I'm a human" />
 						<string data="Isaac: It's a pleasure to meet you" />
 					</addString>
@@ -320,7 +323,7 @@
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
-	<node id="wakeEdge3AskName">
+	<node id="wake3AskName">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
 			<ending data="wakeEdgeEttellName">
@@ -335,7 +338,7 @@
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
-	<node id="wakeEdge3AskFunction">
+	<node id="wake3AskFunction">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
 			<ending data="wakeEdgeEttellFunction">
@@ -350,7 +353,7 @@
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
-	<node id="wakeEdge3TellName">
+	<node id="wake3TellName">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
 			<ending data="winGame">
