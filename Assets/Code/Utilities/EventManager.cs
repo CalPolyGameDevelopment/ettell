@@ -14,12 +14,13 @@ public interface IEvent {
     object GetData();
 }
 
-
+/// <summary>
+/// Base Event Object
+/// </summary>
 public class EventObject : IEvent {
     private string eventName;
     private object eventData;
-
-
+	
     public EventObject(object data) {
         eventName = this.GetType().ToString();
         eventData = data;
@@ -40,10 +41,7 @@ public class EventObject : IEvent {
 }
 
 /// EventManager - A stupid simple event manager class. 
-/// Register a listener for a specific event type. On Update(),
-/// if that particular type of event exists in the eventQueue then
-/// the HandleEvent() method is called in the listener class for
-/// that object.
+/// Register a listener for a specific event type.
 /// 
 /// Thoughts:
 ///  1. The primary extention for this class would be to make 
@@ -52,8 +50,6 @@ public class EventObject : IEvent {
 public class EventManager : MonoBehaviour {
 
     private static EventManager singleton = null;
-
-    private Queue eventQueue;
 
     // event-name => event listerer class instance
     private Dictionary<string, IEventListener> eventListenerMap;
@@ -64,7 +60,10 @@ public class EventManager : MonoBehaviour {
             return singleton != null;
         }
     }
-
+	
+	/// <summary>
+	/// Get the EventManager singleton safely.
+	/// </summary>
     public static EventManager instance {
         get {
             if (!EventManager.isReady) {
@@ -88,9 +87,7 @@ public class EventManager : MonoBehaviour {
     // makes sure the singleton is initialized before events start 
     // happening since other objects may be "started" before the eventmanager.
     void Awake() {
-        eventQueue = new Queue();
         eventListenerMap = new Dictionary<string, IEventListener>();
-
     }
 
 
@@ -113,29 +110,17 @@ public class EventManager : MonoBehaviour {
     bool HasListener(IEvent evnt) {
         return eventListenerMap.ContainsKey(evnt.GetName());
     }
-
+	
+    /// <summary>
     /// If there is a listener for evnt then relay the event to 
     /// that listener immediately. 
-    public bool RelayEvent(IEvent evnt) {
+    /// </summary>
+	public bool RelayEvent(IEvent evnt) {
         if (!HasListener(evnt)) {
             Debug.LogWarning("RelayEvent(): No listener for " + evnt.GetName());
             return false;
         }
         DispatchEvent(evnt);
-        return true;
-    }
-
-
-    /// If there is a listener for evnt then place the event in the queue
-    /// otherwise just ignore it. 
-    public bool QueueEvent(IEvent evnt) {
-
-        if (!HasListener(evnt)) {
-            Debug.LogWarning("QueueEvent(): No listener for " + evnt.GetName());
-            return false;
-        }
-
-        eventQueue.Enqueue(evnt);
         return true;
     }
 
@@ -148,21 +133,9 @@ public class EventManager : MonoBehaviour {
     }
 
 
-    // Only process the event queue on each update.
-    void Update() {
 
-        IEvent evnt;
-        while (eventQueue.Count > 0) {
-            evnt = eventQueue.Dequeue() as IEvent;
-            DispatchEvent(evnt);
-        }
-
-    }
-
-    /// 
     public void OnApplicationQuit() {
         eventListenerMap.Clear();
-        eventQueue.Clear();
         singleton = null;
     }
 }
