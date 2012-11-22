@@ -81,8 +81,8 @@ public class BullsAndCleots : MonoBehaviour, MiniGameAPI.IMiniGame {
             Solution sln = new Solution(new ArrayList(solution.ToArray()));
             slnManager.AddSolution(sln);
         }
+		
         bcLevel.InitData = new BCLevelData(slnManager, choices);
- 
     }
     
 }
