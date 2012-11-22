@@ -506,6 +506,18 @@
                     <color data="rgb(255,255,255)" />
                 </material>
             </dataset>
+			<dataset id="robot parts">
+				<material><texture data="mech_body" /></material>
+				<material><texture data="mech_head" /></material>
+				<material><texture data="mech_left_arm" /></material>
+				<material><texture data="mech_left_fist" /></material>
+				<material><texture data="mech_left_foot" /></material>
+				<material><texture data="mech_left_leg" /></material>
+				<material><texture data="mech_right_arm" /></material>
+				<material><texture data="mech_right_fist" /></material>
+				<material><texture data="mech_right_foot" /></material>
+				<material><texture data="mech_right_leg" /></material>
+			</dataset>
 		</minigame>
 	</node>
 	<node id="match3Node">
