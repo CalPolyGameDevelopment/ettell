@@ -6,7 +6,7 @@ public class EnergyBar : MonoBehaviour
 	public Color backgroundColor = Color.black;
 	public Color forgroundColor = Color.red;
 	public string labelText = "";
-	public Rect box = new Rect (10, 10, 400, 20);
+	public Rect box = new Rect (10, 10, 200, 20);
 	
 	private Texture2D background;
 	private Texture2D foreground;
@@ -21,9 +21,14 @@ public class EnergyBar : MonoBehaviour
 		}
 		set {
 			fullness = Mathf.Min(Mathf.Max(value, 0f), 1f);
-			calcWidth();
+			fgRect.width = calcWidth();
 		}
 	}
+	
+	public void SetFullness(int val, int max){
+		Fullness = (float)val / max;
+	}
+	
 	
 	void Start ()
 	{
@@ -40,11 +45,11 @@ public class EnergyBar : MonoBehaviour
 		fgRect = new Rect(0f, 0f, 0f, box.height);
 		labelRect = new Rect(10, 0, 50, 20);
 		
-		calcWidth();
+		fgRect.width = calcWidth();
 	}
 	
-	private void calcWidth() {
-		fgRect.width = box.width * fullness;
+	private float calcWidth() {
+		return box.width * fullness;
 	}
 
 	void OnGUI ()
@@ -57,4 +62,6 @@ public class EnergyBar : MonoBehaviour
 		}
 		GUI.EndGroup();
 	}
+	
+	
 }
