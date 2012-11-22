@@ -5,16 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-// public class Solution<T> where T : IComparable?
 public class Solution {
       
     private ArrayList solutionList; 
-  
-    
-    public Solution(ArrayList slnList){
 
+    public Solution(ArrayList slnList){
         solutionList = ArrayList.ReadOnly(new ArrayList(slnList)) as ArrayList;
-		
     }
  
     /// <summary>
@@ -82,6 +78,7 @@ public class SolutionManager {
 	public static object NOT_GUESSED = null;
     
 	private List<Solution> solutions;
+	
 	// Each solution should have "length" number of elements.
 	private int length;
    
@@ -167,6 +164,12 @@ public class SolutionManager {
 		}
 	}
 	
+	
+	public int Count{
+		get{
+			return solutions.Count;
+		}
+	}
 	
 	public object GetGuess(int index){
 		return guesses[index];
