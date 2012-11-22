@@ -24,31 +24,9 @@ public class BCLevelData {
 
 
 public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
-
-    public Rect attemptButtonRect;
-
-    public SolutionManager slnManager;
-
-    public GameObject inputPane;
-    public GameObject testBlocks;
-    
-    static string onSnapName = typeof(DraggableOnSnapEvent).ToString();
-    static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
-    static string snapOnExitName = typeof(SnappableOnExitEvent).ToString();
-    static string onMoveName = typeof(DraggableOnMoveEvent).ToString();
- 
-    private string[] handledEventNames = {
-        onSnapName,
-        onMoveName,
-        snapOnEnterName,
-        snapOnExitName,
-
-    };
- 
-    private bool hasWon;
-	private int attemptCount;
 	
-    private BCLevelData initData = null;
+	// State and Init Data
+	private BCLevelData initData = null;
     public BCLevelData InitData{
 		get {
 			if( initData != null ){
@@ -65,13 +43,42 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
             initData = value;
         }
     }
+	
+	private bool hasWon;
+	private int attemptCount;
+    public SolutionManager slnManager;
+	
+	// Player interaction objects
+    public GameObject inputPane;
+    public GameObject testBlocks;
+    
+	// GUI/HUD 
+	public EnergyBarManager barManager;
+	public Rect attemptButtonRect;	
+	
+	// Events
+    static string onSnapName = typeof(DraggableOnSnapEvent).ToString();
+    static string snapOnEnterName = typeof(SnappableOnEnterEvent).ToString();
+    static string snapOnExitName = typeof(SnappableOnExitEvent).ToString();
+    static string onMoveName = typeof(DraggableOnMoveEvent).ToString();
  
-    void Start() {
-        hasWon = false;
-        attemptCount = 0;
-        
+    private string[] handledEventNames = {
+        onSnapName,
+        onMoveName,
+        snapOnEnterName,
+        snapOnExitName,
 
-        slnManager = initData.SolutionManager;
+    };
+ 
+	#region Init Methods
+	
+	private void initStateData(){
+		hasWon = false;
+        attemptCount = 0;
+		slnManager = initData.SolutionManager;
+	}
+	
+	private void initPlayerPieces(){
         testBlocks = Instantiate(testBlocks) as GameObject;
 
         testBlocks.transform.parent = transform;
@@ -88,61 +95,87 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         inputPane = Instantiate(inputPane) as GameObject;
         inputPane.GetComponent<SolutionInputPanel>().solutionLength = slnManager.Length;
         inputPane.transform.parent = transform;
-        
+	}
+	
+	private void initGUI(){
+		GameObject gui = new GameObject("Bulls and Cleots GUI");
+		gui.transform.parent = transform;
+		barManager = gui.AddComponent<EnergyBarManager>();
+		barManager.slnCount = slnManager.Count;
+		barManager.slnLength = slnManager.Length;
+	}
+	
+	private void initEvents(){
+		// Set the instance of the event manager to be a child of
+		// the current scene so it gets cleaned up properly.
+		EventManager.instance.transform.parent = transform;
+		
         // register as listener for desired events
         foreach (string eventName in handledEventNames) {
             EventManager.instance.RegisterListener(this, eventName);
         }
+	}
+	void Start() {
+
+        initStateData();
+		initPlayerPieces();
+		initGUI();
+		initEvents();
      
     }
+	
+	#endregion
+	
 
-    public bool HandleEvent(IEvent evnt) {
-        string eventName = evnt.GetName();
-        object eventData = evnt.GetData();
+	void OnGUI() {
 
-        if (eventName == onSnapName) {
+        if(!hasWon && GUI.Button(attemptButtonRect, "Attempt")) {
+        	PlayerAttemptSolve();
+        }
+        else if (hasWon && GUI.Button(attemptButtonRect, "You Win!")) {
+            PlayerEndGame();
+        }
 
-            GuessDropped(eventData as GameObject);
-        }
-        else if (eventName == onMoveName) {
-            // ignore
-        }
-        else if (eventName == snapOnEnterName) {
-            // ignore
-        }
-        else if (eventName == snapOnExitName) {
-  
-            GuessVacate(eventData as GameObject);
-
-        }
-        else {
-            Debug.LogWarning("Unexpected Event: " + eventName);
-            return false;
-        }
-        return true;
     }
-
+	
+	/// <summary>
+	/// Updates the Player Bulls and Cleots hint bars.
+	/// </summary>
+	void doGUIAccounting(){
+		
+		int[] perSlnBulls = slnManager.GetBullsCount();
+		int[] perSlnCleots = slnManager.GetCleotsCount();
+		foreach(int index in Enumerable.Range(0, slnManager.Count)){
+			int cleots = perSlnCleots[index];
+			int bulls = perSlnBulls[index];
+			
+			barManager.SetBulls(index, bulls);
+			barManager.SetCleots(index, cleots);
+		}
+		
+	}
+	
  
-
+	/// <summary>
+	/// Called when the player hits the "Attempt" button.
+	/// </summary>
     void PlayerAttemptSolve() {
 		
 		if(slnManager.HasBlankGuesses){
-			Debug.Log("blank guesses");
 			return;
 		}
 		
 		attemptCount++;
 		
+		doGUIAccounting();
+		
 		if(slnManager.Solved){
 			hasWon = true;
-			Debug.Log ("solved");
 			return;
 		}
 		
-		
-		Debug.Log(attemptCount);
 		ResetGuesses();
-    }
+	}
 
 
 
@@ -155,8 +188,11 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 
     
     
-    // Account for a color block being dropped to the guess pane.
-    void GuessDropped(GameObject obj) {
+   
+    /// <summary>
+    ///  Accounting for a block being dropped to the guess pane.
+    /// </summary>
+	void GuessDropped(GameObject obj) {
         Draggable draggable = obj.GetComponent<Draggable>();
         Snappable snappable = draggable.currentSnappable.GetComponent<Snappable>();
 
@@ -184,7 +220,10 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
     }
 
    
-    
+    /// <summary>
+    /// Called when a the guess (SolutionBlock) exits a SolutionInput either
+    /// by the player dragging it out or being moved by code. 
+    /// </summary>
     void GuessVacate(GameObject obj) {
         Draggable d = obj.GetComponent<Draggable>();
         SolutionBlock solutionBlock = obj.GetComponent<SolutionBlock>();
@@ -206,7 +245,12 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
         slnManager.ResetGuess(index);
         
     }
-
+	
+	
+	/// <summary>
+	/// Move the guess blocks back to their starting positions and
+	/// reset the guesses internally back to "NOT_GUESSED".
+	/// </summary>
 	void ResetGuesses(){
 		GetComponentInChildren<SolutionBlocks>().Reset();
 		// Might be belt and suspenders to do this as well
@@ -215,14 +259,34 @@ public class BullsAndCleotsLevelController : MonoBehaviour, IEventListener {
 		slnManager.ResetGuesses();
 	}
 	
-    void OnGUI() {
 
-        if(!hasWon && GUI.Button(attemptButtonRect, "Attempt")) {
-        	PlayerAttemptSolve();
-        }
-        else if (hasWon && GUI.Button(attemptButtonRect, "You Win!")) {
-            PlayerEndGame();
-        }
+	/// <summary>
+	/// EventManager callback.
+	/// </summary>
+    public bool HandleEvent(IEvent evnt) {
+        string eventName = evnt.GetName();
+        object eventData = evnt.GetData();
 
+        if (eventName == onSnapName) {
+
+            GuessDropped(eventData as GameObject);
+        }
+        else if (eventName == onMoveName) {
+            // ignore
+        }
+        else if (eventName == snapOnEnterName) {
+            // ignore                                                                  e
+        }
+        else if (eventName == snapOnExitName) {
+  
+            GuessVacate(eventData as GameObject);
+
+        }
+        else {
+            Debug.LogWarning("Unexpected Event in BC: " + eventName);
+            return false;
+        }
+        return true;
     }
+	
 }
