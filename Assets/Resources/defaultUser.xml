@@ -2,7 +2,24 @@
 <data>
 	<year data="2001" />
 	<cpuPower data="1" />
-    <BCSolutionLength data="2" />
+	<BCSolutionLength data="1" />
+    <BCSolutionMixMatrix>
+		<row>
+			<value data="2" />
+			<item>
+				<name data="robot parts" />
+				<value data="0" />
+			</item>
+			<item>
+				<name data="colors" />
+				<value data="0" />
+			</item>
+			<item>
+				<name data="digits" />
+				<value data="0" />
+			</item>
+		</row>
+	</BCSolutionMixMatrix>
 	<snakeAttempts data="1" />
 	<curNode data="newGame" />
 	<IsaacEttelName data="0" />
