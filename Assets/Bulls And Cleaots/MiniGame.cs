@@ -67,14 +67,15 @@ public class MiniGame : MonoBehaviour, MiniGameAPI.IMiniGame {
 		SolutionManager slnManager = new SolutionManager(solutionLen);
 		List<List<Material>> choices = new List<List<Material>>();
 
-		foreach (List<Material> mats in dataSets.Values) {
+		foreach (string name in dataSets.Keys) {
+			List<Material> mats = dataSets[name];
 			List<Material> matChoices =
                 mats.OrderBy(x => Random.value).Take(solutionLen).ToList();
 
 			IEnumerable<Material> solution =
                 matChoices.OrderBy(x => Random.value).Take(solutionLen);
 			choices.Add(matChoices);
-			Solution sln = new Solution(new ArrayList(solution.ToArray()));
+			Solution sln = new Solution(name, new ArrayList(solution.ToArray()));
 			slnManager.AddSolution(sln);
 		}
 
