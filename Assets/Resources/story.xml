@@ -374,12 +374,6 @@
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
-	
-	
-	
-	
-	
-	
 	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
@@ -420,7 +414,7 @@
 				</requirement>
 			</ending>
 		</minigame>
-	</node>   
+	</node>
 	<node id="laserPlumber">
 		<minigame data="laserPlumber">
 			<source>
@@ -448,76 +442,97 @@
 	<node id="bullsAndCleotsNode">
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
-                <dataset id="digits">
-                <material>
-                    <texture data="num0" />
-                </material>
-                <material>
-                    <texture data="num1" />
-                </material>
-                <material>
-                    <texture data="num2" />
-                </material>
-                <material>
-                    <texture data="num3" />
-                </material>
-                <material>
-                    <texture data="num4" />
-                </material>
-                <material>
-                    <texture data="num5" />
-                </material>
-                <material>
-                    <texture data="num6" />
-                </material>
-                <material>
-                    <texture data="num7" />
-                </material>
-                <material>
-                    <texture data="num8" />
-                </material>
-                <material>
-                    <texture data="num9" />
-                </material>
-            </dataset>
-            <dataset id="colors">
-                <material>
-                    <color data="rgb(0,0,0)" />
-                </material>
-                <material>
-                    <color data="rgb(255,0,0)" />
-                </material>
-                <material>
-                    <color data="rgb(0,255,0)" />
-                </material>
-                <material>
-                    <color data="rgb(0,0,255)" />
-                </material>
-                <material>
-                    <color data="rgb(255,255,0)" />
-                </material>
-                <material>
-                    <color data="rgb(255,0,255)" />
-                </material>
-                <material>
-                    <color data="rgb(0,255,255)" />
-                </material>
-                <material>
-                    <color data="rgb(255,255,255)" />
-                </material>
-            </dataset>
-			<dataset id="robot parts">
-				<material><texture data="mech_body" /></material>
-				<material><texture data="mech_head" /></material>
-				<material><texture data="mech_left_arm" /></material>
-				<material><texture data="mech_left_fist" /></material>
-				<material><texture data="mech_left_foot" /></material>
-				<material><texture data="mech_left_leg" /></material>
-				<material><texture data="mech_right_arm" /></material>
-				<material><texture data="mech_right_fist" /></material>
-				<material><texture data="mech_right_foot" /></material>
-				<material><texture data="mech_right_leg" /></material>
+			<dataset id="digits">
+				<material>
+					<texture data="num0" />
+				</material>
+				<material>
+					<texture data="num1" />
+				</material>
+				<material>
+					<texture data="num2" />
+				</material>
+				<material>
+					<texture data="num3" />
+				</material>
+				<material>
+					<texture data="num4" />
+				</material>
+				<material>
+					<texture data="num5" />
+				</material>
+				<material>
+					<texture data="num6" />
+				</material>
+				<material>
+					<texture data="num7" />
+				</material>
+				<material>
+					<texture data="num8" />
+				</material>
+				<material>
+					<texture data="num9" />
+				</material>
 			</dataset>
+			<dataset id="colors">
+				<material>
+					<color data="rgb(0,0,0)" />
+				</material>
+				<material>
+					<color data="rgb(255,0,0)" />
+				</material>
+				<material>
+					<color data="rgb(0,255,0)" />
+				</material>
+				<material>
+					<color data="rgb(0,0,255)" />
+				</material>
+				<material>
+					<color data="rgb(255,255,0)" />
+				</material>
+				<material>
+					<color data="rgb(255,0,255)" />
+				</material>
+				<material>
+					<color data="rgb(0,255,255)" />
+				</material>
+				<material>
+					<color data="rgb(255,255,255)" />
+				</material>
+			</dataset>
+			<dataset id="robot parts">
+				<material>
+					<texture data="mech_body" />
+				</material>
+				<material>
+					<texture data="mech_head" />
+				</material>
+				<material>
+					<texture data="mech_left_arm" />
+				</material>
+				<material>
+					<texture data="mech_left_fist" />
+				</material>
+				<material>
+					<texture data="mech_left_foot" />
+				</material>
+				<material>
+					<texture data="mech_left_leg" />
+				</material>
+				<material>
+					<texture data="mech_right_arm" />
+				</material>
+				<material>
+					<texture data="mech_right_fist" />
+				</material>
+				<material>
+					<texture data="mech_right_foot" />
+				</material>
+				<material>
+					<texture data="mech_right_leg" />
+				</material>
+			</dataset>
+			<ending data="miniGameTestRecur" />
 		</minigame>
 	</node>
 	<node id="match3Node">
@@ -596,27 +611,6 @@
 			</change>
 			<change data="cpuPower">
 				<multiply data="2" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="BCIncreaseDifficulty" data="miniGameTest">
-		<consequence>
-			<change data="BCSolutionLength">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="BCIncreaseColors" data="miniGameTest">
-		<consequence>
-			<change data="BCColorCount">
-				<add data="1" />
-			</change>
-		</consequence>
-	</edge>
-	<edge id="BCIncreaseNumbers" data="miniGameTest">
-		<consequence>
-			<change data="BCNumberCount">
-				<add data="1" />
 			</change>
 		</consequence>
 	</edge>

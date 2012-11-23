@@ -7,12 +7,14 @@ using BullsAndCleots.Mechanics;
 namespace BullsAndCleots.Level {
 
 public class LevelData {
-	public SolutionManager slnManager;
-	public List<List<Material>> choices;
-
-	public LevelData(SolutionManager mgr, List<List<Material>> chcs) {
+	private SolutionManager slnManager;
+	private List<List<Material>> choices;
+	private Ending ending; 
+		
+	public LevelData(SolutionManager mgr, List<List<Material>> chcs, Ending end) {
 		slnManager = mgr;
 		choices = chcs;
+		ending = end;
 	}
 
 	public SolutionManager SolutionManager {
@@ -21,6 +23,10 @@ public class LevelData {
 
 	public List<List<Material>> Choices {
 		get{ return choices; }
+	}
+	
+	public string EndEdge{
+		get{ return ending.edgeId; }
 	}
 }
 }
