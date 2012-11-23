@@ -66,15 +66,8 @@ public class LevelManager : MonoBehaviour, IEventListener {
 		testBlocks = Instantiate(testBlocks) as GameObject;
 
 		testBlocks.transform.parent = transform;
-		List<Material> allMaterials = new List<Material>();
 
-		// Look up Aggregate/Accumulate for this instead.
-		foreach (List<Material> mats in initData.Choices) {
-
-			allMaterials.AddRange(mats);
-		}
-
-		testBlocks.GetComponent<BlockManager>().Choices = allMaterials.ToArray();
+		testBlocks.GetComponent<BlockManager>().Choices = initData.Choices;
 
 		inputPane = Instantiate(inputPane) as GameObject;
 		inputPane.GetComponent<InputPanel>().solutionLength = slnManager.Length;
@@ -111,13 +104,21 @@ public class LevelManager : MonoBehaviour, IEventListener {
 
 
 	void OnGUI() {
-
+		Matrix4x4 originalMatrix;
+		GuiUtilities.Scale(out originalMatrix);
+			
+		// Draw gui elements
 		if (!hasWon && GUI.Button(attemptButtonRect, "Attempt")) {
 			PlayerAttemptSolve();
 		} else if (hasWon && GUI.Button(attemptButtonRect, "You Win!")) {
 			PlayerEndGame();
 		}
 
+		
+		// Reset the GUI matrix to what it was so as not to
+		// invalidate any other minigame's assumptions about 
+		// how they want to use the GUI.
+		GUI.matrix = originalMatrix;
 	}
 
 	/// <summary>

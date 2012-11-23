@@ -54,8 +54,10 @@ public class EnergyBar : MonoBehaviour
 		return box.width * fullness;
 	}
 
-	void OnGUI ()
+	public void OnGUI()
 	{
+		Matrix4x4 originalMatrix;
+		GuiUtilities.Scale(out originalMatrix);
 		
 		GUI.BeginGroup(box);
 		{
@@ -64,6 +66,8 @@ public class EnergyBar : MonoBehaviour
 			GUI.Label(labelRect, labelText);
 		}
 		GUI.EndGroup();
+		
+		GUI.matrix = originalMatrix;
 	}
 	
 	
