@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour, IEventListener {
 	public GameObject testBlocks;
 
 	// GUI/HUD
-	public EnergyBarManager barManager;
+	private EnergyBarManager barManager;
 	public Rect attemptButtonRect;
 
 	// Events
