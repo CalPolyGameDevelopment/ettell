@@ -4,6 +4,7 @@
 Library
 Temp
 *_Data
+*.app
 *.sln
 *.csproj
 *.pidb
