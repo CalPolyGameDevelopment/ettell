@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+namespace BullsAndCleots.Gui{
+
 public class EnergyBar : MonoBehaviour
 {
 	public Color backgroundColor = Color.black;
@@ -54,6 +56,7 @@ public class EnergyBar : MonoBehaviour
 
 	void OnGUI ()
 	{
+		
 		GUI.BeginGroup(box);
 		{
 			GUI.DrawTexture(bgRect, background, ScaleMode.StretchToFill);
@@ -64,4 +67,5 @@ public class EnergyBar : MonoBehaviour
 	}
 	
 	
+}
 }
