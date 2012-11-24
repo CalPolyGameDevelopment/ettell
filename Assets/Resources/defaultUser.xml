@@ -25,4 +25,5 @@
 	<IsaacEttelName data="0" />
 	<IsaacEttelFunction data="0" />
 	<wakeDialog />
+	<hostLine />
 </data>

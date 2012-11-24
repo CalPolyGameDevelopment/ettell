@@ -363,9 +363,10 @@
 		<minigame data="dialog">
 			<edge id="decisionMatrixIsaac" data="decisionMatrix">
 				<consequence>
-					<setString data="hostLine">
+					<addString>
+						<stringTarget data="hostLine" />
 						<string data="Isaac: What would you like to do?" />
-					</setString>
+					</addString>
 				</consequence>
 			</edge>
 			<interactive data="wakeDialog" />
@@ -380,9 +381,7 @@
 	</node>
 	<node id="decisionMatrix">
 		<minigame data="dialog">
-			<prompt>
-				<string data="\hostLine" />
-			</prompt>
+			<dynamic data="hostLine" />
 			<ending data="internetEdge">
 				<display_text data="Internet (internet platformer)" />
 			</ending>
