@@ -397,6 +397,9 @@
 			<ending data="securityEdge">
 				<display_text data="Security (Physics)" />
 			</ending>
+			<ending data="isaacTalkEdge">
+				<display_text data="Talk (Dialog)" />
+			</ending>
 		</minigame>
 	</node>
 	
