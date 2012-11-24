@@ -402,6 +402,23 @@
 			</ending>
 		</minigame>
 	</node>
+	<node id="InternetNode">
+		<minigame data="dialog">
+			<invisible data="true" />
+			<edge id="inetTutorial" data="pipeTutorialNode" />
+			<ending data="inetTutorial" />
+		</minigame>
+	</node>
+	<node id="pipeTutorialNode">
+		<minigame data="pipePlatformer">
+			<sceneName data="pipeTutorial" />
+			<edge id="winPipeTutorial" data="decisionMatrix" />
+			<ending data="winPipeTutorial">
+				<color data="rgb(80,225,80)" />
+				<difficulty data="0" />
+			</ending>
+		</minigame>
+	</node>
 	
 	
 	
