@@ -374,6 +374,36 @@
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
+	<node id="decisionMatrix">
+		<minigame data="dialog">
+			<prompt>
+				<string data="\hostLine" />
+			</prompt>
+			<ending data="internetEdge">
+				<display_text data="Internet (internet platformer)" />
+			</ending>
+			<ending data="politicsEdge">
+				<display_text data="Politics (match3)" />
+			</ending>
+			<ending data="warEdge">
+				<display_text data="War (BC)" />
+			</ending>
+			<ending data="religionEdge">
+				<display_text data="Religion (Snake)" />
+			</ending>
+			<ending data="scienceEdge">
+				<display_text data="Science (Laser plumber)" />
+			</ending>
+			<ending data="securityEdge">
+				<display_text data="Security (Physics)" />
+			</ending>
+		</minigame>
+	</node>
+	
+	
+	
+	
+	
 	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />
