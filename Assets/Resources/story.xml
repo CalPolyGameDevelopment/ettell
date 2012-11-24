@@ -245,17 +245,17 @@
 	<node id="wakeUp2">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<edge id="wakeEdge2" data="wakeUp3" />
+			<edge id="wakeEdge3" data="wakeUp3" />
 			<ending data="wakeEdgeEttellName">
 				<display_text data="My name is Ettell" />
 			</ending>
 			<ending data="wakeEdgeEttellFunction">
 				<display_text data="I'm a stock trading robot" />
 			</ending>
-			<ending data="wakeEdge2">
+			<ending data="wakeEdge3">
 				<display_text data="I'm not really sure who I am" />
 			</ending>
-			<ending data="wakeEdge2">
+			<ending data="wakeEdge3">
 				<display_text data="What is a computer?" />
 			</ending>
 			<ettellPrefix data="Ettell: " />
