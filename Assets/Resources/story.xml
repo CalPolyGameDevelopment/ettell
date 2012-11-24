@@ -361,15 +361,19 @@
 	</node>
 	<node id="wake3TellName">
 		<minigame data="dialog">
+			<edge id="decisionMatrixIsaac" data="decisionMatrix">
+				<consequence>
+					<setString data="hostLine">
+						<string data="Isaac: What would you like to do?" />
+					</setString>
+				</consequence>
+			</edge>
 			<interactive data="wakeDialog" />
-			<ending data="winGame">
+			<ending data="decisionMatrixIsaac">
 				<display_text data="The pleasure is mine" />
 			</ending>
-			<ending data="winGame">
+			<ending data="decisionMatrixIsaac">
 				<display_text data="Nice to meet you Isaac" />
-			</ending>
-			<ending data="winGame">
-				<display_text data="If you're a human, what am I?" />
 			</ending>
 			<ettellPrefix data="Ettell: " />
 		</minigame>
@@ -387,9 +391,6 @@
 			</ending>
 			<ending data="warEdge">
 				<display_text data="War (BC)" />
-			</ending>
-			<ending data="religionEdge">
-				<display_text data="Religion (Snake)" />
 			</ending>
 			<ending data="scienceEdge">
 				<display_text data="Science (Laser plumber)" />
