@@ -8,12 +8,6 @@ public class PipeController : MonoBehaviour {
 		set {
 			if (value != playerHere) {
 				playerHere = value;
-				if (value && GetComponent<LightningArcs>() != null) {
-					GetComponent<LightningArcs>().Begin();
-				}
-				else if (GetComponent<LightningArcs>() != null) {
-					GetComponent<LightningArcs>().End();
-				}
 				if (value && GetComponent<EndNode>() != null) {
 					GetComponent<EndNode>().notifyEnd();
 				}
@@ -24,10 +18,7 @@ public class PipeController : MonoBehaviour {
 	private RaycastHit searchLaser;
 	private Ray searchDirection;
 
-	void Start () {	
-		if (playerHere) {
-			GetComponent<LightningArcs>().Begin();
-		}
+	void Start () {
 	}
 	
 	public void kill(string edgeId) {
@@ -44,11 +35,6 @@ public class PipeController : MonoBehaviour {
 		
 		bool moved = false;
 		bool hitSomething = false;
-		
-		Vector3 cameraPos = Camera.mainCamera.transform.position;
-		cameraPos.x = this.transform.position.x;
-		cameraPos.y = this.transform.position.y;
-		Camera.mainCamera.transform.position = cameraPos;
 		
 		if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
 			searchDirection.direction = -transform.right;
@@ -67,11 +53,9 @@ public class PipeController : MonoBehaviour {
 		if (hitSomething) {
 			PipeController other = searchLaser.transform.gameObject.GetComponent<PipeController>();
 			if (other != null) {
-				other.PlayerHere = true;
 				PlayerHere = false;
+				GetComponentInChildren<EttellPipeController>().Lerp(this, other);
 			}
-		}
-		else {
 		}
 	}
 }

@@ -126,9 +126,6 @@ public class LightningArcs : MonoBehaviour {
 	protected static Perlin perlin;
 	
 	void Start () {
-	}
-	
-	public void Begin() {
 		if (perlin == null) {
 			perlin = new Perlin();
 		}
@@ -148,19 +145,12 @@ public class LightningArcs : MonoBehaviour {
 		running = true;
 	}
 	
-	public void End() {
-		running = false;
-		particles = null;
-		arcs = null;
-		particleSystem.SetParticles(new ParticleSystem.Particle[0], 0);
-	}
-	
 	void Update () {
 		if (!running) {
 			return;
 		}
 		foreach (Arc a in arcs) {
-			a.Update(collider);
+			a.Update(transform.root.collider);
 		}
 		particleSystem.SetParticles(particles, pCount);
 	}
