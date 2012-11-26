@@ -13,7 +13,6 @@ public class MiniGameController : MonoBehaviour {
 	}
     
 	public GameObject dialog;
-	public GameObject platformer;
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
@@ -36,7 +35,6 @@ public class MiniGameController : MonoBehaviour {
 	void Start() {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
-		miniGameTypes["platformer"] = platformer;
 		miniGameTypes["laserPlumber"] = laserPlumber;
 		miniGameTypes["match3"] = match3;
 		miniGameTypes["BullsAndCleots"] = bullsAndCleots;
