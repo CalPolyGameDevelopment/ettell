@@ -410,11 +410,24 @@
 			<ending data="inetTutorial" />
 		</minigame>
 	</node>
+	<node id="InternetEndNode">
+		<edge id="internetEndNode" data="InternetEndNode" />
+		<minigame data="dialog">
+			<invisible data="true" />
+			<edge id="grantInetXp" data="decisionMatrix">
+				<consequence>
+					<change data="PipePlatformerPlays">
+						<add data="1" />
+					</change>
+				</consequence>
+			</edge>
+			<ending data="grantInetXp" />
+		</minigame>
+	</node>
 	<node id="pipeTutorialNode">
 		<minigame data="pipePlatformer">
 			<sceneName data="PipeTutorial" />
-			<edge id="winPipeTutorial" data="decisionMatrix" />
-			<ending data="winPipeTutorial">
+			<ending data="internetEndNode">
 				<color data="rgb(80,225,80)" />
 				<difficulty data="0" />
 				<display_text data="Activate port" />
