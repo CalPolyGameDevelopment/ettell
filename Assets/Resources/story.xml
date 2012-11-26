@@ -417,6 +417,7 @@
 			<ending data="winPipeTutorial">
 				<color data="rgb(80,225,80)" />
 				<difficulty data="0" />
+				<display_text data="Activate port" />
 			</ending>
 		</minigame>
 	</node>

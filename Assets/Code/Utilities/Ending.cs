@@ -12,7 +12,6 @@ public class Ending {
 	
 	public Color color {
 		get {
-
 			return MaterialData.GetColor(data);
 		}
 	}
@@ -32,6 +31,19 @@ public class Ending {
 	public string edgeId {
 		get {
 			return data.getString();
+		}
+	}
+	
+	public bool displayKey {
+		get {
+			Color? c;
+			try {
+				c = color;
+			}
+			catch {
+				return false;
+			}
+			return data.childNode(DISPLAY_TEXT) != null && c != null;
 		}
 	}
 	
