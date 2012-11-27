@@ -186,10 +186,11 @@ namespace BullsAndCleots.Level
 			}
 
 			foreach (string key in slnMix.Keys) {
-				if (curMix.ContainsKey (key)) {
-					curMix [key] += slnMix [key];
-				} else {
-					curMix [key] = slnMix [key];
+				if (!curMix.ContainsKey (key)) {
+					curMix [key] = 0;
+				}
+				if (slnMix[key] > 0){
+					curMix [key] ++;
 				}
 			}
 

@@ -138,6 +138,56 @@ namespace BullsAndCleots
 			return null;
 		}
 
+		// Calculate difficulty
+		private void calculateDifficulty(){
+			int slnLength = UserProperty.GetPropNode(SOLUTION_LEN_PROP).GetInt();
+
+			MatrixRow slnRow = new MatrixRow();
+
+			if (slnMixMatrix.ContainsKey(slnLength)) {
+				slnRow = slnMixMatrix[slnLength];
+			}
+			else {
+				slnMixMatrix[slnLength] = slnRow;
+			}
+
+
+			int slnTypesCount = 0;
+			int maxedChoiceCount = 0;
+
+			foreach(KeyValuePair<string,int> item in slnRow.ToArray()){
+				string dsName = item.Key;
+				int timesUsed = item.Value;
+
+				if (timesUsed > 0){
+					slnTypesCount++;
+				}
+
+				// if the current choice count for pure solution type > len(choices of type)
+				//   - increament the solution length
+				if (dataSets[dsName].Count < timesUsed){
+					maxedChoiceCount++;
+					slnRow[dsName] = dataSets[dsName].Count;
+				}
+
+
+			}
+
+			if (slnTypesCount > 1 || maxedChoiceCount > 1){
+				slnLength++;
+				UserProperty.setProp(SOLUTION_LEN_PROP, slnLength.ToString());
+				MatrixRow nextRow = new MatrixRow();
+				foreach(KeyValuePair<string, int> item in slnRow.ToArray()){
+					if (item.Value >= slnLength)
+						nextRow[item.Key] = item.Value;
+					else
+						nextRow[item.Key] = slnLength;
+				}
+				slnMixMatrix[slnLength] = nextRow;
+			}
+
+		}
+
 		private SolutionManager loadSolutionManager ()
 		{
 			int solutionLen = MathData.GetInt (UserProperty.GetPropNode (SOLUTION_LEN_PROP));
@@ -145,14 +195,26 @@ namespace BullsAndCleots
 			slnManager = new SolutionManager (solutionLen);
 			matChoices = new List<List<Material>> ();
 
+			MatrixRow slnRow;
+			if(slnMixMatrix.ContainsKey(solutionLen)){
+				slnRow = slnMixMatrix[solutionLen];
+			}
+			else{
+				slnRow = new MatrixRow();
+				slnMixMatrix[solutionLen] = slnRow;
+			}
+
+
 			foreach (string name in dataSets.Keys) {
+				if (!slnRow.ContainsKey(name)){
+					slnRow[name] = 0;
+				}
+
 				List<Material> mats = dataSets [name];
 
-				MatrixRow slnRow = slnMixMatrix.ContainsKey (solutionLen) ?
-					slnMixMatrix [solutionLen] : new MatrixRow ();
 
-				int choiceCount = slnRow.ContainsKey (name) ?
-					slnRow [name] + solutionLen : solutionLen;
+				int choiceCount = slnRow[name] == 0 ?
+					 solutionLen : slnRow[name];
 
 				List<Material> slnChoices =
                 mats.OrderBy (x => Random.value).Take (choiceCount).ToList ();
@@ -175,6 +237,7 @@ namespace BullsAndCleots
 
 			loadMixMatrix ();
 			loadDataSets ();
+			calculateDifficulty();
 			loadSolutionManager ();
 
 			Ending end = Ending.findEndings (data).ToArray () [0];
