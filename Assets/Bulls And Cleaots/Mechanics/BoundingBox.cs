@@ -21,8 +21,8 @@ public class BoundingBox : MonoBehaviour {
 	public Rect Bounds{
 		get {
 			float left, top;
-			left = transform.position.x - (width/2.0F);
-			top = transform.position.z - (height/2.0F);
+			left = transform.position.x - width/2.0f;
+			top = transform.position.z - height;
 			return new Rect(left, top, width, height);
 		}
 	}
@@ -30,5 +30,6 @@ public class BoundingBox : MonoBehaviour {
 	void OnDrawGizmos(){
 		Gizmos.color = retinaBurningColor;
 		Gizmos.DrawWireCube(transform.position, Size);
+
 	}
 }

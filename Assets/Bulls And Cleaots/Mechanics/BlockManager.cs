@@ -37,10 +37,10 @@ public class BlockManager : MonoBehaviour {
 		int rowCount = row.Count;
 
 		// Should be a constant for a given row.
-		float z = ((bnds.height) / (totalRows+ 1)) * rowIndex + bnds.yMax ;
+		float z = ((bnds.height) / (totalRows+ 1)) * rowIndex + bnds.yMax - blockHeight;
 		int index = 0;
 		foreach(GameObject block in row){
-			float x = ((bnds.width - blockHeight) / rowCount) * index + bnds.xMax;
+			float x = (bnds.width  / rowCount) * index + bnds.xMin + blockHeight;
 
 			block.transform.position = new Vector3(x, startTransform.position.y, z);
 			index++;
