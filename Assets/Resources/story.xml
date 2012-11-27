@@ -499,6 +499,9 @@
 				<material>
 					<color data="rgb(255,255,255)" />
 				</material>
+				<material>
+					<color data="rgb(191,101,0)" />
+				</material>
 			</dataset>
 			<dataset id="robot parts">
 				<material>
