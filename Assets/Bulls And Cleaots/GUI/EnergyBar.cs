@@ -45,7 +45,8 @@ public class EnergyBar : MonoBehaviour
 		
 		bgRect = new Rect(0f, 0f, box.width, box.height);
 		fgRect = new Rect(0f, 0f, 0f, box.height);
-		labelRect = new Rect(10, 0, 50, 20);
+
+		labelRect = new Rect(box.x+10, box.y-20, 50, 20);
 		
 		fgRect.width = calcWidth();
 	}
@@ -58,15 +59,18 @@ public class EnergyBar : MonoBehaviour
 	{
 		Matrix4x4 originalMatrix;
 		GuiUtilities.Scale(out originalMatrix);
-		
+
+
 		GUI.BeginGroup(box);
 		{
 			GUI.DrawTexture(bgRect, background, ScaleMode.StretchToFill);
 			GUI.DrawTexture(fgRect, foreground, ScaleMode.StretchToFill);
-			GUI.Label(labelRect, labelText);
+
 		}
 		GUI.EndGroup();
-		
+
+		GUI.Label(labelRect, labelText);
+
 		GUI.matrix = originalMatrix;
 	}
 	
