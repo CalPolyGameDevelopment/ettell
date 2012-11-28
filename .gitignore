@@ -11,6 +11,7 @@ Temp
 *.suo
 *.exe
 *.dll
+*.zip
 obj/Debug
 build
 attell.userprefs
