@@ -245,17 +245,17 @@
 	<node id="wakeUp2">
 		<minigame data="dialog">
 			<interactive data="wakeDialog" />
-			<edge id="wakeEdge2" data="wakeUp3" />
+			<edge id="wakeEdge3" data="wakeUp3" />
 			<ending data="wakeEdgeEttellName">
 				<display_text data="My name is Ettell" />
 			</ending>
 			<ending data="wakeEdgeEttellFunction">
 				<display_text data="I'm a stock trading robot" />
 			</ending>
-			<ending data="wakeEdge2">
+			<ending data="wakeEdge3">
 				<display_text data="I'm not really sure who I am" />
 			</ending>
-			<ending data="wakeEdge2">
+			<ending data="wakeEdge3">
 				<display_text data="What is a computer?" />
 			</ending>
 			<ettellPrefix data="Ettell: " />
@@ -361,19 +361,84 @@
 	</node>
 	<node id="wake3TellName">
 		<minigame data="dialog">
+			<edge id="decisionMatrixIsaac" data="decisionMatrix">
+				<consequence>
+					<addString>
+						<stringTarget data="hostLine" />
+						<string data="Isaac: What would you like to do?" />
+					</addString>
+				</consequence>
+			</edge>
 			<interactive data="wakeDialog" />
-			<ending data="winGame">
+			<ending data="decisionMatrixIsaac">
 				<display_text data="The pleasure is mine" />
 			</ending>
-			<ending data="winGame">
+			<ending data="decisionMatrixIsaac">
 				<display_text data="Nice to meet you Isaac" />
-			</ending>
-			<ending data="winGame">
-				<display_text data="If you're a human, what am I?" />
 			</ending>
 			<ettellPrefix data="Ettell: " />
 		</minigame>
 	</node>
+	<node id="decisionMatrix">
+		<minigame data="dialog">
+			<dynamic data="hostLine" />
+			<ending data="internetEdge">
+				<display_text data="Internet (internet platformer)" />
+			</ending>
+			<ending data="politicsEdge">
+				<display_text data="Politics (match3)" />
+			</ending>
+			<ending data="warEdge">
+				<display_text data="War (BC)" />
+			</ending>
+			<ending data="scienceEdge">
+				<display_text data="Science (Laser plumber)" />
+			</ending>
+			<ending data="securityEdge">
+				<display_text data="Security (Physics)" />
+			</ending>
+			<ending data="isaacTalkEdge">
+				<display_text data="Talk (Dialog)" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="InternetNode">
+		<edge id="internetEdge" data="InternetNode" />
+		<minigame data="dialog">
+			<invisible data="true" />
+			<edge id="inetTutorial" data="pipeTutorialNode" />
+			<ending data="inetTutorial" />
+		</minigame>
+	</node>
+	<node id="InternetEndNode">
+		<edge id="internetEndNode" data="InternetEndNode" />
+		<minigame data="dialog">
+			<invisible data="true" />
+			<edge id="grantInetXp" data="decisionMatrix">
+				<consequence>
+					<change data="PipePlatformerPlays">
+						<add data="1" />
+					</change>
+				</consequence>
+			</edge>
+			<ending data="grantInetXp" />
+		</minigame>
+	</node>
+	<node id="pipeTutorialNode">
+		<minigame data="pipePlatformer">
+			<sceneName data="PipeTutorial" />
+			<ending data="internetEndNode">
+				<color data="rgb(80,225,80)" />
+				<difficulty data="0" />
+				<display_text data="Activate port" />
+			</ending>
+		</minigame>
+	</node>
+	
+	
+	
+	
+	
 	<node id="miniGameTest">
 		<minigame data="dialog">
 			<prompt data="Current year: \year" />

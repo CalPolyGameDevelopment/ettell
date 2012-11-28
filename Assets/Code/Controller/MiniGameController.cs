@@ -11,9 +11,10 @@ public class MiniGameController : MonoBehaviour {
 			return singleton != null;
 		}
 	}
+	
+	public GUIStyle keyStyle;
     
 	public GameObject dialog;
-	public GameObject platformer;
 	public GameObject laserPlumber;
 	public GameObject match3;
 	public GameObject bullsAndCleots;
@@ -36,7 +37,6 @@ public class MiniGameController : MonoBehaviour {
 	void Start() {
 		miniGameTypes = new Dictionary<string, GameObject>();
 		miniGameTypes["dialog"] = dialog;
-		miniGameTypes["platformer"] = platformer;
 		miniGameTypes["laserPlumber"] = laserPlumber;
 		miniGameTypes["match3"] = match3;
 		miniGameTypes["BullsAndCleots"] = bullsAndCleots;
@@ -47,6 +47,20 @@ public class MiniGameController : MonoBehaviour {
 		miniGameTypes["stockSnake"] = stockSnake;
 		miniGameTypes["timelapse"] = timelapse;
 		singleton = this;
+	}
+	
+	void OnGUI() {
+		if (current == null) {
+			return;
+		}
+		GUILayout.BeginArea(new Rect(20f, 20f, Screen.width / 6f, Screen.height - 40f));
+		foreach (Ending ending in current.GetComponent<MiniGameAPI>().Endings) {
+			GUILayout.BeginHorizontal();
+			keyStyle.normal.textColor = ending.color;
+			GUILayout.Label(ending.displayText, keyStyle);
+			GUILayout.EndHorizontal();
+		}
+		GUILayout.EndArea();
 	}
 	
 	public static void startMiniGame(XmlNode gameData) {

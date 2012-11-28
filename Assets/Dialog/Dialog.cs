@@ -10,6 +10,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	private const string INVISIBLE = "invisible";
 	private const string INTERACTIVE = "interactive";
 	private const string ETTELL_PREFIX = "ettellPrefix";
+	private const string DYNAMIC = "dynamic";
 	
 	private const int BUTTON_SIZE_MODIFIER = 5;
 	
@@ -31,7 +32,10 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 		get {
 			XmlNode xn = data.childNode(INTERACTIVE);
 			if (xn == null) {
-				return null;
+				xn = data.childNode(DYNAMIC);
+				if (xn == null) {
+					return null;
+				}
 			}
 			XmlNode source = UserProperty.GetPropNode(xn.getString());
 			if (source == null) {
@@ -194,7 +198,7 @@ public class Dialog : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	protected void chooseEnding(Ending ending) {
-		XmlNode source = interactionSource;
+		XmlNode source = data.childNode(INTERACTIVE);
 		if (source != null) {
 			addPrompt(ettellPrefix + ending.displayText);
 		}	

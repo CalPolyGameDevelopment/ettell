@@ -10,4 +10,6 @@
 	<IsaacEttelName data="0" />
 	<IsaacEttelFunction data="0" />
 	<wakeDialog />
+	<hostLine />
+	<PipePlatformerPlays data="0" />
 </data>

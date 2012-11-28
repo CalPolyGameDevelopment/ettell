@@ -27,6 +27,7 @@ public class SnakeController : MonoBehaviour {
 	public float timePerSquare;
 	
 	private Direction direction;
+	private Direction lastDirection;
 	private Position goingFrom;
 	private Position goingTo;
 	
@@ -109,6 +110,7 @@ public class SnakeController : MonoBehaviour {
 			curTime -= timePerSquare;
 			goingFrom.x = goingTo.x;
 			goingFrom.y = goingTo.y;
+			lastDirection = direction;
 			if (interactive) {
 				goingTo.x = goingFrom.x + (direction == Direction.right ? 1 : (direction == Direction.left ? -1 : 0));
 				goingTo.y = goingFrom.y + (direction == Direction.up ? 1 : (direction == Direction.down ? -1 : 0));
@@ -164,16 +166,16 @@ public class SnakeController : MonoBehaviour {
 	}
 	
 	public void Update() {
-		if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) {
+		if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && lastDirection != Direction.right) {
 			direction = Direction.left;
 		}
-		if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) {
+		if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && lastDirection != Direction.left) {
 			direction = Direction.right;
 		}
-		if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) {
+		if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && lastDirection != Direction.down) {
 			direction = Direction.up;
 		}
-		if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) {
+		if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && lastDirection != Direction.up) {
 			direction = Direction.down;
 		}
 		
