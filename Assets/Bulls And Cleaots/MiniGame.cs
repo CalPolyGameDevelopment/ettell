@@ -123,7 +123,6 @@ namespace BullsAndCleots
 		{
 			slnMixMatrix = TempDataStore.MixMatrix;
 			if (slnMixMatrix.Count > 0) {
-				Debug.Log ("already loaded solution mix datastore.");
 				return;
 			}
 			foreach (XmlNode rowNode in UserProperty.GetPropNode(SLN_MIX_MATRIX_PROP).childNodes("row")) {

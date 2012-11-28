@@ -11,7 +11,6 @@ public interface IEventListener
 public interface IEvent
 {
 	string GetName ();
-
 	object GetData ();
 }
 
