@@ -84,6 +84,9 @@ namespace BullsAndCleots.Level
 			barManager = gui.AddComponent<EnergyBarManager> ();
 			barManager.slnCount = slnManager.Count;
 			barManager.slnLength = slnManager.Length;
+			foreach(int index in Enumerable.Range(0, slnManager.Count)){
+				barManager.SetLabel(index, slnManager.GetSolutionSource(index));
+			}
 		}
 
 		private void initEvents ()
