@@ -31,7 +31,8 @@ public class EnergyBarManager : MonoBehaviour {
 			cleotsBar.forgroundColor = Color.green;
 			
 			// Adhoc-y layout
-			bullsBar.box.y = index * 55 + 10;
+			// Equally space the bar pairs through the height of the game.
+			bullsBar.box.y = (Screen.height * (index+0.5f))/slnCount;
 			cleotsBar.box.y = bullsBar.box.y + bullsBar.box.height + 5;
 			
 			
