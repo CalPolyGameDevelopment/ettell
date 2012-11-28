@@ -14,7 +14,10 @@ public class EnergyBarManager : MonoBehaviour {
 	public int slnCount;
 	public int slnLength;
 	private EnergyBarWrapper[] playerInfoBars;
-	
+	private bool ready = false;
+
+	private delegate void setFunction(int index, object o);
+
 	void Start() {
 		playerInfoBars = new EnergyBarWrapper[slnCount];
 		GameObject go;
@@ -40,18 +43,47 @@ public class EnergyBarManager : MonoBehaviour {
 			playerInfoBars[index] = new EnergyBarWrapper(bullsBar, cleotsBar);
 			
 		}
+
+			ready = true;
+	}
+
+	public bool IsReady{
+			get{ return ready; }
+	}
+
+	public void SetBulls(int index, object bulls) {
+		if(IsReady){
+			playerInfoBars[index].SetBulls((int)bulls, slnLength);
+		}
+		else {
+			StartCoroutine(deferSetUntilReady(SetBulls, index, bulls));
+		}
 	}
 	
-	public void SetBulls(int index, int bulls) {
-		playerInfoBars[index].SetBulls(bulls, slnLength);
+	public void SetCleots(int index, object cleots) {
+		if(IsReady){
+			playerInfoBars[index].SetCleots((int)cleots, slnLength);
+		}
+		else {
+			StartCoroutine(deferSetUntilReady(SetCleots, index, cleots));
+		}
+	}
+
+	public void SetLabel(int index, object label) {
+		if(IsReady){
+			playerInfoBars[index].SetLabel((string)label);
+		}
+		else {
+			StartCoroutine(deferSetUntilReady(SetLabel,index,label));
+		}
+	}
+
+	private IEnumerator deferSetUntilReady(setFunction f, int index, object o){
+		while(!IsReady){
+			yield return 0;
+		}
+		f(index, o);
 	}
 	
-	public void SetCleots(int index, int cleots) {
-		playerInfoBars[index].SetCleots(cleots, slnLength);
-	}
-	
-	public void SetLabel(int index, string label) {
-		playerInfoBars[index].SetLabel(label);
-	}
 }
 }
