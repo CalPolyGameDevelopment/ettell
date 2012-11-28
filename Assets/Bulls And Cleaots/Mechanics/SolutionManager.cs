@@ -118,6 +118,9 @@ public class SolutionManager {
 		guesses[index] = guess;
 	}
 
+	public string GetSolutionSource(int index){
+		return solutions[index].Source;
+	}
 
 	/// <summary>
 	/// Sets guessList[index] = NOT_GUESSED.
