@@ -6,6 +6,7 @@
     <BCSolutionMixMatrix>
 	</BCSolutionMixMatrix>
 	<snakeAttempts data="1" />
+	<snakeBuilds data="0" />
 	<curNode data="newGame" />
 	<IsaacEttelName data="0" />
 	<IsaacEttelFunction data="0" />

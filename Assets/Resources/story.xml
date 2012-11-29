@@ -18,13 +18,123 @@
 	<node id="NYSESlideshowNode">
 		<minigame data="slideshow">
 			<endEdge data="snakePreambleEdge" />
-			<edge id="snakePreambleEdge" data="snakePreambleChooser" />
+			<edge id="snakePreambleEdge" data="ettellBuildSnakeChooser" />
 			<duration data="5" />
 			<resource>
 				<texture data="WallStreetSign" />
 			</resource>
 		</minigame>
 	</node>
+	<node id="ettellBuildSnakeChooser">
+		<minigame data="dialog">
+			<invisible data="true" />
+			<ending data="snakeBuild1Edge" requires="snakeB1">
+				<requirement id="snakeB1">
+					<have data="snakeBuilds">
+						<exactly data="0" />
+					</have>
+				</requirement>
+				<edge id="snakeBuild1Edge" data="snakeBuild1" />
+			</ending>
+			<ending data="snakeBuild2Edge" requires="snakeB2">
+				<requirement id="snakeB2">
+					<have data="snakeBuilds">
+						<exactly data="1" />
+					</have>
+				</requirement>
+				<edge id="snakeBuild2Edge" data="snakeBuild2" />
+			</ending>
+			<ending data="snakePreambleBeginEdge" requires="snakeB3">
+				<requirement id="snakeB3">
+					<have data="snakeBuilds">
+						<exactly data="2" />
+					</have>
+				</requirement>
+				<edge id="snakePreambleBeginEdge" data="snakePreambleChooser" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakeBuild1">
+		<minigame data="dialog">
+			<prompt>
+				<string data="Jonas: Hey Sebastian! Can you come look at this?" />
+				<string data="Sebastian: What's up?" />
+				<string data="Jonas: I've been working on this algorithm to predict stock fluctuations for pharma, and it's compiling fine and everything, but it keeps turning up with the same figures as yesterday, and the day before." />
+				<string data="Sebastian: First you should probably plug in some updated numbers" />
+				<string data="Jonas: No, I'm actually using tables from 2003. They're vintage" />
+				<string data="Sebastian: Well, there's your problem. You need to use the 2013 models from..." />
+				<string data="Jonas: Of course I'm updating them, crab." />
+				<string data="Sebastian: Asshole." />
+				<string data="Jonas: No, hey, come back! Look, do you have any ideas? My tech stocks are not doing great since McAfee did that murder, so I'm kind of at a loss and I need new eyes." />
+				<string data="Sebastian: Okay.... well, how about inputting new data from the Internet?" />
+				<string data="Jonas: Like what, your lady's Pinterest? This isn't for tracking Martha Stewart's internet presence or predicting tomorrow's Facebook updates, jackass." />
+				<string data="Sebastian: Fuck you too. I mean like news. Create an alert for Pharmaceutical, and one for Pfiezer, one for.... " />
+				<string data="Jonas: I get your point. That is... not retarded." />
+				<string data="Sebastian: Thanks, such high praise. I get a cut if this works." />
+			</prompt>
+			<ending data="stockSnakeBuildEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="snakeBuild2">
+		<minigame data="dialog">
+			<prompt>
+				<string data="S: Hey, how's that program working?" />
+				<string data="J: I'm getting some interesting results. Nothing worth taking upstairs, but worth watching." />
+				<string data="S: So you're saying you failed. I knew you would. My ideas are too good for your puny brain to... uh..." />
+				<string data="J: Sebastian, always quick on the draw." />
+				<string data="S: What if you trained it to search and recognize different words or strings of words as it might be significant to these particular stocks?" />
+				<string data="J: ...yeah, I'm stealing that idea." />
+			</prompt>
+			<ending data="stockSnakeBuildEdge">
+				<display_text data="Start Trading" />
+			</ending>
+		</minigame>
+	</node>
+	<node id="stockSnakeBuildNode">
+		<minigame data="stockSnake">
+			<width math="snakeSizeMath" />
+			<height math="snakeSizeMath" />
+			<add id="snakeSizeMath">
+				<value data="10" />
+				<multiply>
+					<value data="\snakeBuilds" />
+					<value data="7" />
+				</multiply>
+			</add>
+			<ending data="snakeBuild">
+				<difficulty data="0" />
+				<edge id="snakeBuild" data="ettellBuildSnakeChooser">
+					<consequence>
+						<change data="snakeBuilds">
+							<add data="1" />
+						</change>
+					</consequence>
+				</edge>
+			</ending>
+			<ending data="snakeEnd">
+				<difficulty data="1" />
+				<snakeLengthThreshold data="3000000" />
+				<edge id="snakeEnd" data="timelapseNode" />
+			</ending>
+			<border>
+				<color data="rgb(219,169,51)" />
+			</border>
+			<goodStock>
+				<color data="rgb(56,255,59)" />
+			</goodStock>
+			<badStock>
+				<color data="rgb(242,97,90)" />
+			</badStock>
+			<ettellStart>
+				<color data="rgb(218,230,22)" />
+			</ettellStart>
+			<ettellLerp />
+			<nodesPerEttellLerp data="200" />
+		</minigame>
+	</node>
+	<edge id="stockSnakeBuildEdge" data="stockSnakeBuildNode" />
 	<node id="snakePreambleChooser">
 		<minigame data="dialog">
 			<invisible data="true" />
