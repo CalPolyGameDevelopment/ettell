@@ -6,8 +6,8 @@
 				<string data="Ettell" />
 				<string data="Main Menu" />
 			</prompt>
-			<ending data="miniGameTestRecur">
-				<display_text data="Test Mini-games" />
+			<ending data="decisionMatrixIsaac">
+				<display_text data="Skip to mini-games" />
 			</ending>
 			<ending data="storyBegin">
 				<display_text data="New Game" />
