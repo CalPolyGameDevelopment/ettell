@@ -732,7 +732,9 @@
 	</node>
 	<node id="youWin">
 		<minigame data="dialog">
-			<prompt data="You win!" />
+			<prompt>
+				<string data="You win!" />
+			</prompt>
 			<ending data="startOverEdge">
 				<display_text data="Start Over" />
 			</ending>
@@ -740,7 +742,9 @@
 	</node>
 	<node id="youLose">
 		<minigame data="dialog">
-			<prompt data="You lose!" />
+			<prompt>
+				<string data="You lose!" />
+			</prompt>
 			<ending data="startOverEdge">
 				<display_text data="Start Over" />
 			</ending>
@@ -758,5 +762,9 @@
 	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
-	<edge id="startOverEdge" data="newGame" />
+	<edge id="startOverEdge" data="newGame">
+		<consequence>
+			<wipeUserState />
+		</consequence>
+	</edge>
 </story>

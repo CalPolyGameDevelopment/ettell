@@ -15,6 +15,7 @@ public class Consequences {
 	private const string BEFORE_CALLED = "beforeCalled";
 	private const string APPEARS_IN = "appearsIn";
 	private const string STRING_TARGET = "stringTarget";
+	private const string WIPE_USER_STATE = "wipeUserState";
 	
 	public static void apply(XmlNode consequence) {
 		foreach (XmlNode change in consequence.SelectNodes(CHANGE)) {
@@ -51,6 +52,10 @@ public class Consequences {
 			foreach (string line in addLines.getStrings()) {
 				dialog.CreateStringNode().SetString(line);
 			}
+		}
+		if (consequence.childNode(WIPE_USER_STATE) != null) {
+			UserProperty.Wipe();
+			UserProperty.ForceReload();
 		}
 	}
 }

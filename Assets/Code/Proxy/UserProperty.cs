@@ -19,12 +19,23 @@ public class UserProperty : WritableXml {
 			yield return 0;
 		}
 		if (alwaysWipe || PlayerPrefs.GetString(resourceName) == "") {
-			MemoryStream ms = new MemoryStream();
-			defaultUserState.xmlDoc.Save(ms);
-			PlayerPrefs.SetString(resourceName, enc.GetString(ms.GetBuffer()));
-			ms.Close();
+			Wipe();
 		}
 		base.Start();
+	}
+	
+	public static void Wipe() {
+		MemoryStream ms = new MemoryStream();
+		singleton.defaultUserState.xmlDoc.Save(ms);
+		PlayerPrefs.SetString(singleton.resourceName, enc.GetString(ms.GetBuffer()));
+		ms.Close();
+	}
+	
+	private void forceReload() {
+		base.Start();
+	}
+	public static void ForceReload() {
+		singleton.forceReload();
 	}
 	
 	public static bool ready {
