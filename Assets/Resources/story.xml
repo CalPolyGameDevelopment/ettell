@@ -705,11 +705,13 @@
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
-			<ending data="firstPuzzleRecur">
+			<ending data="loseGame">
 				<color data="rgb(255,0,0)" />
+				<display_text data="lose" />
 			</ending>
 			<ending data="winGame">
 				<color data="rgb(0,255,0)" />
+				<display_text data="win" />
 			</ending>
 		</minigame>
 	</node>
