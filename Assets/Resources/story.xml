@@ -474,7 +474,7 @@
 				<consequence>
 					<addString>
 						<stringTarget data="hostLine" />
-						<string data="Isaac: What would you like to do?" />
+						<string data="Isaac: This part of the game isn't finished yet, but here are the mini-games we have" />
 					</addString>
 				</consequence>
 			</edge>
@@ -492,22 +492,27 @@
 		<minigame data="dialog">
 			<dynamic data="hostLine" />
 			<ending data="internetEdge">
-				<display_text data="Internet (internet platformer)" />
+				<display_text data="Pipe Platformer" />
 			</ending>
-			<ending data="politicsEdge">
-				<display_text data="Politics (match3)" />
+			<ending data="match3Edge">
+				<display_text data="Match3" />
 			</ending>
-			<ending data="warEdge">
-				<display_text data="War (BC)" />
+			<ending data="bullsAndCleotsEdge">
+				<display_text data="Bulls and Cleots" />
 			</ending>
-			<ending data="scienceEdge">
-				<display_text data="Science (Laser plumber)" />
+			<ending data="laserEdge">
+				<display_text data="Laser plumber" />
 			</ending>
-			<ending data="securityEdge">
-				<display_text data="Security (Physics)" />
+			<ending data="physicsDemoEdge">
+				<display_text data="Physics" />
 			</ending>
-			<ending data="isaacTalkEdge">
-				<display_text data="Talk (Dialog)" />
+			<ending data="winGame" requires="enoughCpu">
+				<display_text data="Activate Fork!" />
+				<requirement id="enoughCpu">
+					<have data="cpuPower">
+						<atLeast data="128" />
+					</have>
+				</requirement>
 			</ending>
 		</minigame>
 	</node>
@@ -516,7 +521,21 @@
 		<minigame data="dialog">
 			<invisible data="true" />
 			<edge id="inetTutorial" data="pipeTutorialNode" />
-			<ending data="inetTutorial" />
+			<ending data="inetTutorial" requires="pipeTutorialReqs">
+				<requirement id="pipeTutorialReqs">
+					<have data="PipePlatformerPlays">
+						<exactly data="0" />
+					</have>
+				</requirement>
+			</ending>
+			<edge id="inetGame" data="pipePlatformerNode" />
+			<ending data="inetGame" requires="pipeGameReqs">
+				<requirement id="pipeGameReqs">
+					<have data="PipePlatformerPlays">
+						<atLeast data="1" />
+					</have>
+				</requirement>
+			</ending>
 		</minigame>
 	</node>
 	<node id="InternetEndNode">
@@ -543,53 +562,26 @@
 			</ending>
 		</minigame>
 	</node>
-	
-	
-	
-	
-	
-	<node id="miniGameTest">
-		<minigame data="dialog">
-			<prompt data="Current year: \year" />
-			<prompt data="Placeholder dialog mini-game:" />
-			<ending data="laserEdge">
-				<display_text data="laser plumber" />
+	<node id="pipePlatformerNode">
+		<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
+		<minigame data="pipePlatformer">
+			<sceneName data="InternetEscapePlatformer" />
+			<ending data="loseGame">
+				<color data="rgb(255,0,0)" />
+				<difficulty data="-11" />
 			</ending>
-			<ending data="miniGameTestRecur">
-				<display_text data="Dialog Recur" />
+			<ending data="firstPuzzleRecur">
+				<color data="rgb(0,0,255)" />
+				<difficulty data="1" />
 			</ending>
-			<ending data="match3Edge">
-				<display_text data="Match 3" />
-			</ending>
-			<ending data="bullsAndCleotsEdge">
-				<display_text data="Bulls and Cleots" />
-			</ending>
-			<ending data="physicsDemoEdge">
-				<display_text data="Physics Demo" />
-			</ending>
-			<ending data="slideshowEdge">
-				<display_text data="Slideshow" />
-			</ending>
-			<ending data="waveDefenseEdge">
-				<display_text data="Wave Defense" />
-			</ending>
-			<ending data="pipePlatformerEdge">
-				<display_text data="Pipe Platformer" />
-			</ending>
-			<ending data="stockSnakeEdge">
-				<display_text data="Stock Snake" />
-			</ending>
-			<ending data="winGame" requires="enoughCpu">
-				<display_text data="I don't know, who am I?" />
-				<requirement id="enoughCpu">
-					<have data="cpuPower">
-						<atLeast data="128" />
-					</have>
-				</requirement>
+			<ending data="winGame">
+				<color data="rgb(0,255,0)" />
+				<difficulty data="2" />
 			</ending>
 		</minigame>
 	</node>
 	<node id="laserPlumber">
+		<edge id="laserEdge" data="laserPlumber" />
 		<minigame data="laserPlumber">
 			<source>
 				<position data="vector(0,0,0)" />
@@ -608,12 +600,8 @@
 			</sink>
 		</minigame>
 	</node>
-	<node id="redBluePlatformer">
-		<minigame data="RedBlueTurretPlatformer">
-			<sceneName data="RedBlueTurretPlatformer" />
-		</minigame>
-	</node>
 	<node id="bullsAndCleotsNode">
+		<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
 		<minigame data="BullsAndCleots">
 			<sceneName data="BullsAndCleots" />
 			<dataset id="digits">
@@ -713,6 +701,7 @@
 		</minigame>
 	</node>
 	<node id="match3Node">
+		<edge id="match3Edge" data="match3Node" />
 		<minigame data="match3">
 			<width data="8" />
 			<height data="8" />
@@ -724,24 +713,8 @@
 			</ending>
 		</minigame>
 	</node>
-	<node id="pipePlatformerNode">
-		<minigame data="pipePlatformer">
-			<sceneName data="InternetEscapePlatformer" />
-			<ending data="loseGame">
-				<color data="rgb(255,0,0)" />
-				<difficulty data="-11" />
-			</ending>
-			<ending data="firstPuzzleRecur">
-				<color data="rgb(0,0,255)" />
-				<difficulty data="1" />
-			</ending>
-			<ending data="winGame">
-				<color data="rgb(0,255,0)" />
-				<difficulty data="2" />
-			</ending>
-		</minigame>
-	</node>
 	<node id="physicsDemoNode">
+		<edge id="physicsDemoEdge" data="physicsDemoNode" />
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
 			<ending data="firstPuzzleRecur">
@@ -773,14 +746,6 @@
 			</ending>
 		</minigame>
 	</node>
-	<node id="firstPuzzle">
-		<minigame data="dialog">
-			<prompt data="This node no longer exists" />
-			<ending data="startOverEdge">
-				<display_text data="Start Over" />
-			</ending>
-		</minigame>
-	</node>
 	<edge id="miniGameTestRecur" data="miniGameTest">
 		<consequence>
 			<change data="year">
@@ -793,11 +758,5 @@
 	</edge>
 	<edge id="winGame" data="youWin" />
 	<edge id="loseGame" data="youLose" />
-	<edge id="laserEdge" data="laserPlumber" />
-	<edge id="match3Edge" data="match3Node" />
-	<edge id="bullsAndCleotsEdge" data="bullsAndCleotsNode" />
-	<edge id="physicsDemoEdge" data="physicsDemoNode" />
-	<edge id="waveDefenseEdge" data="waveDefenseNode" />
-	<edge id="pipePlatformerEdge" data="pipePlatformerNode" />
 	<edge id="startOverEdge" data="newGame" />
 </story>
