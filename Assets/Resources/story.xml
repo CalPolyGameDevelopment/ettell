@@ -59,17 +59,16 @@
 			<prompt>
 				<string data="Jonas: Hey Sebastian! Can you come look at this?" />
 				<string data="Sebastian: What's up?" />
-				<string data="Jonas: I've been working on this algorithm to predict stock fluctuations for pharma, and it's compiling fine and everything, but it keeps turning up with the same figures as yesterday, and the day before." />
+				<string data="Jonas: I've been working on this algorithm to predict stock fluctuations for pharma." />
 				<string data="Sebastian: First you should probably plug in some updated numbers" />
 				<string data="Jonas: No, I'm actually using tables from 2003. They're vintage" />
 				<string data="Sebastian: Well, there's your problem. You need to use the 2013 models from..." />
-				<string data="Jonas: Of course I'm updating them, crab." />
-				<string data="Sebastian: Asshole." />
-				<string data="Jonas: No, hey, come back! Look, do you have any ideas? My tech stocks are not doing great since McAfee did that murder, so I'm kind of at a loss and I need new eyes." />
+				<string data="Jonas: Of course I'm updating them." />
+				<string data="Jonas: No, hey, come back!" />
 				<string data="Sebastian: Okay.... well, how about inputting new data from the Internet?" />
-				<string data="Jonas: Like what, your lady's Pinterest? This isn't for tracking Martha Stewart's internet presence or predicting tomorrow's Facebook updates, jackass." />
-				<string data="Sebastian: Fuck you too. I mean like news. Create an alert for Pharmaceutical, and one for Pfiezer, one for.... " />
-				<string data="Jonas: I get your point. That is... not retarded." />
+				<string data="Jonas: Like what, predicting tomorrow's Facebook updates?" />
+				<string data="Sebastian: Create an alert for Pharmaceutical, and one for Pfiezer, one for.... " />
+				<string data="Jonas: I get your point. I'll give it a shot." />
 				<string data="Sebastian: Thanks, such high praise. I get a cut if this works." />
 			</prompt>
 			<ending data="stockSnakeBuildEdge">
@@ -80,12 +79,12 @@
 	<node id="snakeBuild2">
 		<minigame data="dialog">
 			<prompt>
-				<string data="S: Hey, how's that program working?" />
-				<string data="J: I'm getting some interesting results. Nothing worth taking upstairs, but worth watching." />
-				<string data="S: So you're saying you failed. I knew you would. My ideas are too good for your puny brain to... uh..." />
-				<string data="J: Sebastian, always quick on the draw." />
-				<string data="S: What if you trained it to search and recognize different words or strings of words as it might be significant to these particular stocks?" />
-				<string data="J: ...yeah, I'm stealing that idea." />
+				<string data="Sebastian: Hey, how's that program working?" />
+				<string data="Jonas: I'm getting some interesting results." />
+				<string data="Jonas: Nothing worth taking upstairs, but worth watching." />
+				<string data="Sebastian: What if you trained it on word sets?" />
+				<string data="Sebastian: Different words for different stocks?" />
+				<string data="Jonas: ...yeah, I'm stealing that idea." />
 			</prompt>
 			<ending data="stockSnakeBuildEdge">
 				<display_text data="Start Trading" />
@@ -175,23 +174,23 @@
 	<node id="snakePreamble1">
 		<minigame data="dialog">
 			<prompt>
-				<string data="Tom: All the tests are green." />
-				<string data="Tom: Ettell would have made money every day in the historical record." />
-				<string data="Tom: With no overfitting we can see." />
-				<string data="Tom: She's the perfect algorithmic trader." />
-				<string data="Mike: That's great news!" />
-				<string data="Mike: When will she be ready for the real deal?" />
-				<string data="Tom: That's what I'm telling you." />
-				<string data="Tom: She's ready today." />
-				<string data="Mike: What about the SEC?  Do they know about this?" />
-				<string data="Tom: We've been running an off the shelf bot for months." />
-				<string data="Tom: The new behavior shouldn't raise any red flags." />
-				<string data="Tom: We've got all our 'i's dotted and all our 't's crossed." />
-				<string data="Mike: I guess then today's the day!" />
-				<string data="Mike: How much are we putting behind this thing?" />
-				<string data="Tom: (whispers)" />
-				<string data="Mike: Well I hope it's worth it." />
-				<string data="Tom: The bell is about to ring.  Lets watch!" />
+				<string data="Jonas: All the tests are green." />
+				<string data="Jonas: Ettell would have made money every day in the historical record." />
+				<string data="Jonas: With no overfitting we can see." />
+				<string data="Jonas: She's the perfect algorithmic trader." />
+				<string data="Sebastian: That's great news!" />
+				<string data="Sebastian: When will she be ready for the real deal?" />
+				<string data="Jonas: That's what I'm telling you." />
+				<string data="Jonas: She's ready today." />
+				<string data="Sebastian: What about the SEC?  Do they know about this?" />
+				<string data="Jonas: We've been running an off the shelf bot for months." />
+				<string data="Jonas: The new behavior shouldn't raise any red flags." />
+				<string data="Jonas: We've got all our 'i's dotted and all our 't's crossed." />
+				<string data="Sebastian: I guess then today's the day!" />
+				<string data="Sebastian: How much are we putting behind this thing?" />
+				<string data="Jonas: (whispers)" />
+				<string data="Sebastian: Well I hope it's worth it." />
+				<string data="Jonas: The bell is about to ring.  Lets watch!" />
 			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
@@ -201,13 +200,13 @@
 	<node id="snakePreamble2">
 		<minigame data="dialog">
 			<prompt>
-				<string data="Mike: Ettell had a pretty good day yesterday." />
-				<string data="Tom: I told you she'd make money." />
-				<string data="Mike: She's no better than any other algorithm at this point" />
-				<string data="Mike: One good day can be erased in a heartbeat." />
-				<string data="Tom: I tell you, she never loses." />
-				<string data="Tom: Even yesterday, I felt like she was driving the market." />
-				<string data="Mike: We'll see." />
+				<string data="Sebastian: Ettell had a pretty good day yesterday." />
+				<string data="Jonas: I told you she'd make money." />
+				<string data="Sebastian: She's no better than any other algorithm at this point" />
+				<string data="Sebastian: One good day can be erased in a heartbeat." />
+				<string data="Jonas: I tell you, she never loses." />
+				<string data="Jonas: Even yesterday, I felt like she was driving the market." />
+				<string data="Sebastian: We'll see." />
 			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
@@ -217,12 +216,12 @@
 	<node id="snakePreamble3">
 		<minigame data="dialog">
 			<prompt>
-				<string data="Mike: Another solid day for Ettell." />
-				<string data="Tom: I feel like she's on the cusp of a breakthrough." />
-				<string data="Mike: She made a bunch of money yesterday, even with the market down." />
-				<string data="Tom: It's not just that." />
-				<string data="Tom: I can practically see the world changing." />
-				<string data="Mike: One day at a time there buddy." />
+				<string data="Sebastian: Another solid day for Ettell." />
+				<string data="Jonas: I feel like she's on the cusp of a breakthrough." />
+				<string data="Sebastian: She made a bunch of money yesterday, even with the market down." />
+				<string data="Jonas: It's not just that." />
+				<string data="Jonas: I can practically see the world changing." />
+				<string data="Sebastian: One day at a time there buddy." />
 			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
@@ -232,17 +231,17 @@
 	<node id="snakePreamble4">
 		<minigame data="dialog">
 			<prompt>
-				<string data="Tom: Did you see the latest numbers from Ettell?" />
-				<string data="Mike: I'm not that impressed." />
-				<string data="Mike: She ended on a down note." />
-				<string data="Tom: I think she's manipulating the market." />
-				<string data="Tom: Forcing other traders to follow where she wants them to be." />
-				<string data="Mike: That's crazy talk." />
-				<string data="Tom: My models may have underestimated Ettell's abilities." />
-				<string data="Tom: She may be able to change how the market works completely." />
-				<string data="Mike: I sure hope not." />
-				<string data="Mike: Sounds like trouble." />
-				<string data="Tom: I need to run some numbers.  I'll have a report tomorrow." />
+				<string data="Jonas: Did you see the latest numbers from Ettell?" />
+				<string data="Sebastian: I'm not that impressed." />
+				<string data="Sebastian: She ended on a down note." />
+				<string data="Jonas: I think she's manipulating the market." />
+				<string data="Jonas: Forcing other traders to follow where she wants them to be." />
+				<string data="Sebastian: That's crazy talk." />
+				<string data="Jonas: My models may have underestimated Ettell's abilities." />
+				<string data="Jonas: She may be able to change how the market works completely." />
+				<string data="Sebastian: I sure hope not." />
+				<string data="Sebastian: Sounds like trouble." />
+				<string data="Jonas: I need to run some numbers.  I'll have a report tomorrow." />
 			</prompt>
 			<ending data="stockSnakeEdge">
 				<display_text data="Start Trading" />
