@@ -723,11 +723,13 @@
 		<edge id="physicsDemoEdge" data="physicsDemoNode" />
 		<minigame data="physics">
 			<sceneName data="PhysicsDemo" />
-			<ending data="firstPuzzleRecur">
+			<ending data="loseGame">
 				<color data="rgb(255,0,0)" />
+				<display_text data="Lose" />
 			</ending>
 			<ending data="winGame">
 				<color data="rgb(0,255,0)" />
+				<display_text data="Win" />
 			</ending>
 		</minigame>
 	</node>
