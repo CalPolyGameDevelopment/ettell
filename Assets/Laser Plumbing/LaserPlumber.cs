@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
@@ -33,6 +34,8 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 	}
 	
 	private void genBoard() {
+		int edgeIndex = 0;
+		Ending[] endings = Ending.findEndings(data).OrderBy<Ending, float>(e => e.difficulty).ToArray();
 		foreach (XmlNode sourceData in data.SelectNodes(SOURCE)) {
 			GameObject cur = Instantiate(source) as GameObject;
 			setPos(cur, sourceData);
@@ -41,10 +44,15 @@ public class LaserPlumber : MonoBehaviour, MiniGameAPI.IMiniGame {
 			GameObject cur = Instantiate(mirror) as GameObject;
 			setPos(cur, mirrorData);
 		}
-		foreach (XmlNode sinkData in data.SelectNodes(SINK)) {
+		foreach (XmlNode sinkData in data.childNodes(SINK).OrderBy<XmlNode, int>(MathData.GetInt)) {
 			GameObject cur = Instantiate(sink) as GameObject;
 			setPos(cur, sinkData);
-			cur.GetComponent<Sink>().edge = sinkData.getString();
+			if (edgeIndex < endings.Length) {
+				cur.GetComponent<Sink>().Edge = endings[edgeIndex++];
+			}
+			else {
+				Debug.LogWarning("Not enough endings!");
+			}
 		}
 		foreach (XmlNode splitterData in data.SelectNodes(SPLITTER)) {
 			GameObject cur = Instantiate(splitter) as GameObject;

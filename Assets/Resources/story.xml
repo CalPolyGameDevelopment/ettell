@@ -595,9 +595,13 @@
 			<mirror>
 				<position data="vector(30,-10,0)" />
 			</mirror>
-			<sink data="firstPuzzleRecur">
+			<sink data="0">
 				<position data="vector(30,0,0)" />
 			</sink>
+			<ending data="winGame">
+				<color data="rgb(0,255,0)" />
+				<display_text data="win" />
+			</ending>
 		</minigame>
 	</node>
 	<node id="bullsAndCleotsNode">
