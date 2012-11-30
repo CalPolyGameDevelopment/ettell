@@ -11,6 +11,7 @@ public class UserProperty : WritableXml {
 	
 	public override void Start() {
 		singleton = this;
+		//base.Start();
 		StartCoroutine(startInner());
 	}
 	
@@ -21,7 +22,7 @@ public class UserProperty : WritableXml {
 		if (alwaysWipe || PlayerPrefs.GetString(resourceName) == "") {
 			Wipe();
 		}
-		base.Start();
+		init();
 	}
 	
 	public static void Wipe() {
@@ -31,9 +32,6 @@ public class UserProperty : WritableXml {
 		ms.Close();
 	}
 	
-	private void forceReload() {
-		base.Start();
-	}
 	public static void ForceReload() {
 		singleton.forceReload();
 	}

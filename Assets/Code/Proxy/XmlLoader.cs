@@ -16,6 +16,10 @@ public abstract class XmlLoader : MonoBehaviour {
 	protected delegate void xmlMutator();
 	
 	public virtual void Start () {
+		init();
+	}
+	
+	protected void init() {
 		if (Application.isPlaying) {
 			load();
 			xmlAvailable = true;
@@ -42,6 +46,10 @@ public abstract class XmlLoader : MonoBehaviour {
 		MemoryStream ms = new MemoryStream(docBytes());
 		xmlDoc.Load(ms);
 		ms.Close();
+	}
+	
+	public void forceReload() {
+		load();
 	}
 	
 	protected virtual byte[] docBytes() {
